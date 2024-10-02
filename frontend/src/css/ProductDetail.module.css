@@ -1,0 +1,144 @@
+.productDetail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  width: 70%;
+  height: auto;
+  margin: auto;
+  box-shadow: 0px 0px 3px 2px #999;
+}
+.productImage {
+  width: 100%;
+  height: auto;
+}
+
+.slider {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.details {
+  text-align: left;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+
+.details h2 {
+  font-size: 4rem;
+  margin-bottom: 10px;
+  font-weight: 900;
+  color: #131313;
+  opacity: 0.8;
+}
+
+.description {
+  margin: 5px 0;
+  font-size: 1.65rem;
+  opacity: 0.7;
+  margin-bottom: 2rem;
+  line-height: 3rem;
+}
+
+.priceDiv{
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.size, .price{
+  font-size: 2rem;
+  color: #131313;
+  opacity: 0.7;
+}
+
+.price{
+  color: rgb(128, 0, 128);
+  opacity: 1;
+}
+
+.priceName{
+  font-size: 1.6rem;
+}
+
+.buttonDiv{
+  width: 80%;
+  height: 4rem;
+  margin: auto;
+}
+
+.buttonDiv button {
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+  background-color: purple;
+  color: white;
+  font-size: 1.6rem;
+  margin-top: 2rem;
+}
+
+.buttonDiv button:hover{
+  opacity: 0.7;
+  transform: translate(1.1);
+  transition: all 0.5s ease;
+}
+
+.all{
+  font-size: 3rem;
+  margin-bottom: 3rem;
+  color: #131313;
+  opacity: 0.7;
+  font-weight: 900;
+}
+
+.grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 4rem;
+}
+.other{
+  margin-top: 5rem;
+}
+
+.line{
+  width: 100%;
+  color: #131313;
+  height: 0.2rem;
+}
+
+.item{
+  font-size: 1.6rem;
+  color: #131313;
+  opacity: 0.7;
+}
+
+@media (max-width:600px){
+  .productDetail{
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    gap: 2rem;
+  }
+
+  .details{
+    padding:0rem 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .buttonDiv{
+    width: 90%;
+  }
+
+  .buttonDiv button {
+    margin-bottom: 2rem;
+  }
+
+  .grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}

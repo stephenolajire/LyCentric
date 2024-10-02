@@ -1,0 +1,126 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.outer{
+  width: auto;
+}
+
+.containerGrid{
+ display: flex;
+ flex-direction: row;
+ justify-content: space-between;
+ width: auto;
+ height: auto;
+ /* background-color: rgba(128, 0, 128, 0.1); */
+ /* background-color: #99999930; */
+ padding: 2rem;
+}
+
+.NumberCont{
+  padding-left: 2rem;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  height: 6rem;
+  align-items: center;
+  border-bottom: 1px solid #13131372;
+}
+
+.cart, .number{
+  font-size: 3rem;
+  color: #131313;
+  opacity: 0.7;
+}
+
+.imageText{
+  height: 10rem;
+  width: auto;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem 0rem;
+}
+
+.imageText img{
+  height: 10rem;
+  width: 10rem;
+}
+
+.imageText h3 {
+  font-size: 1.6rem;
+  color: #131313;
+  opacity: 0.7;
+  font-family: Roboto;
+}
+
+.remove{
+  color: red;
+  font-size: 2rem;
+  margin-top: 2rem;
+}
+
+.RemoveCont{
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.delete{
+  width: 2.5rem;
+  height: 2.5rem;
+  color:red;
+  margin-top: 2.2rem;
+}
+
+.priceCont{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* margin-top: 2rem; */
+}
+
+.priceCont h3 {
+  font-size: 2rem;
+  color: #131313;
+  opacity: 0.7;
+}
+
+.priceCont button {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: purple;
+  color: #fff;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 0.3rem;
+  margin-top: 1rem;
+}
+
+.RightGrid{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.quantitys{
+  font-size: 1.8rem;
+  margin-top: 0.8rem;
+}
+
+.disabled{
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+@media (max-width:600px){
+  .priceCont h3{
+    font-size: 1.5rem;
+  }
+}

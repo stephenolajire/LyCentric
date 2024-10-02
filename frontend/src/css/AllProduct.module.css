@@ -1,0 +1,25 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+
+.AllContainer {
+  width: 100%;
+  max-width: 1200px;  
+  padding: 20px; 
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;  /* Flexible columns */
+  gap: 4rem;    
+}
+
+@media(max-width:600px) {
+  .grid{
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}

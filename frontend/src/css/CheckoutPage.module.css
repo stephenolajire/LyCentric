@@ -1,0 +1,57 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.grid{
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 4rem;
+}
+
+.cartGrid{
+  display: grid;
+  grid-template-columns: 1fr;
+  box-shadow: 0px 0px 3px 1px #999;
+}
+
+.shadowBox{
+  box-shadow: 0px 0px 3px 1px #999;
+  height: 23rem;
+}
+
+.div{
+  background-color: rgba(128, 0, 128, 0.541);
+  color: white;
+  font-size: 2rem;
+  padding: 0.5rem;
+}
+
+.CheckoutPrice{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 2rem;
+  border-top: 1px solid #999;
+}
+
+.CheckoutPrice h3{
+  font-size: 2rem;
+  color: #131313;
+  opacity: 0.7;
+  font-weight: 500;
+}
+
+
+
+@media (max-width:600px){
+  .grid{
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .CheckoutPrice h3{
+    font-size: 1.6rem;
+  }
+}

@@ -1,0 +1,40 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.body{
+  position: relative;
+  overflow-x: hidden;
+}
+
+Section{
+  padding: 5rem;
+  width: 100%;
+  /* background-color: rgba(128, 0, 128, 0.105); */
+}
+
+.all{
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #131313;
+}
+
+.grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr ;
+  gap: 4rem;
+}
+
+@media (max-width:600px){
+  .grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  section{
+    padding: 20px;
+  }
+}

@@ -1,0 +1,109 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.body{
+  position: relative;
+  overflow-x: hidden;
+}
+
+Section{
+  padding: 5rem;
+  width: 100%;
+  /* background-color: rgba(128, 0, 128, 0.105); */
+}
+
+.all{
+  font-size: 2rem;
+  color: #131313;
+}
+
+.flex{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-family: Roboto;
+  height: 6rem;
+  box-shadow: 0px 0px 5px  #999;
+  padding: 0px 20px;
+  margin-bottom: 3rem;
+}
+
+.buttonCat{
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  font-size: 1.6rem;
+}
+
+.buttonCat button {
+  width: 10rem;
+  height: 3.2rem;
+  border: 1px solid rgba(128, 0, 128, 0.9);
+  border-radius: 1.6rem;
+  background-color: rgba(128, 0, 128, 0.9);
+  color: white;
+  font-size: 1.2rem;
+  font-family: Roboto;
+  opacity: 0.5;
+}
+
+
+.grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 4rem;
+  width: 100%;
+}
+
+.item {
+  font-size: 1.6rem;
+}
+
+@media (max-width:600px){
+  .grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  section{
+    padding: 20px;
+  }
+
+  .flex{
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 0px 5px;
+    width: 100%;
+  }
+
+  .buttonCat{
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-around; */
+    gap: 0rem;
+    justify-content: space-between;
+    width: 90%;
+    padding: 0px 5px;
+  }
+
+  .buttonCat button{
+    height: 0rem;
+    width: 0rem;
+    color: blue;
+    font-weight: 900;
+    opacity: 0.5;
+  }
+
+  .buttonCat button:hover{
+    text-decoration: underline;
+  }
+
+  .all{
+    padding-left: 1rem;
+  }
+}

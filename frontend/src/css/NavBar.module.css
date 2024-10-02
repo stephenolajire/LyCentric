@@ -1,0 +1,338 @@
+*{
+  margin: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html{
+  font-size: 62.5%;
+}
+
+body{
+  font-family: Roboto;
+}
+
+.person{
+  width: 4rem;
+  height: 4rem;
+  color: purple;
+}
+
+.personCont{
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+}
+
+
+.topNav{
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #f3e8ff;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  height: 10rem;
+  padding: 1rem 6rem;
+}
+
+.imgContainer, .navLogo {
+  width: 8rem;
+  height: 8rem;
+}
+
+.imgContainer > img, .navLogo > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.search {
+  width: 30rem;
+  border: 2px solid rgba(128, 0, 128);
+  height: 4rem;
+  border-radius: 8px;
+  font-size: 1.4rem;
+  padding-left: 1rem;
+  color: rgba(128, 128, 128, 0.600);
+}
+
+.search:focus{
+  outline: none;
+}
+
+.buttonDiv{
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.loginBtn{
+  width: 12rem;
+  height: 4rem;
+  text-align: center;
+  color: #f3e8ff;
+  background-color: rgba(128, 0, 128, 0.900);
+  border-radius: 2rem;
+  font-size: 1.6rem;
+  transition: transform 1s ease;
+}
+
+.loginBtn:hover{
+  transform: scale(1.1);
+}
+
+.signup {
+  color: rgba(128, 0, 128, 0.900);
+  font-size: 1.6rem;
+  font-weight: bold;
+  position: relative;
+  margin-top: 10px;
+}
+
+.signup::before {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 0%;
+  background-color: rgba(128, 0, 128, 0.900);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: width 0.3s ease-in-out;
+}
+
+.signup:hover::before {
+  width: 100%;
+}
+
+.navigation {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 8rem;
+  background-color: rgba(128, 0, 128);
+  padding-right: 6rem;
+}
+
+.flexx{
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 8rem;
+  /* background-color: rgba(128, 0, 128, 0.500); */
+}
+
+.logoNav{
+  display: none;
+}
+
+.menu {
+  display: flex;
+  gap: 2rem;
+  flex-direction: row;
+  color: #f3e8ff;
+  font-size: 1.6rem;
+  /* justify-content: flex-start; */
+}
+
+.dropdown{
+  display: flex;
+  flex-direction: row;
+  gap: 0.4rem;
+}
+
+.arrow{
+  width: 2rem;
+  height: 2rem;
+  margin-top: 0.2rem;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 18.2rem;
+  z-index: 10;
+  width: 15rem;
+  background-color: rgba(128, 0, 128);
+  height: auto;
+  padding: 2rem;
+  animation: slideDown 0.5s ease-in-out;
+}
+
+.dropdownItem{
+  margin-bottom: 1rem;
+}
+
+.dropdownItem:nth-last-child(){
+  margin-bottom: 0px;
+}
+
+.close, .hamburgerIcon{
+  width: 2.5rem;
+  height: 2.5rem;
+  color: #f3e8ff;
+  display: none;
+}
+
+.navLink{
+  display: none;
+}
+
+.cart{
+  width: 2.5rem;
+  height: 2.5rem;
+  color: #fff;
+}
+
+.cartNumber{
+  position: relative;
+  height: 8rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.quantity{
+  border: 1px solid white;
+  background-color: white;
+  color: purple;
+  font-size: 1.2rem;
+  font-weight: 900;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  position: absolute;
+  left: 1.2rem;
+  top: 2.3rem;
+
+}
+
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+
+
+@media only screen and (max-width:600px){
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+
+  
+  @keyframes slideOut {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  .topNav{
+    display: none;
+  }
+
+  .navigation{
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+  }
+
+  .navLogo{
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .logoNav{
+    display: block;
+    height: 4rem;
+    width: 4rem;
+    border-radius: 2rem;
+  }
+
+  .menu{
+    position: absolute;
+    display: block;
+    width: 100vw;
+    height: auto;
+    top: 8rem;
+    background-color: #fff;
+    color: rgba(128, 0, 128, 0.500);
+    padding: 2rem;
+    padding-right: 0rem;
+    left: 0;
+    z-index: 100;
+    /* display: none; */
+  }
+
+  .menu li{
+    margin-bottom: 1rem;
+  }
+
+  .dropdownMenu{
+    position: relative;
+    display: block;
+    top: 0;
+    margin-top: 3rem;
+    background-color: #fff;
+    left: -9rem;
+    z-index: 40;
+  }
+
+  .close, .hamburgerIcon{
+    display: block;
+    margin-left: 3rem;
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5rem;
+  }
+
+  .navLink{
+    display: block;
+  }
+
+  .menuOpen{
+    display: block;
+    animation: slideIn 0.5s ease-in;
+  }
+  
+  .menuClosed{
+    display: none;
+    animation: slideOut 0.5s ease-out;
+  }
+
+  .cartIcon{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 8rem;
+  } 
+
+  .icon{
+    display: flex;
+    justify-content: center;
+    height: 8rem;
+  }
+
+}

@@ -1,0 +1,105 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: Roboto;
+}
+
+.productCardContainer {
+  width: 100%;
+  height: auto;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 0 3px 2px rgba(128, 128, 128, 0.504);;
+  border: 1px solid rgba(255, 255, 255, 0.034);
+  padding-bottom: 2rem;
+}
+
+.productCardContainer:hover{
+  animation: slideUp 0.5s ease;
+}
+
+.productCard{
+  width: 100%;
+  height: auto;
+}
+
+.productInfo{
+  padding: 1rem;
+}
+
+.productImage{
+  width: 100%;
+  height: 25rem;
+  border-radius: 1.5rem;
+}
+
+.productName{
+  color: rgba(0, 0, 0, 0.900);
+  font-size: 1.4rem;
+  font-weight: 900;
+}
+
+.Cont{
+  max-width: 100%;
+}
+
+.productDescription {
+  white-space: nowrap; 
+  overflow: hidden;          
+  text-overflow: ellipsis;
+  width: 100%;  
+  /* display: none;  */
+}
+
+.productPrice{
+  color: rgba(128, 0, 128, 0.9);
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+}
+
+.productRating{
+  display: flex;
+  flex-direction: row;
+  gap: 0.2rem;
+}
+
+.starFilled{
+  width: 1.8rem;
+  color: goldenrod;
+}
+
+.starEmpty{
+  color: gray;
+  width: 1.8rem;
+}
+
+.btnDiv{
+  width: 100%;
+  margin: auto;
+}
+
+.cartBtn{
+  color: white;
+  width: 100%;
+  height: 4.8rem;
+  background-color: rgba(128, 0, 128, 0.9);
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 500;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(0%);
+  }
+  to{
+    transform: translateY(-5%);
+  }
+}
