@@ -6,6 +6,7 @@ from .serializers import*
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
 from uuid import UUID
 from rest_framework.response import Response
+from django.db.models import Q
 
 class HeroView(ListAPIView):
   serializer_class = HeroSerializer
@@ -196,3 +197,14 @@ class DeleteView(DestroyAPIView):
             return Response({"error": "Cart item not found"}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class ProductSearchView(APIView):
+    def get(self, request):
+        query = request.query_params.get('q', None)  # Get the search query parameter
+        if query:
+            # Search for products with names that contain the search query (case insensitive)
+            products = Product.objects.filter(Q(name__icontains=query))
+            serializer = ProductSerializer(products, many=True, context={'request': request})
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({"error": "No item with such name."}, status=status.HTTP_400_BAD_REQUEST)

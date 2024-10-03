@@ -1,100 +1,128 @@
-import React, { useState, useEffect, useContext } from "react";
-import api from "../constant/api";
-import { statesAndLgas } from "../constant/constant";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "../css/EditProfilePage.module.css";
-import { Link, useNavigate } from "react-router-dom";
-import { GlobalContext } from "../context/GlobalContext";
+import { statesAndLgas } from "../constant/constant";
+import api from "../constant/api";
+import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const EditProfilePage = () => {
-  const { userProfile, Profile } = useContext(GlobalContext);
-  const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
-    phone_number: "",
-    state: "",
-    country: "",
-    city_or_town: "",
-    local_government: "",
-    nearest_bus_stop: "",
-    house_address: "",
-  });
+  const [userProfile, setUserProfile] = useState(null);
 
-  const [lgas, setLgas] = useState([]);
-  const navigate = useNavigate(); // Initialize useNavigate for redirecting
-
-  // Load user profile data into formData when the component mounts
-  useEffect(() => {
-    Profile()
-  })
-  useEffect(() => {
-    if (userProfile) {
-      setFormData({
-        first_name: userProfile.first_name,
-        last_name: userProfile.last_name,
-        email: userProfile.email,
-        phone_number: userProfile.phone_number,
-        state: userProfile.state,
-        country: userProfile.country,
-        city_or_town: userProfile.city_or_town,
-        local_government: userProfile.local_government,
-        nearest_bus_stop: userProfile.nearest_bus_stop,
-        house_address: userProfile.house_address,
-      });
-
-      // Load LGAs based on the user's state
-      const selectedState = userProfile.state;
-      setLgas(statesAndLgas[selectedState] || []); // Load LGAs based on selected state
-    }
-  }, [userProfile]); // Dependency array ensures this runs when userProfile changes
-
-  const handleChange = (e) => {
-    e.preventDefault();
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-
-    // Update LGAs when the state is selected
-    if (e.target.name === "state") {
-      const selectedState = e.target.value;
-      setLgas(statesAndLgas[selectedState] || []); // Load LGAs based on selected state
+  const Profile = async () => {
+    try {
+      const response = await api.get("api/profile");
+      if (response.status === 200) {
+        setUserProfile(response.data);
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
+
+  useEffect(() => {
+    Profile();
+  }, []);
+
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [state, setState] = useState("");
+  const [country, setCountry] = useState("");
+  const [localGovernments, setLocalGovernments] = useState([]);
+  const [selectedLocalGovernment, setSelectedLocalGovernment] = useState("");
+  const [cityTown, setCityTown] = useState("");
+  const [nearestBusStop, setNearestBusStop] = useState("");
+  const [phonenumber, setPhoneNumber] = useState("");
+  const [houseAddress, setHouseAddress] = useState("");
+
+  // Update form fields when userProfile is fetched
+  useEffect(() => {
+    if (userProfile) {
+      setFirstName(userProfile.first_name || "");
+      setLastName(userProfile.last_name || "");
+      setEmail(userProfile.email || "");
+      setState(userProfile.state || "");
+      setCountry(userProfile.country || "");
+      setLocalGovernments(statesAndLgas[userProfile.state] || []);
+      setSelectedLocalGovernment(userProfile.local_government || "");
+      setCityTown(userProfile.city_or_town || "");
+      setNearestBusStop(userProfile.nearest_bus_stop || "");
+      setPhoneNumber(userProfile.phone_number || "");
+      setHouseAddress(userProfile.house_address || "");
+    }
+  }, [userProfile]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const newUserProfile = {
+      first_name: firstname,
+      last_name: lastname,
+      email: email,
+      phone_number: phonenumber,
+      state: state,
+      country: country,
+      city_or_town: cityTown,
+      local_government: selectedLocalGovernment,
+      nearest_bus_stop: nearestBusStop,
+      house_address: houseAddress,
+    };
+
+    console.log(newUserProfile)
+
     try {
-      const response = await api.put("api/user/update/", formData); // Update endpoint
-      console.log("Profile Updated Successfully:", response.data);
-      navigate("/profile"); // Redirect to profile page after successful update
-    } catch (error) {
-      console.error("Error updating profile:", error);
+      const response = await api.patch("api/user/update/", newUserProfile);
+      if (response.status === 201) {
+        Swal.fire({
+          icon: "success",
+          title: "Your profile has been updated!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        Profile(); // Optionally refresh profile data
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Update Failed",
+          text: "Something went wrong while updating your profile.",
+        });
+      }
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Update Failed",
+        text: "An error occurred while updating your profile.",
+      });
     }
   };
 
+  if (!userProfile) {
+    return <div>Loading...</div>; // Show loading state if profile data is not yet fetched
+  }
+
   return (
     <div className={styles.signupContainer}>
-      <form onSubmit={handleSubmit} className={styles.signupForm}>
-        <h3 className="welcome">Edit Your Profile</h3>
-        <p className="detail">Please provide the updated information correctly</p>
+      <form className={styles.signupForm} onSubmit={handleSubmit}>
+        <h3 className="welcome">
+          Update Your <span className="lycen">Lycentric</span> Profile
+        </h3>
+        <p className="detail">Please provide all the information correctly</p>
         <div className={styles.grid}>
           <div className={styles.formGroup}>
             <input
               type="text"
-              name="first_name"
-              value={formData.first_name}
-              onChange={handleChange}
+              value={firstname}
               placeholder="First Name"
+              onChange={(e) => setFirstName(e.target.value)}
               required
             />
           </div>
+
           <div className={styles.formGroup}>
             <input
               type="text"
-              name="last_name"
-              value={formData.last_name}
-              onChange={handleChange}
+              value={lastname}
+              onChange={(e) => setLastName(e.target.value)}
               placeholder="Last Name"
               required
             />
@@ -104,40 +132,41 @@ const EditProfilePage = () => {
           <div className={styles.formGroup}>
             <input
               type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
               required
-              disabled // Disable email field if you don't want it to be editable
             />
           </div>
         </div>
         <div className={styles.grid}>
           <div className={styles.formGroup}>
             <select
-              name="state"
-              value={formData.state}
-              onChange={handleChange}
+              value={state}
+              onChange={(e) => {
+                const selectedState = e.target.value;
+                setState(selectedState);
+                setLocalGovernments(statesAndLgas[selectedState] || []);
+                setSelectedLocalGovernment(""); // Reset local government when state changes
+              }}
               required
             >
               <option value="">Select State</option>
-              {Object.keys(statesAndLgas).map((state) => (
-                <option key={state} value={state}>
-                  {state}
+              {Object.keys(statesAndLgas).map((stateName) => (
+                <option key={stateName} value={stateName}>
+                  {stateName}
                 </option>
               ))}
             </select>
           </div>
           <div className={styles.formGroup}>
             <select
-              name="local_government"
-              value={formData.local_government}
-              onChange={handleChange}
+              value={selectedLocalGovernment}
+              onChange={(e) => setSelectedLocalGovernment(e.target.value)}
               required
             >
               <option value="">Select Local Government</option>
-              {lgas.map((lga, index) => (
+              {localGovernments.map((lga, index) => (
                 <option key={index} value={lga}>
                   {lga}
                 </option>
@@ -149,9 +178,8 @@ const EditProfilePage = () => {
           <div className={styles.formGroup}>
             <input
               type="text"
-              name="phone_number"
-              value={formData.phone_number}
-              onChange={handleChange}
+              value={phonenumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
               placeholder="Phone Number"
               required
             />
@@ -159,9 +187,8 @@ const EditProfilePage = () => {
           <div className={styles.formGroup}>
             <input
               type="text"
-              name="nearest_bus_stop"
-              value={formData.nearest_bus_stop}
-              onChange={handleChange}
+              value={nearestBusStop}
+              onChange={(e) => setNearestBusStop(e.target.value)}
               placeholder="Nearest Bus-stop"
               required
             />
@@ -171,9 +198,8 @@ const EditProfilePage = () => {
           <div className={styles.formGroup}>
             <input
               type="text"
-              name="city_or_town"
-              value={formData.city_or_town}
-              onChange={handleChange}
+              value={cityTown}
+              onChange={(e) => setCityTown(e.target.value)}
               placeholder="City/Town"
               required
             />
@@ -181,9 +207,8 @@ const EditProfilePage = () => {
           <div className={styles.formGroup}>
             <input
               type="text"
-              name="country"
-              value={formData.country}
-              onChange={handleChange}
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
               placeholder="Country"
               required
             />
@@ -192,8 +217,8 @@ const EditProfilePage = () => {
         <div className={styles.formGroup}>
           <textarea
             name="house_address"
-            value={formData.house_address}
-            onChange={handleChange}
+            value={houseAddress}
+            onChange={(e) => setHouseAddress(e.target.value)}
             placeholder="House Address"
             rows="3"
             required
@@ -205,11 +230,11 @@ const EditProfilePage = () => {
 
         <div>
           <p className="signupText">
-            Want to go back? Click{" "}
+            Want to go back? Please click{" "}
             <Link to="/profile">
               <span className="link">here</span>
             </Link>{" "}
-            to return to your profile
+            to return to profile.
           </p>
         </div>
       </form>

@@ -53,7 +53,7 @@ const ProductCard = ({ product }) => {
           </div>
         </div>
       </Link>
-      <AddToCartButton styles="styles.cartBtn" productId={product.id} />
+      <AddToCartButton styles="none" productId={product.id} />
     </div>
   );
 };

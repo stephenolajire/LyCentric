@@ -8,9 +8,18 @@
   font-weight: 500;
   border-radius: 10px;
   margin-top: 2rem;
+  /* display: none; */
 }
 
 .btnDiv{
   width: 90%;
   margin: auto;
+}
+
+#styles{
+  display: none;
+}
+
+.Btn{
+  display: block;
 }

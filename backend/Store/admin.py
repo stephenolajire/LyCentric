@@ -9,12 +9,28 @@ class HeroAdmin(admin.ModelAdmin):
     ordering = ['created']
 admin.site.register(HeroSection, HeroAdmin)
 
+class ProductImageInline (admin.TabularInline):
+    model = ProductImage
+    raw_id_fields = ['product']
+
+class ProductImageInline (admin.TabularInline):
+    model = ProductImage
+    raw_id_fields = ['product']
+
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'price', 'old_price', 'category', 'audience', 'size', 'stock', 'available', 'created', 'updated']
+    search_fields = ['name']
+    ordering = ['created']
+    inlines = [ProductImageInline]
+admin.site.register(Product, ProductAdmin)
+# admin.site.register(ProductImageInline)
+
+
+
 admin.site.register(AudienceType)
 admin.site.register(Category)
-admin.site.register(ProductImage)
-admin.site.register(Product)
 admin.site.register(Cart)
-# admin.site.register(CartItem)
+
 
 class CartItems(admin.ModelAdmin):
     list_display = ['cart', 'product', 'quantity', 'id']

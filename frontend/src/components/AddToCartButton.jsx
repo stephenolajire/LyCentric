@@ -8,7 +8,7 @@ function AddToCartButton({ productId, styles }) {
 
   return (
     <div className="btnDiv">
-      <button className="cartBtn" onClick={() => addToCart(productId)} disabled={loading}>
+      <button style={{ display: styles }} className="cartBtn" onClick={() => addToCart(productId)} disabled={loading}>
         {loading ? 'Adding...' : 'Add to Cart'}
       </button>
     </div>

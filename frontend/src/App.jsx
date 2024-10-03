@@ -13,6 +13,7 @@ import Login from "./user/login";
 import Signup from "./user/Signup";
 import ProfilePage from "./pages/ProfilePage";
 import EditProfilePage from "./pages/EditProfilePage";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             />
             <Route path="/product/:productId" element={<ProductDetail />} />
             <Route path="/cartpage/" element={<CartPage />} />
+            <Route path="/searchpage/" element={<SearchPage />} />
             <Route
               path="/checkout"
               element={

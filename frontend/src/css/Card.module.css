@@ -9,13 +9,13 @@ body{
 }
 
 .productCardContainer {
-  width: 100%;
+  /* width: 100%; */
   height: auto;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 15px;
   box-shadow: 0 0 3px 2px rgba(128, 128, 128, 0.504);;
   border: 1px solid rgba(255, 255, 255, 0.034);
-  padding-bottom: 2rem;
+  /* padding-bottom: 0.5rem; */
 }
 
 .productCardContainer:hover{
@@ -33,7 +33,7 @@ body{
 
 .productImage{
   width: 100%;
-  height: 25rem;
+  height: 13rem;
   border-radius: 1.5rem;
 }
 
@@ -47,13 +47,13 @@ body{
   max-width: 100%;
 }
 
-.productDescription {
+/* .productDescription {
   white-space: nowrap; 
   overflow: hidden;          
   text-overflow: ellipsis;
   width: 100%;  
-  /* display: none;  */
-}
+  display: none; 
+} */
 
 .productPrice{
   color: rgba(128, 0, 128, 0.9);

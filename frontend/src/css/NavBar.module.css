@@ -215,6 +215,30 @@ body{
 
 }
 
+.phoneSearch{
+  background-color: purple;
+  width: 100%;
+  display: none;
+}
+
+.formInput{
+  width: 90%;
+  margin: auto;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchPhone{
+  width: 100%;
+  height: 4rem;
+  padding-left: 1rem;
+  font-size: 1.4rem;
+  border: none;
+  outline: none;
+}
+
 
 @keyframes slideDown {
   from {
@@ -333,6 +357,10 @@ body{
     display: flex;
     justify-content: center;
     height: 8rem;
+  }
+
+  .phoneSearch{
+    display: block;
   }
 
 }

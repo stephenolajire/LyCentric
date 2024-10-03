@@ -82,13 +82,13 @@ const ProductDetail = () => {
             Availability: {product.available ? "In Stock" : "Out of Stock"}
           </p>
 
-          <AddToCartButton styles="styles.cartBtn" productId={product.id} />
+          <AddToCartButton styles="block" productId={product.id} />
         </div>
       </div>
       <hr className={styles.line} />
       <div className={styles.other}>
         <h3 className={styles.all}>Related Products</h3>
-        <div className={styles.grid}>
+        <div>
           {products.length === 0 ? (
             <div className={styles.item}>No items are available</div>
           ) : (

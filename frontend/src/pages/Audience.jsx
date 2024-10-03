@@ -56,7 +56,7 @@ const Audience = () => {
           ))}
         </div>
       </div>
-      <div className={styles.grid}>
+      <div>
         {products.length === 0 ? (
           <div className={styles.item}>No items are available</div>
         ) : (
