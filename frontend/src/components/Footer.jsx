@@ -8,51 +8,51 @@ const Footer = () => {
           
           {/* Company Info */}
           <div>
-            <h2 className="text-3xl font-bold mb-4">Lycentric</h2>
-            <p className="text-gray-400 text-xl mb-4">
+            <h2 className="text-5xl font-bold mb-4">Lycentric</h2>
+            <p className="text-gray-400 text-2xl mb-4">
               Lycentric is a leading ecommerce platform offering the best shopping experience with a variety of fashion, electronics, and home goods.
             </p>
-            <p className="text-gray-400 text-xl">
+            <p className="text-gray-400 text-lg">
               Address: 1234 Market St, San Francisco, CA 94103
             </p>
-            <p className="text-gray-400">Email: support@yourbrand.com</p>
-            <p className="text-gray-400">Phone: +1 800-123-4567</p>
+            <p className="text-gray-400 text-lg">Email: support@yourbrand.com</p>
+            <p className="text-gray-400 text-lg">Phone: +1 800-123-4567</p>
           </div>
 
           {/* Useful Links */}
           <div>
-            <h2 className="text-xl font-semibold mb-4">Useful Links</h2>
+            <h2 className="text-3xl font-semibold mb-4">Useful Links</h2>
             <ul>
               <li className="mb-2">
-                <a href="/about" className="hover:text-gray-300">About Us</a>
+                <a href="/about" className="hover:text-gray-300 text-2xl">About Us</a>
               </li>
               <li className="mb-2">
-                <a href="/services" className="hover:text-gray-300">Services</a>
+                <a href="/services" className="hover:text-gray-300 text-2xl">Services</a>
               </li>
               <li className="mb-2">
-                <a href="/products" className="hover:text-gray-300">Products</a>
+                <a href="/products" className="hover:text-gray-300 text-2xl">Products</a>
               </li>
               <li className="mb-2">
-                <a href="/contact" className="hover:text-gray-300">Contact Us</a>
+                <a href="/contact" className="hover:text-gray-300 text-2xl">Contact Us</a>
               </li>
               <li className="mb-2">
-                <a href="/privacy" className="hover:text-gray-300">Privacy Policy</a>
+                <a href="/privacy" className="hover:text-gray-300 text-2xl">Privacy Policy</a>
               </li>
             </ul>
           </div>
 
           {/* Newsletter & Social Media */}
           <div>
-            <h2 className="text-xl font-semibold mb-4">Stay Updated</h2>
-            <p className="text-gray-400 mb-4">Sign up for our newsletter and get the latest updates on new arrivals, exclusive deals, and more.</p>
+            <h2 className="text-3xl font-semibold mb-4">Stay Updated</h2>
+            <p className="text-gray-400 mb-4 text-lg">Sign up for our newsletter and get the latest updates on new arrivals, exclusive deals, and more.</p>
             
             <form className="mb-4">
               <input 
                 type="email" 
                 placeholder="Enter your email" 
-                className="w-full p-2 bg-gray-700 text-gray-200 rounded focus:outline-none"
+                className="w-full p-4 bg-gray-700 text-gray-200 rounded focus:outline-none"
               />
-              <button className="w-full mt-2 p-2 bg-blue-600 hover:bg-blue-700 rounded">Subscribe</button>
+              <button className="w-full mt-2 p-4 bg-blue-600 hover:bg-blue-700 rounded">Subscribe</button>
             </form>
 
             <h3 className="text-lg font-semibold mb-2">Follow Us</h3>

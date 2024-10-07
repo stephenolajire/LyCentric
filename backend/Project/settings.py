@@ -159,3 +159,21 @@ SIMPLE_JWT = {
 }
 
 AUTH_USER_MODEL = 'User.CustomUser'
+
+
+FRONTEND_URL = "http://localhost:5173"
+
+# Email settings for Gmail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'horlharmighty2000@gmail.com' 
+EMAIL_HOST_PASSWORD = 'xmbukrpqbogmszzg' 
+DEFAULT_FROM_EMAIL = 'horlharmighty2000@gmail.com'  
+
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+#     'PAGE_SIZE': 5, 
+# }

@@ -80,3 +80,23 @@ class HeroSection (models.Model):
 
     def __str__(self):
         return self.title
+    
+
+class Recent(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    recent_code = models.CharField(max_length=100, blank=False, null=False, unique=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.recent_code
+
+
+class RecentItem(models.Model):
+    recent = models.ForeignKey(Recent, related_name='items', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='recent_items', on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    
+
+    class Meta:
+        ordering = ['-created']
+    

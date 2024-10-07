@@ -71,7 +71,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <p className="forgot">Forgot Password?</p>
+        <Link to='/verifyemail'><p className="forgot">Forgot Password?</p></Link>
         <button className="login">Login</button>
         <div>
           <p className="signupText">

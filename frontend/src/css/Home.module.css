@@ -27,6 +27,19 @@ Section{
   gap: 2rem;
 }
 
+.paginationControls {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 2rem;
+  color: blue;
+}
+
+.prevBtn, .nextBtn{
+  font-size: 1.4rem;
+  margin-top: 2rem;
+}
+
 @media (max-width:600px){
   .grid{
     display: grid;

@@ -70,7 +70,7 @@ const NavBar = ({ category }) => {
               </button>
             </div>
           ) : (
-            <div>
+            <div className={styles.contflex}>
               <button className={styles.loginBtn}>
                 <Link to="/login">Login</Link>
               </button>

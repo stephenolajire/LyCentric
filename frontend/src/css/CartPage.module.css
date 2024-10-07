@@ -16,8 +16,34 @@
   gap: 2rem;
 }
 
+.grids{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 2rem;
+}
+
+.recently{
+  font-size: 3rem;
+  padding: 2rem;
+  color: #131313;
+  opacity: 0.7;
+}
+
+.no{
+  font-size: 1.6rem;
+  color: #131313;
+  opacity: 0.7;
+  padding: 2rem;
+}
+
 
 @media (max-width:600px){
+  .grids{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
   .grid{
     display: grid;
     grid-template-columns: 1fr;

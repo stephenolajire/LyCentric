@@ -58,5 +58,21 @@ class CartSerializer(serializers.ModelSerializer):
     def get_total_quantity(self, obj):
         # Sum up the quantity of each cart item
         return sum(item.quantity for item in obj.items.all())
+    
+
+class RecentItemSerializer(serializers.ModelSerializer):
+    product = ProductSerializer(read_only=True)  # Calculating total price for the cart item
+
+    class Meta:
+        model = RecentItem
+        fields = ['id', 'product']  # Include the necessary fields
+    
+
+class RecentSerializer(serializers.ModelSerializer):
+    items = RecentItemSerializer(many=True, read_only=True)  # Display all items in the cart
+
+    class Meta:
+        model = Recent
+        fields = ['id', 'recent_code', 'items'] 
 
 

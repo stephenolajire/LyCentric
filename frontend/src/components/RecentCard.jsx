@@ -1,33 +1,29 @@
-import React, { useContext } from "react";
-import styles from "../css/Card.module.css";
-import { Link } from "react-router-dom";
-import AddToCartButton from "./AddToCartButton";
-import { GlobalContext } from "../context/GlobalContext";
+import React from 'react'
+import styles from '../css/RecentCard.module.css'
+import { Link } from 'react-router-dom';
 
-const ProductCard = ({ product }) => {
-  const {addToRecentlyViewed} = useContext (GlobalContext)
-  const productId = product.id
+const RecentCard = ({product}) => {
   return (
     <div className={styles.productCardContainer}>
-      <Link to={`/product/${product.id}`} onClick={() => addToRecentlyViewed( productId )}>
+      <Link to={`/product/${product.product.id}`}>
         <div className={styles.productCard}>
           <img
-            src={product.images[0] ?.image}
+            src={product.product.images[0] ?.image}
             alt="Product"
             className={styles.productImage}
           />
           {/* Product Info */}
           <div className={styles.productInfo}>
-            <h3 className={styles.productName}>{product.name}</h3>
+            <h3 className={styles.productName}>{product.product.name}</h3>
             <div className={styles.Cont}>
               {/* Display shortened description if it's longer than 30 characters */}
               <p className={styles.productDescription}>
-                {product.description.length > 30
-                  ? `${product.description.slice(0, 50)}...`
-                  : product.description}
+                {product.product.description.length > 30
+                  ? `${product.product.description.slice(0, 50)}...`
+                  : product.product.description}
               </p>
             </div>
-            <p className={styles.productPrice}>{`$ ${product.price}`}</p>
+            <p className={styles.productPrice}>{`$ ${product.product.price}`}</p>
 
             {/* Product Rating - Example with 4 filled stars and 1 empty star */}
             <div className={styles.productRating}>
@@ -56,9 +52,9 @@ const ProductCard = ({ product }) => {
           </div>
         </div>
       </Link>
-      <AddToCartButton styles="none" productId={product.id} />
     </div>
   );
-};
 
-export default ProductCard;
+}
+
+export default RecentCard

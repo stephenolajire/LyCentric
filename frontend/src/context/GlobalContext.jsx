@@ -17,7 +17,7 @@ export const GlobalProvider = ({ children }) => {
   const [audience, setAudience] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userProfile, setUserProfile] = useState({});
-  // const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
 
   // const navigate = useNavigate ()
 
@@ -41,6 +41,23 @@ export const GlobalProvider = ({ children }) => {
       setCartNumber(null); // Handle errors by resetting cart number
     }
   };
+
+  const fetchRecent = async () => {
+    const recent_code = localStorage.getItem("recent_code");
+
+    try {
+      if (recent_code) {
+        const response = await axios.get(
+          `http://127.0.0.1:8000/recent/${recent_code}`
+        );
+        setProducts(response.data);
+        console.log(response.data);
+      } 
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
 
   const auth = async () => {
     const token = localStorage.getItem("access");
@@ -81,6 +98,15 @@ export const GlobalProvider = ({ children }) => {
     return cartCode;
   };
 
+  const generateRecentlyViewedCode = () => {
+    let recentCode = localStorage.getItem( "recent_code");
+    if (!recentCode) {
+     recentCode =  "recent_" + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem("recent_code", recentCode);
+    }
+    return recentCode;
+  };
+
   const addToCart = async (productId) => {
     setLoading(true);
     setError(null);
@@ -119,6 +145,30 @@ export const GlobalProvider = ({ children }) => {
     fetchData();
   };
 
+  const addToRecentlyViewed = async (productId) => {
+    setLoading(true);
+    setError(null);
+    setSuccess(false);
+
+    const recentCode = generateRecentlyViewedCode(); // Get or create cart code
+    const payload = {
+      recent_code: recentCode,
+      product_id: productId,
+    };
+
+    try {
+      const response = await api.post("recentlyviewed/", payload);
+      if (response.status === 200) {
+        setLoading(false);
+        setSuccess(true);
+        console.log(response.data);
+      }
+    } catch (err) {
+      setLoading(false);
+      setError(true);
+    }
+  };
+
   const fetchAudience = async () => {
     try {
       const response = await api.get("audience"); // Adjusted endpoint
@@ -155,12 +205,15 @@ export const GlobalProvider = ({ children }) => {
         items,
         total,
         fetchData,
+        fetchRecent,
         fetchAudience,
         audience,
         isAuthenticated,
         auth,
         Profile,
         userProfile,
+        addToRecentlyViewed,
+        products,
       }}
     >
       {children}

@@ -6,23 +6,24 @@ import styles from "../css/Category.module.css";
 import api from "../constant/api";
 import { GlobalContext } from "../context/GlobalContext";
 
-
 const Audience = () => {
   const { categoryId, audienceId } = useParams(); // Capture both params
   const [products, setProducts] = useState([]);
 
-  const {audience, fetchAudience} = useContext(GlobalContext)
-  
+  const { audience, fetchAudience } = useContext(GlobalContext);
+  const [pagination, setPagination] = useState({ next: null, previous: null });
 
-  // Fetch products based on category and audience
-  const fetchProducts = async () => {
+  const fetchProducts = async (
+    url = `http://127.0.0.1:8000/products/${categoryId}/${audienceId}`
+  ) => {
     try {
-      const response = await api.get(
-        `products/${categoryId}/${audienceId}`
-      );
-      if (response.data) {
-        console.log(response.data);
-        setProducts(response.data);
+      const response = await axios.get(url);
+      if (response) {
+        setProducts(response.data.results); // Update products with the results
+        setPagination({
+          next: response.data.next,
+          previous: response.data.previous,
+        }); // Update pagination URLs
       } else {
         console.error("Error: No response data");
       }
@@ -65,6 +66,28 @@ const Audience = () => {
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
+        )}
+      </div>
+
+      <div className={styles.paginationControls}>
+        {/* Only show "Previous" button if there is a previous page */}
+        {pagination.previous && (
+          <button
+            onClick={() => fetchProducts(pagination.previous)}
+            className={styles.prevBtn}
+          >
+            Previous
+          </button>
+        )}
+
+        {/* Only show "Next" button if there is a next page */}
+        {pagination.next && (
+          <button
+            onClick={() => fetchProducts(pagination.next)}
+            className={styles.nextBtn}
+          >
+            Next
+          </button>
         )}
       </div>
     </section>

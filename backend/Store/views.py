@@ -7,6 +7,7 @@ from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView,
 from uuid import UUID
 from rest_framework.response import Response
 from django.db.models import Q
+from .paginations import CustomPagination
 
 class HeroView(ListAPIView):
   serializer_class = HeroSerializer
@@ -15,17 +16,22 @@ class HeroView(ListAPIView):
 class CategoryView (ListAPIView):
   serializer_class = CategorySerializer
   queryset = Category.objects.all()
+#   pagination_class = CustomPagination
 
 class AudienceView (ListAPIView):
   serializer_class = AudienceSerializer
   queryset = AudienceType.objects.all()
+#   pagination_class = CustomPagination
 
 class AllProductsView (ListAPIView):
   serializer_class = ProductSerializer
   queryset = Product.objects.all()
+  pagination_class = CustomPagination
+
 
 class CategoryItemView(ListAPIView):
     serializer_class = ProductSerializer
+    pagination_class = CustomPagination
 
     def get_queryset(self):
         uuid = self.kwargs.get('categoryId')
@@ -39,6 +45,7 @@ class CategoryItemView(ListAPIView):
 
 class CategoryAudienceView(ListAPIView):
     serializer_class = ProductSerializer
+    pagination_class = CustomPagination
 
     def get_queryset(self):
         category_id = self.kwargs.get('categoryId')
@@ -108,7 +115,7 @@ class AddToCartView(CreateAPIView):
             'product_id': cart_item.product_id,
             'quantity': cart_item.quantity
         }, status=status.HTTP_200_OK)
-   
+    
 
 class CartItemView(ListAPIView):
     serializer_class = CartSerializer
@@ -123,6 +130,47 @@ class CartItemView(ListAPIView):
                 return Cart.objects.filter(id=cart.id)  # Get the cart with its items
         except Cart.DoesNotExist:
             return Cart.objects.none()
+   
+
+class AddToRecentlyView(CreateAPIView):
+    serializer_class = RecentItemSerializer
+
+    def create(self, request, *args, **kwargs):
+        # Get the recent code from request data or generate a new one
+        recent_code = request.data.get('recent_code')
+        product_id = request.data.get('product_id')
+
+        # Check if a recent with the given code exists
+        if recent_code:
+            recent, created = Recent.objects.get_or_create(recent_code=recent_code)
+        else:
+            return Response({"error": "Recent code is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Check if the cart item already exists, update or create it
+        recent_item, item_created = RecentItem.objects.get_or_create(recent=recent, product_id=product_id)
+        recent_item.save()
+
+        return Response({
+            'recent_code': recent.recent_code,
+            'product_id': recent_item.product_id,
+        }, status=status.HTTP_200_OK)
+    
+class RecentItemView(ListAPIView):
+    serializer_class = RecentItemSerializer
+
+    def get_queryset(self):
+        recent_code = self.kwargs.get('recent_code')  
+
+        try:
+            if recent_code:
+                # Filter the Recent using the recent_code
+                recent = Recent.objects.get(recent_code=recent_code)
+                # Return the recent instance with only the first two items
+                return recent.items.all()[:12]  
+        except Recent.DoesNotExist:
+            return Recent.objects.none()
+
+        return Recent.objects.none()
 
 
 class IncrementCartItemView(UpdateAPIView):
@@ -197,7 +245,7 @@ class DeleteView(DestroyAPIView):
             return Response({"error": "Cart item not found"}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
+    
 
 class ProductSearchView(APIView):
     def get(self, request):
@@ -205,6 +253,16 @@ class ProductSearchView(APIView):
         if query:
             # Search for products with names that contain the search query (case insensitive)
             products = Product.objects.filter(Q(name__icontains=query))
-            serializer = ProductSerializer(products, many=True, context={'request': request})
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            
+            # Apply pagination
+            paginator = CustomPagination()
+            paginated_products = paginator.paginate_queryset(products, request)
+            
+            # Serialize the paginated results
+            serializer = ProductSerializer(paginated_products, many=True, context={'request': request})
+            
+            # Return paginated response
+            return paginator.get_paginated_response(serializer.data)
+        
         return Response({"error": "No item with such name."}, status=status.HTTP_400_BAD_REQUEST)
+
