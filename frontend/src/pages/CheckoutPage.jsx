@@ -2,8 +2,7 @@ import React, { useContext } from "react";
 import Checkout from "../components/Checkout";
 import styles from "../css/CheckoutPage.module.css";
 import { GlobalContext } from "../context/GlobalContext";
-// import Payment from "../components/Payment";
-import PaymentsOption from '../components/PaymentsOption'
+import Payment from "../components/Payment";
 
 const CheckoutPage = () => {
   const { items, total } = useContext(GlobalContext);
@@ -23,8 +22,8 @@ const CheckoutPage = () => {
             </div>
           </div>
           <div className={styles.shadowBox}>
-            <div className={styles.div}>Payment Option</div>
-            <PaymentsOption />
+            <div className={styles.div}>Payment Details</div>
+            <Payment to="/payment" text="proceed to payment"/>
           </div>
         </div>
       </section>

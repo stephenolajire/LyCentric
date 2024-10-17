@@ -3,7 +3,7 @@ import { GlobalContext } from "../context/GlobalContext";
 import styles from "../css/Payment.module.css";
 import { Link } from "react-router-dom";
 
-const Payment = () => {
+const Payment = ({to, text}) => {
   const { total } = useContext(GlobalContext);
   return (
     <div className={styles.grid}>
@@ -15,7 +15,7 @@ const Payment = () => {
         </div>
         <p className={styles.delivery}>Delivery fee is not included</p>
         
-        <Link to='/checkout'><button>Checkout</button></Link>
+        <button><Link to={to}>{text}</Link></button>
       </div>
       <div className={styles.outer2}>
         <h3>Return Policy</h3>

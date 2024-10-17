@@ -26,7 +26,7 @@ const CartPage = () => {
             ))}
           </div>
           <div>
-            <Payment />
+            <Payment to="/checkout" text="checkout" />
           </div>
         </div>
       )}

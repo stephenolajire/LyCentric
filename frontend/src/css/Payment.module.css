@@ -63,6 +63,7 @@
   text-align: center;
   margin-top: 0.5rem;
   border-radius: 0.4rem;
+  text-transform: capitalize;
 }
 
 .outer2 h3{

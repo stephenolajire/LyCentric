@@ -96,9 +96,6 @@ const NavBar = ({ category }) => {
             <li className={styles.navItem}>
               <Link to="/">Home</Link>
             </li>
-            <li className={styles.navItem}>
-              <Link to="/about">About</Link>
-            </li>
 
             {/* Dropdown for Categories */}
             <li className={`${styles.navItem} ${styles.dropdown}`}>
@@ -125,9 +122,6 @@ const NavBar = ({ category }) => {
               )}
             </li>
 
-            <li className={styles.navItem}>
-              <Link to="/service">Service</Link>
-            </li>
             <li className={styles.navItem}>
               <Link to="/contact">Contact Us</Link>
             </li>
