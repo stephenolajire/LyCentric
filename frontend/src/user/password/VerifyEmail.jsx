@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 const VerifyEmail = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState (false)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,6 +18,7 @@ const VerifyEmail = () => {
     try {
       const response = await api.post("api/verify/email/", user);
       if (response.status === 200) {
+        setSuccess (true)
         console.log(response.data);
         Swal.fire({
           icon: "success",
@@ -31,6 +33,7 @@ const VerifyEmail = () => {
       // Set the error message based on the response
       if (error.response && error.response.data) {
         setError(error.response.data.error);
+        setSuccess (false)
       } else {
         setError("An error occurred. Please try again.");
       }
@@ -43,6 +46,7 @@ const VerifyEmail = () => {
         <h3>Please enter your valid email to reset your password</h3>
         <form className={styles.form} onSubmit={handleSubmit}>
           {error && <p className={styles.errorMsg}>{error}</p>}
+          {success && <p style={{ color:"green", fontSize: '1.4rem' }}>A password reset link has been sent to your email account</p>}
           <div className={styles.formDiv}>
             <label className={styles.emailLabel}>Email</label>
             <input

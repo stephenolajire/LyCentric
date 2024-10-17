@@ -6,31 +6,32 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { GlobalContext } from "../context/GlobalContext";
 
 const Login = () => {
-
-  const {auth} = useContext(GlobalContext)
+  const { auth } = useContext(GlobalContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || '/';
+  const from = location.state?.from?.pathname || "/";
 
   const userInfo = {
     email: email,
-    password: password
+    password: password,
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Start loading state
     try {
       const response = await api.post("api/token/", userInfo);
       if (response.status === 200) {
         console.log(response.data);
         localStorage.setItem("access", response.data.access);
         localStorage.setItem("refresh", response.data.refresh);
-        navigate(from, { replace: true });
-        auth()
+        navigate(from || "/", { replace: true });
+        auth();
         setPassword("");   // Resetting password
         setEmail("");      // Resetting email
       } else {
@@ -39,6 +40,8 @@ const Login = () => {
     } catch (error) {
       console.log(error);
       setError(error.response?.data?.detail || "An error occurred");
+    } finally {
+      setLoading(false); // Always reset loading state
     }
   };
 
@@ -71,8 +74,14 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <Link to='/verifyemail'><p className="forgot">Forgot Password?</p></Link>
-        <button className="login">Login</button>
+        <Link to="/verifyemail">
+          <p className="forgot">Forgot Password?</p>
+        </Link>
+        <div>
+          <button className="login" disabled={!email || !password || loading}>
+            {loading ? "Loading ..." : "Login"}
+          </button>
+        </div>
         <div>
           <p className="signupText">
             Don't have an account yet? Please click{" "}
