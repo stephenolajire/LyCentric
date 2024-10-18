@@ -49,3 +49,4 @@ admin.site.register(Recent, RecentAdmin)
 
 admin.site.register(AudienceType)
 admin.site.register(Category)
+admin.site.register(Order)

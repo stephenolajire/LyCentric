@@ -13,8 +13,8 @@ const SearchPage = () => {
   const fetchSearchResults = async () => {
     try {
       const response = await api.get(`products/search/?q=${query}`);
-      setProducts(response.data); 
-      console.log(response.data)// Update state with search results
+      setProducts(response.data.results); 
+      console.log(response.data.results)// Update state with search results
     } catch (err) {
       setError("Error fetching search results. Please try again.");
       console.error(err);

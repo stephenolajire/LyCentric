@@ -1,5 +1,7 @@
 from django.db import models
 import uuid
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 class AudienceType(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -100,3 +102,25 @@ class RecentItem(models.Model):
     class Meta:
         ordering = ['-created']
     
+
+class Order (models.Model):
+    firstName = models.CharField (max_length=200)
+    lastName = models.CharField (max_length=200)
+    phoneNumber = models.CharField (max_length=20)
+    email = models. EmailField ()
+    state = models.CharField (max_length=200)
+    city = models.CharField (max_length=200)
+    localGovernment = models.CharField (max_length=300)
+    nearestBusStop = models.CharField (max_length=500)
+    homeAddress = models.CharField (max_length=1000)
+    user = models.ForeignKey (User, on_delete=models.CASCADE)
+    cart = models.ForeignKey (Cart, on_delete=models.CASCADE)
+    items = models.ForeignKey (CartItem, on_delete=models.CASCADE)
+    amount = models.FloatField ()
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.firstName
+
+    class Meta:
+        ordering = ['-created']

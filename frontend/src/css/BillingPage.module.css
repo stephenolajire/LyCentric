@@ -1,0 +1,77 @@
+.billingContainer {
+  min-height: 100vh;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+.billingForm {
+  background-color: #ffffff;
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+}
+
+.formTitle {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 24px;
+  color: #333;
+}
+
+.formRow {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.formField {
+  flex: 1;
+  min-width: 100%;
+  margin-bottom: 16px;
+}
+
+.formField label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #333;
+}
+
+.formField input {
+  width: 100%;
+  padding: 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 1.4rem;
+  background-color: purple;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submitBtn:hover {
+  background-color: #4338ca;
+}
+
+/* Responsive Design */
+@media (min-width: 600px) {
+  .formField {
+    min-width: calc(50% - 16px);
+  }
+}
+
+@media (min-width: 900px) {
+  .formField {
+    min-width: calc(50% - 16px);
+  }
+}

@@ -76,3 +76,13 @@ class RecentSerializer(serializers.ModelSerializer):
         fields = ['id', 'recent_code', 'items'] 
 
 
+class OrderSerializer(serializers.ModelSerializer):
+    # To represent the `User`, `Cart`, and `CartItem` as nested serializers.
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())  # Reference to the User model
+    cart = serializers.PrimaryKeyRelatedField(queryset=Cart.objects.all())  # Reference to the Cart model
+    items = serializers.PrimaryKeyRelatedField(queryset=CartItem.objects.all())  # Reference to the CartItem model
+
+    class Meta:
+        model = Order
+        fields = ['id', 'firstName', 'lastName', 'phoneNumber', 'email', 'state', 'city', 'localGovernment', 'nearestBusStop', 'homeAddress', 'user', 'cart', 'items', 'amount', 'created']
+        read_only_fields = ['created']

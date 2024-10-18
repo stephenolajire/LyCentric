@@ -1,7 +1,7 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Layout from "./Layout/Layout";
 import Home from "./pages/Home";
-import About from "./pages/About";
+import BiilingPage from "./pages/BiilingPage";
 import Category from "./pages/Category";
 import Audience from "./pages/Audience";
 import ProductDetail from "./pages/ProductDetail";
@@ -9,7 +9,7 @@ import CartPage from "./pages/CartPage";
 import { GlobalProvider } from "./context/GlobalContext";
 import ProtectedRoute from "./constant/ProtectedRoute";
 import CheckoutPage from "./pages/CheckoutPage";
-import Login from "./user/login";
+import Login from "./user/Login";
 import Signup from "./user/Signup";
 import ProfilePage from "./pages/ProfilePage";
 import EditProfilePage from "./pages/EditProfilePage";
@@ -24,7 +24,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="about" element={<About />} />
             <Route path="category/:categoryId" element={<Category />} />
             <Route
               path="category/:categoryId/audience/:audienceId"
@@ -46,6 +45,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <ProfilePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/payment"
+              element={
+                <ProtectedRoute>
+                  <BiilingPage />
                 </ProtectedRoute>
               }
             />
