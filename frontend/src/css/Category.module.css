@@ -76,7 +76,19 @@ Section{
   font-size: 1.6rem;
 }
 
-@media (max-width:600px){
+.catList {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  overflow-x: auto;
+  /* border: 2px solid purple; */
+  /* display: none; */
+  margin-top: -5rem;
+  /* margin-bottom: 3rem; */
+}
+
+@media (max-width:575px){
   .grid{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -85,6 +97,10 @@ Section{
 
   section{
     padding: 20px;
+  }
+
+  .catList {
+    display: none;
   }
 
   .flex{
@@ -118,5 +134,20 @@ Section{
 
   .all{
     padding-left: 1rem;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  section{
+    padding: 2rem;
+  }
+
+  .catList {
+    display: none;
   }
 }

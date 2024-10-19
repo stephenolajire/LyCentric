@@ -249,9 +249,19 @@ body{
   }
 }
 
+.catList {
+  /* display: flex; */
+  flex-direction: row;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  overflow-x: auto;
+  border: 2px solid purple;
+  display: none;
+}
 
 
-@media only screen and (max-width:600px){
+
+@media only screen and (max-width:575.99px){
 
   @keyframes slideIn {
     from {
@@ -275,6 +285,10 @@ body{
 
   .topNav{
     display: none;
+  }
+
+  .catList{
+    display: flex;
   }
 
   .navigation{
@@ -363,4 +377,19 @@ body{
     display: block;
   }
 
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .topNav {
+    width: 100%;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  .search {
+    width: 38rem;
+  }
+
+  .catList {
+    display: flex;
+  }
 }

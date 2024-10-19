@@ -11,7 +11,7 @@ class HeroSerializer (serializers.ModelSerializer):
 class CategorySerializer (serializers.ModelSerializer):
   class Meta:
     model = Category
-    fields = ['id', 'name']
+    fields = ['id', 'name', 'image']
 
 class AudienceSerializer (serializers.ModelSerializer):
   class Meta:

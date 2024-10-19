@@ -15,6 +15,7 @@ class Category(models.Model):
     name = models.CharField(max_length=20, null=False, blank=False)  # e.g., 'Male', 'Female', 'Kid'
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    image = models.ImageField(upload_to='category', default="../image.png")
    
     def __str__(self):
         return self.name

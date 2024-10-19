@@ -1,0 +1,41 @@
+*{
+  padding: 0%;
+  margin: 0%;
+  box-sizing: border-box;
+}
+
+.container {
+  height: auto;
+}
+
+.listCont {
+  list-style-type: none;
+  color: rgba(0, 0, 0, 0.900);
+  font-size: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+
+
+.list {
+  text-transform: capitalize;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: auto;
+  height: auto;
+}
+
+.list div {
+  height: 4rem;
+  width: 4rem;
+  margin: auto;
+}
+
+.list img {
+  width:4rem;
+  height: 4rem;
+  border-radius: 2rem;
+}

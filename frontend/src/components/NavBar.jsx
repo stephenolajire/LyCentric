@@ -9,6 +9,7 @@ import { IoCartOutline } from "react-icons/io5";
 import { GlobalContext } from "../context/GlobalContext";
 import { BsPersonFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import NavCategory from "../components/NavCategory";
 
 const NavBar = ({ category }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -97,31 +98,6 @@ const NavBar = ({ category }) => {
               <Link to="/">Home</Link>
             </li>
 
-            {/* Dropdown for Categories */}
-            <li className={`${styles.navItem} ${styles.dropdown}`}>
-              Category{" "}
-              {isDropdown ? (
-                <IoIosArrowUp
-                  className={styles.arrow}
-                  onClick={toggleDropdown}
-                />
-              ) : (
-                <IoIosArrowDown
-                  className={styles.arrow}
-                  onClick={toggleDropdown}
-                />
-              )}
-              {isDropdown && (
-                <ul className={styles.dropdownMenu}>
-                  {category.map((item) => (
-                    <li key={item.id} className={styles.dropdownItem}>
-                      <Link to={`/category/${item.id}`}>{item.name}</Link>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-
             <li className={styles.navItem}>
               <Link to="/contact">Contact Us</Link>
             </li>
@@ -180,6 +156,11 @@ const NavBar = ({ category }) => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </form>
+      </div>
+      <div className={styles.catList}>
+        {category.map((cat) => (
+          <NavCategory category={cat} key={cat.id} />
+        ))}
       </div>
     </header>
   );

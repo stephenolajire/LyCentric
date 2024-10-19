@@ -75,7 +75,7 @@ const Footer = () => {
 
         {/* Footer Bottom */}
         <div className="mt-10 border-t border-gray-700 pt-6 text-center text-gray-400">
-          <p>© {new Date().getFullYear()} Your Brand. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} StephDev. All rights reserved.</p>
         </div>
       </div>
     </footer>
