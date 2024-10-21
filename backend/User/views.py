@@ -1,4 +1,4 @@
-from rest_framework.generics import CreateAPIView, RetrieveAPIView, UpdateAPIView
+from rest_framework.generics import RetrieveAPIView, UpdateAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import get_user_model
@@ -6,6 +6,7 @@ from .serializers import UserSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 import requests
+from rest_framework.views import APIView
 from django.conf import settings
 from django.core.mail import send_mail
 from django.utils.http import urlsafe_base64_encode
@@ -13,24 +14,53 @@ from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
+from django.contrib.auth.hashers import make_password
+from rest_framework.permissions import AllowAny
 
 User = get_user_model()
+class SignupView(APIView):
+    permission_classes = [AllowAny]  # Allow anyone to access this view
 
-class SignupView(CreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            user.is_active = False
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            token_generator = PasswordResetTokenGenerator()
+            token = token_generator.make_token(user)
+            verification_link = f"{settings.FRONTEND_URL}/confirm-email/{uid}/{token}"
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+            mail_subject = 'Activate your account'
+            message = f"Click the link to activate your account: {verification_link}"
+            send_mail(mail_subject, message, 'admin@example.com', [user.email])
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    def perform_create(self, serializer):
-        user = serializer.save()
-        user.set_password(user.password)
-        user.save()
+        # Log the validation errors
+        print(serializer.errors)  # For debugging purposes
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+class VerifyEmailAddressView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, uid, token):
+        """Handle email verification"""
+        try:
+            uid = force_str(urlsafe_base64_decode(uid))
+            user = User.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            return Response({"message": "Invalid activation link"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        token_generator = PasswordResetTokenGenerator()
+        if user is not None and token_generator.check_token(user, token):
+            user.is_active = True
+            user.save()
+            return Response({"message": "Email verified! You can now log in."}, status=status.HTTP_200_OK)
+        else:
+            return Response({"message": "Invalid token!"}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class GetUserView(RetrieveAPIView):
@@ -119,7 +149,3 @@ class SetNewPasswordView(APIView):
         user.save()
 
         return Response({"message": "Password has been reset successfully"}, status=status.HTTP_202_ACCEPTED)
-    
-    
-        
-

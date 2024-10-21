@@ -5,6 +5,9 @@ import styles from "../css/Signup.module.css";
 import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -38,12 +41,17 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await api.post("api/signup/", formData);
       console.log("Signup Successful:", response.data);
-      navigate("/login"); // Redirect to login after successful signup
+      navigate("/meesage"); // Redirect to login after successful signup
     } catch (error) {
       console.error("Error signing up:", error);
+      setError(error.response?.data?.detail || "An error occurred");
+    }
+    finally {
+      setLoading(false); // Always reset loading state
     }
   };
 
@@ -54,6 +62,9 @@ const Signup = () => {
           Welcome to <span className="lycen">Lycentric</span> Home of Wears
         </h3>
         <p className="detail">Please provide all the information correctly</p>
+
+        {error && <p className={styles.error}>{error}</p>}
+
         <div className={styles.grid}>
           <div className={styles.formGroup}>
             <input
@@ -184,9 +195,9 @@ const Signup = () => {
             required
           />
         </div>
-        <button type="submit" className={styles.submitButton}>
-          Sign Up
-        </button>
+        <button type="submit" className={styles.submitButton} disabled={loading}>
+            {loading ? "Loading ..." : "SignUp"}
+          </button>
 
         <div>
           <p className="signupText">

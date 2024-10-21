@@ -16,6 +16,8 @@ import EditProfilePage from "./pages/EditProfilePage";
 import SearchPage from "./pages/SearchPage";
 import VerifyEmail from "./user/password/VerifyEmail";
 import ResetPassword from "./user/password/ResetPassword";
+import Message from "./user/Message";
+import ConfirmEmail from "./user/ConfirmEmail";
 
 function App() {
   return (
@@ -68,7 +70,8 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/verifyemail" element={<VerifyEmail />} />
-          <Route path="/resetpassword/:uid/:token" element={<ResetPassword />} />
+          <Route path="/message" element={<Message/>} />
+          <Route path="/confirm-email/:uid/:token" element={<ConfirmEmail />} />
         </Routes>
       </BrowserRouter>
     </GlobalProvider>
