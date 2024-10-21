@@ -1,11 +1,16 @@
+.outer {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .signupContainer {
-  position: absolute;
-  top: 5%;
-  height: 90%;
+  height: auto;
   width: 60%;
-  left: 20%;
   box-shadow: 0 0px 5px 2px #999;
-  border-radius: 1rem;
+  border-radius: 10rem;
 }
 
 .welcome{
@@ -89,13 +94,11 @@ textarea {
 }
 
 
-@media (max-width:600px){
+@media (max-width:767px){
   .signupContainer{
     width: 90%;
-    left: 5%;
     height: auto;
-    top: 2%;
-    /* bottom: 2%; */
+    border-radius: 2rem;
   }
 
   .grid{

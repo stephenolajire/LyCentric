@@ -17,6 +17,7 @@ import SearchPage from "./pages/SearchPage";
 import VerifyEmail from "./user/password/VerifyEmail";
 import ResetPassword from "./user/password/ResetPassword";
 import Message from "./user/Message";
+import Verified from "./user/Verified";
 import ConfirmEmail from "./user/ConfirmEmail";
 
 function App() {
@@ -71,7 +72,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/verifyemail" element={<VerifyEmail />} />
           <Route path="/message" element={<Message/>} />
-          <Route path="/confirm-email/:uid/:token" element={<ConfirmEmail />} />
+          <Route path="/verified" element={<Verified />} />
+          <Route path="/confirm_email/:uid/:token" element={<ConfirmEmail />} />
+          <Route path="/resetpassword/:uid/:token" element={<ResetPassword />} />
         </Routes>
       </BrowserRouter>
     </GlobalProvider>

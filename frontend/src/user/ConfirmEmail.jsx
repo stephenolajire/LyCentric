@@ -1,46 +1,43 @@
-import React, { useState, useEffect } from "react";
-import styles from "./password/ResetPassword.module.css";
-import api from "../constant/api";
-import Swal from "sweetalert2";
-import { useNavigate, useParams } from "react-router-dom";
+// ConfirmEmail.js
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import api from '../constant/api';
 
 const ConfirmEmail = () => {
-  const [error, setError] = useState("");
-  const { uid, token } = useParams();
+  const { uid, token } = useParams(); // Get uid and token from URL
   const navigate = useNavigate();
+  const [message, setMessage] = useState('Verifying your account...');
+  const [error, setError] = useState(null);
 
-    const confirmEmail = async () => {
+  useEffect(() => {
+    // Function to send the uid and token to the backend
+    const verifyEmail = async () => {
       try {
-        const response = await api.get(`confirm-email/${uid}/${token}/`);
+        const response = await api.get(`api/verify_email/${uid}/${token}`);
+        
+        // If successful, navigate to the verified page
         if (response.status === 200) {
-          console.log(response.data);
-          Swal.fire({
-            icon: "success",
-            title: "Your email has been confirmed!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          setError("");
-          navigate("/login");
+          setMessage('Your account has been successfully verified!');
+          navigate('/verified');
         }
       } catch (error) {
-        console.log(error);
-        // Set the error message based on the response
+        // Handle errors (e.g., invalid or expired token)
         if (error.response && error.response.data) {
-          setError(error.response.data.error);
+          setError(error.response.data.message);
         } else {
-          setError("An error occurred. Please try again.");
+          setError('Something went wrong. Please try again later.');
         }
       }
     };
 
-    useEffect (() => {
-        confirmEmail();
-    }, [])
+    verifyEmail();
+  }, [uid, token]);
 
   return (
-    <div className={styles.center}>
-      {error && <p className={styles.errorMsg}>{error}</p>}
+    <div>
+        <h1>Hello</h1>
+      {error ? <p style={{ color: 'red' }}>{error}</p> : <p>{message}</p>}
     </div>
   );
 };

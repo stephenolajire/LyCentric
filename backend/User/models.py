@@ -28,6 +28,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     local_government = models.CharField(max_length=50, blank=True)
     nearest_bus_stop = models.CharField(max_length=100, blank=True)
     house_address = models.TextField(blank=True)
+    verified = models.BooleanField(default=False)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)

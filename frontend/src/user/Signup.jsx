@@ -44,11 +44,12 @@ const Signup = () => {
     setLoading(true);
     try {
       const response = await api.post("api/signup/", formData);
+      console.log(response.data)
       console.log("Signup Successful:", response.data);
-      navigate("/meesage"); // Redirect to login after successful signup
+      navigate("/message"); // Redirect to message after successful signup
     } catch (error) {
-      console.error("Error signing up:", error);
-      setError(error.response?.data?.detail || "An error occurred");
+      console.error("Error signing up:", error.message);
+      setError(error.response?.data?.message || "An error occurred");
     }
     finally {
       setLoading(false); // Always reset loading state
@@ -56,159 +57,161 @@ const Signup = () => {
   };
 
   return (
-    <div className={styles.signupContainer}>
-      <form onSubmit={handleSubmit} className={styles.signupForm}>
-        <h3 className="welcome">
-          Welcome to <span className="lycen">Lycentric</span> Home of Wears
-        </h3>
-        <p className="detail">Please provide all the information correctly</p>
+    <div className={styles.outer}>
+      <div className={styles.signupContainer}>
+        <form onSubmit={handleSubmit} className={styles.signupForm}>
+          <h3 className="welcome">
+            Welcome to <span className="lycen">Lycentric</span> Home of Wears
+          </h3>
+          <p className="detail">Please provide all the information correctly</p>
 
-        {error && <p className={styles.error}>{error}</p>}
+          {error && <p style={{color:"red", fontSize:"1.6rem", marginBottom:"1rem"}}>{error}</p>}
 
-        <div className={styles.grid}>
+          <div className={styles.grid}>
+            <div className={styles.formGroup}>
+              <input
+                type="text"
+                name="first_name"
+                value={formData.first_name}
+                onChange={handleChange}
+                placeholder="First Name"
+                required
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <input
+                type="text"
+                name="last_name"
+                value={formData.last_name}
+                onChange={handleChange}
+                placeholder="Last Name"
+                required
+              />
+            </div>
+          </div>
+          <div className={styles.grid}>
+            <div className={styles.formGroup}>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Email"
+                required
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Password"
+                required
+              />
+            </div>
+          </div>
+          <div className={styles.grid}>
+            <div className={styles.formGroup}>
+              <select
+                name="state"
+                value={formData.state}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select State</option>
+                {Object.keys(statesAndLgas).map((state) => (
+                  <option key={state} value={state}>
+                    {state}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className={styles.formGroup}>
+              <select
+                name="local_government"
+                value={formData.local_government}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select Local Government</option>
+                {lgas.map((lga, index) => (
+                  <option key={index} value={lga}>
+                    {lga}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className={styles.grid}>
+            <div className={styles.formGroup}>
+              <input
+                type="text"
+                name="phone_number"
+                value={formData.phone_number}
+                onChange={handleChange}
+                placeholder="Phone Number"
+                required
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <input
+                type="text"
+                name="nearest_bus_stop"
+                value={formData.nearest_bus_stop}
+                onChange={handleChange}
+                placeholder="Nearest Bus-stop"
+                required
+              />
+            </div>
+          </div>
+          <div className={styles.grid}>
+            <div className={styles.formGroup}>
+              <input
+                type="text"
+                name="city_or_town"
+                value={formData.city_or_town}
+                onChange={handleChange}
+                placeholder="City/Town"
+                required
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <input
+                type="text"
+                name="country"
+                value={formData.country}
+                onChange={handleChange}
+                placeholder="Country"
+                required
+              />
+            </div>
+          </div>
           <div className={styles.formGroup}>
-            <input
-              type="text"
-              name="first_name"
-              value={formData.first_name}
+            <textarea
+              name="house_address"
+              value={formData.house_address}
               onChange={handleChange}
-              placeholder="First Name"
+              placeholder="House Address"
+              rows="3"
               required
             />
           </div>
-          <div className={styles.formGroup}>
-            <input
-              type="text"
-              name="last_name"
-              value={formData.last_name}
-              onChange={handleChange}
-              placeholder="Last Name"
-              required
-            />
-          </div>
-        </div>
-        <div className={styles.grid}>
-          <div className={styles.formGroup}>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Email"
-              required
-            />
-          </div>
-          <div className={styles.formGroup}>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Password"
-              required
-            />
-          </div>
-        </div>
-        <div className={styles.grid}>
-          <div className={styles.formGroup}>
-            <select
-              name="state"
-              value={formData.state}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select State</option>
-              {Object.keys(statesAndLgas).map((state) => (
-                <option key={state} value={state}>
-                  {state}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className={styles.formGroup}>
-            <select
-              name="local_government"
-              value={formData.local_government}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select Local Government</option>
-              {lgas.map((lga, index) => (
-                <option key={index} value={lga}>
-                  {lga}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div className={styles.grid}>
-          <div className={styles.formGroup}>
-            <input
-              type="text"
-              name="phone_number"
-              value={formData.phone_number}
-              onChange={handleChange}
-              placeholder="Phone Number"
-              required
-            />
-          </div>
-          <div className={styles.formGroup}>
-            <input
-              type="text"
-              name="nearest_bus_stop"
-              value={formData.nearest_bus_stop}
-              onChange={handleChange}
-              placeholder="Nearest Bus-stop"
-              required
-            />
-          </div>
-        </div>
-        <div className={styles.grid}>
-          <div className={styles.formGroup}>
-            <input
-              type="text"
-              name="city_or_town"
-              value={formData.city_or_town}
-              onChange={handleChange}
-              placeholder="City/Town"
-              required
-            />
-          </div>
-          <div className={styles.formGroup}>
-            <input
-              type="text"
-              name="country"
-              value={formData.country}
-              onChange={handleChange}
-              placeholder="Country"
-              required
-            />
-          </div>
-        </div>
-        <div className={styles.formGroup}>
-          <textarea
-            name="house_address"
-            value={formData.house_address}
-            onChange={handleChange}
-            placeholder="House Address"
-            rows="3"
-            required
-          />
-        </div>
-        <button type="submit" className={styles.submitButton} disabled={loading}>
-            {loading ? "Loading ..." : "SignUp"}
-          </button>
+          <button type="submit" className={styles.submitButton} disabled={loading}>
+              {loading ? "Loading ..." : "SignUp"}
+            </button>
 
-        <div>
-          <p className="signupText">
-            Already have an account ? Please click{" "}
-            <Link to="/login">
-              <span className="link">here</span>
-            </Link>{" "}
-            to login
-          </p>
-        </div>
-      </form>
+          <div>
+            <p className="signupText">
+              Already have an account ? Please click{" "}
+              <Link to="/login">
+                <span className="link">here</span>
+              </Link>{" "}
+              to login
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
