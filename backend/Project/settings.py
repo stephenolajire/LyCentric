@@ -30,7 +30,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -180,10 +180,10 @@ EMAIL_HOST_PASSWORD = config ("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = config ("DEFAULT_FROM_EMAIL")  
 
 
-# CLOUDINARY_STORAGE = {
-#     'CLOUD_NAME': config('CLOUD_NAME'),
-#     'API_KEY': '912634288932877',
-#     'API_SECRET': config('API_SECRET')
-# }
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUD_NAME'),
+    'API_KEY': '912634288932877',
+    'API_SECRET': config('API_SECRET')
+}
 
 # DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
