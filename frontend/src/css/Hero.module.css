@@ -70,4 +70,8 @@ body{
   .content{
     width: 80%;
   }
+
+  .heroContainer, .contHeight {
+    height: 30rem;
+  }
 }
