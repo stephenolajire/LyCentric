@@ -66,4 +66,8 @@ body{
   .description {
     font-size: 1.6rem;
   }
+
+  .content{
+    width: 80%;
+  }
 }

@@ -252,11 +252,12 @@ body{
 .catList {
   /* display: flex; */
   flex-direction: row;
-  gap: 1rem;
+  gap: 2rem;
   padding: 1rem 2rem;
   overflow-x: auto;
   border: 2px solid purple;
   display: none;
+
 }
 
 
