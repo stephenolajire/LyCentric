@@ -8,12 +8,15 @@ from uuid import UUID
 from rest_framework.response import Response
 from django.db.models import Q
 from .paginations import CustomPagination
+from rest_framework.permissions import AllowAny
 
 class HeroView(ListAPIView):
+  permission_classes = [AllowAny]
   serializer_class = HeroSerializer
   queryset = HeroSection.objects.all()
 
 class CategoryView (ListAPIView):
+  permission_classes = [AllowAny]
   serializer_class = CategorySerializer
   queryset = Category.objects.all()
 #   pagination_class = CustomPagination
