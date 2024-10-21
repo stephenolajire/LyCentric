@@ -35,7 +35,7 @@ const Category = () => {
   }, []);
 
   const fetchData = async (
-    url = `http://127.0.0.1:8000/category/${categoryId}`
+    url = `https://llcentric-backend.onrender.com/category/${categoryId}`
   ) => {
     try {
       const response = await axios.get(url);

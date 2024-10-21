@@ -14,7 +14,7 @@ const Audience = () => {
   const [pagination, setPagination] = useState({ next: null, previous: null });
 
   const fetchProducts = async (
-    url = `http://127.0.0.1:8000/products/${categoryId}/${audienceId}`
+    url = `https://llcentric-backend.onrender.com/products/${categoryId}/${audienceId}`
   ) => {
     try {
       const response = await axios.get(url);

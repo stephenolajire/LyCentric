@@ -27,7 +27,7 @@ export const GlobalProvider = ({ children }) => {
     try {
       if (cart_code) {
         const response = await axios.get(
-          `http://127.0.0.1:8000/cart/${cart_code}`
+          `https://llcentric-backend.onrender.com/cart/${cart_code}`
         );
         setCartNumber(response.data[0].total_quantity);
         setItems(response.data[0].items);
@@ -48,7 +48,7 @@ export const GlobalProvider = ({ children }) => {
     try {
       if (recent_code) {
         const response = await axios.get(
-          `http://127.0.0.1:8000/recent/${recent_code}`
+          `https://llcentric-backend.onrender.com/recent/${recent_code}`
         );
         setProducts(response.data);
         console.log(response.data);
