@@ -14,7 +14,7 @@ const ConfirmEmail = () => {
     // Function to send the uid and token to the backend
     const verifyEmail = async () => {
       try {
-        const response = await axios.get(`https://lycentric-wears.onrender.com/verify_email/${uid}/${token}`);
+        const response = await api.get(`verify_email/${uid}/${token}`);
         
         // If successful, navigate to the verified page
         if (response.status === 200) {
