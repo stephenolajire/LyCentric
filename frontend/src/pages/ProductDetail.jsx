@@ -15,7 +15,7 @@ const ProductDetail = () => {
   const fetchProductDetails = async () => {
     try {
       const response = await axios.get(
-        `https://llcentric-backend.onrender.com/product/${productId}`
+        `https://llcentric-backend.onrender.com/api/product/${productId}`
       );
       if (response.data.product) {
         setProduct(response.data.product);

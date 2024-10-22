@@ -29,7 +29,7 @@ const Home = () => {
     fetchCategory()
   }, [])
 
-  const fetchData = async (url = 'https://llcentric-backend.onrender.com/allproduct') => {
+  const fetchData = async (url = 'https://llcentric-backend.onrender.com/api/allproduct') => {
     try {
       const response = await axios.get(url);
       if (response) {

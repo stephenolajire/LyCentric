@@ -10,7 +10,7 @@ const Layout = () => {
   const [category, setCategory] = useState([])
 
   const fetchData = async () => {
-    const response = await api.get("category")
+    const response = await api.get("api/category")
     try{
       if (response){
         console.log(response.data)

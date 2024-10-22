@@ -9,7 +9,7 @@ const Hero = () => {
 
   const fetchHeroData = async () => {
     try {
-      const response = await api.get("hero");
+      const response = await api.get("api/hero");
       setHeroes(response.data); // Set heroes state with the fetched data
       console.log(response.data);
     } catch (error) {

@@ -27,7 +27,7 @@ export const GlobalProvider = ({ children }) => {
     try {
       if (cart_code) {
         const response = await axios.get(
-          `https://llcentric-backend.onrender.com/cart/${cart_code}`
+          `https://llcentric-backend.onrender.com/api/cart/${cart_code}`
         );
         setCartNumber(response.data[0].total_quantity);
         setItems(response.data[0].items);
@@ -48,7 +48,7 @@ export const GlobalProvider = ({ children }) => {
     try {
       if (recent_code) {
         const response = await axios.get(
-          `https://llcentric-backend.onrender.com/recent/${recent_code}`
+          `https://llcentric-backend.onrender.com/api/recent/${recent_code}`
         );
         setProducts(response.data);
         console.log(response.data);
@@ -120,7 +120,7 @@ export const GlobalProvider = ({ children }) => {
     };
 
     try {
-      const response = await api.post("cart/", payload);
+      const response = await api.post("api/cart/", payload);
       if (response.status === 200) {
         setLoading(false);
         setSuccess(true);
@@ -157,7 +157,7 @@ export const GlobalProvider = ({ children }) => {
     };
 
     try {
-      const response = await api.post("recentlyviewed/", payload);
+      const response = await api.post("api/recentlyviewed/", payload);
       if (response.status === 200) {
         setLoading(false);
         setSuccess(true);
@@ -171,7 +171,7 @@ export const GlobalProvider = ({ children }) => {
 
   const fetchAudience = async () => {
     try {
-      const response = await api.get("audience"); // Adjusted endpoint
+      const response = await api.get("api/audience"); // Adjusted endpoint
       if (response.data) {
         console.log(response.data);
         setAudience(response.data);

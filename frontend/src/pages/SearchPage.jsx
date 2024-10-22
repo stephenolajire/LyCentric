@@ -12,7 +12,7 @@ const SearchPage = () => {
 
   const fetchSearchResults = async () => {
     try {
-      const response = await api.get(`products/search/?q=${query}`);
+      const response = await api.get(`api/products/search/?q=${query}`);
       setProducts(response.data.results); 
       console.log(response.data.results)// Update state with search results
     } catch (err) {
