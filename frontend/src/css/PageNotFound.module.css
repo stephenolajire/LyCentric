@@ -1,0 +1,46 @@
+/* PageNotFound.module.css */
+.notFoundContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    background-color: #f0f0f0;
+  }
+  
+  .errorCode {
+    font-size: 6rem;
+    font-weight: bold;
+    color: #ff6b6b;
+    margin: 0;
+  }
+  
+  .errorMessage {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 1rem 0;
+    color: #333;
+  }
+  
+  .errorDescription {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 2rem;
+  }
+  
+  .homeLink {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background-color: #007bff;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .homeLink:hover {
+    background-color: #0056b3;
+  }
+  
