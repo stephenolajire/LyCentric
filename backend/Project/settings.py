@@ -30,7 +30,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://lycentric-wears.onrender.com"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -169,7 +169,7 @@ SIMPLE_JWT = {
 AUTH_USER_MODEL = 'User.CustomUser'
 
 
-FRONTEND_URL = "https://llcentric-backend.onrender.com"
+FRONTEND_URL = "https://lycentric-wears.onrender.com"
 
 # Email settings for Gmail
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
