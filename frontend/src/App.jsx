@@ -75,7 +75,7 @@ function App() {
           <Route path="/verified" element={<Verified />} />
           <Route path="/confirm_email/:uid/:token" element={<ConfirmEmail />} />
           <Route path="/verifyemail" element={<VerifyEmail />} />
-          <Route path="/resetpassword/:uid/:token" element={<ResetPassword />} />
+          <Route path="/resetpassword" element={<ResetPassword />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
