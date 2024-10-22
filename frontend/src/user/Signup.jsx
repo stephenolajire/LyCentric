@@ -46,8 +46,8 @@ const Signup = () => {
       const response = await api.post("api/signup/", formData);
       console.log(response.data)
       console.log("Signup Successful:", response.data);
-      // navigate("/message"); 
-      navigate("/login"); 
+      navigate("/message"); 
+      // navigate("/login"); 
     } catch (error) {
       console.error("Error signing up:", error.message);
       setError(error.response?.data?.message || "An error occurred");
