@@ -6,6 +6,7 @@ import { useNavigate , useParams} from "react-router-dom";
 
 const ResetPassword = () => {
   const { uid, token } = useParams();
+  console.log (uid)
 
   const navigate = useNavigate ()
 
@@ -33,7 +34,7 @@ const ResetPassword = () => {
     };
 
     try {
-      const response = await api.put(`/setpassword/${uid}/${token}/`, user);
+      const response = await api.put(`api/setpassword/${uid}/${token}/`, user);
       if (response.status === 202) {
         console.log(response.data);
         Swal.fire({
