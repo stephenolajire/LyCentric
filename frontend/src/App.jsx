@@ -70,10 +70,10 @@ function App() {
           </Route>
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/verifyemail" element={<VerifyEmail />} />
           <Route path="/message" element={<Message/>} />
           <Route path="/verified" element={<Verified />} />
           <Route path="/confirm_email/:uid/:token" element={<ConfirmEmail />} />
+          <Route path="/verifyemail" element={<VerifyEmail />} />
           <Route path="/resetpassword/:uid/:token" element={<ResetPassword />} />
         </Routes>
       </BrowserRouter>

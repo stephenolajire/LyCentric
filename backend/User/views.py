@@ -106,7 +106,7 @@ class VerifyEmailView(APIView):
             # Send the email
             send_mail(
                 subject="Password Reset Request",
-                message=f"Hi {user.first_name} {user.last_name},\n\nClick the link below to reset your password:\n{reset_url}",
+                message=f"Hi {user.first_name} {user.last_name},\n\nClick the link below to reset your password:\n\n{reset_url}",
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[user.email],
                 fail_silently=False,
