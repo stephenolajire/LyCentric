@@ -15,7 +15,7 @@ const ProductDetail = () => {
   const fetchProductDetails = async () => {
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8000/product/${productId}`
+        `https://lycentric-wears.onrender.com/product/${productId}`
       );
       if (response.data.product) {
         setProduct(response.data.product);
