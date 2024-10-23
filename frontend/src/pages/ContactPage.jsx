@@ -10,7 +10,7 @@ const ContactPage = () => {
       </div>
       <div className={style.contactInfoDiv}>
         <div className={style.info}>
-          Please Fill in the information below
+          <p className={style.text}>Please fill in the information below</p>
         </div>
         <div className={style.ContactInfo}>
           <div className={style.social}>
