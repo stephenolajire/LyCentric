@@ -18,7 +18,7 @@ const Cart = ({ item }) => {
           item_id: item.id, // Corrected the typo from itemd_id to item_id
         };
 
-        const response = await api.put(
+        const response = await api.patch(
           "api/cart/increment/",
           payload
         );
@@ -62,7 +62,7 @@ const Cart = ({ item }) => {
           item_id: item.id, // Corrected the typo from itemd_id to item_id
         };
 
-        const response = await api.put(
+        const response = await api.patch(
           "api/cart/decrement/",
           payload
         );
