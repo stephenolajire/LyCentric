@@ -23,6 +23,7 @@
     color: #6a0dad;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .text {
