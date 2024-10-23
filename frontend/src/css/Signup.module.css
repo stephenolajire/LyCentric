@@ -23,7 +23,7 @@
 }
 
 .lycen{
-  color: purple;
+  color: #6a0dad;
   font-size: 3rem;
   font-weight: 900;
 }
@@ -66,7 +66,7 @@
 }
 
 .formGroup input:focus, .formGroup textarea:focus, .formGroup select:focus {
-  border-color: purple; /* Purple color on focus */
+  border-color: #6a0dad; /* Purple color on focus */
 }
 
 textarea {
@@ -78,7 +78,7 @@ textarea {
 }
 
 .submitButton {
-  background-color: purple;
+  background-color: #6a0dad;
   color: #fff;
   border: none;
   height: 4rem;
@@ -94,7 +94,7 @@ textarea {
 }
 
 
-@media (max-width:767px){
+@media (max-width: 767px){
   .signupContainer{
     width: 90%;
     height: auto;
