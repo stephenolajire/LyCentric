@@ -46,3 +46,9 @@
     gap: 2rem;
     align-items: center;
 }
+
+@media (max-width: 575px){
+    .info {
+        font-size: 2.5rem;
+    }
+}
