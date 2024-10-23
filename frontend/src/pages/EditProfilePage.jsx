@@ -3,10 +3,11 @@ import styles from "../css/EditProfilePage.module.css";
 import { statesAndLgas } from "../constant/constant";
 import api from "../constant/api";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const EditProfilePage = () => {
   const [userProfile, setUserProfile] = useState(null);
+  const navigate = useNavigate()
 
   const Profile = async () => {
     try {
@@ -79,7 +80,8 @@ const EditProfilePage = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        Profile(); // Optionally refresh profile data
+        Profile(); 
+        navigate ("/profile")
       } else {
         Swal.fire({
           icon: "error",

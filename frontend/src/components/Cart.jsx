@@ -19,7 +19,7 @@ const Cart = ({ item }) => {
         };
 
         const response = await api.patch(
-          "api/cart/increment/",
+          "api/cart/increment",
           payload
         );
 
@@ -63,7 +63,7 @@ const Cart = ({ item }) => {
         };
 
         const response = await api.patch(
-          "api/cart/decrement/",
+          "api/cart/decrement",
           payload
         );
 
