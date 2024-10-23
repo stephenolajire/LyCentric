@@ -1,8 +1,11 @@
 import axios from 'axios';
 import {jwtDecode} from 'jwt-decode';
 
+const link = "http://127.0.0.1:8000/"
+const render = "https://llcentric-backend.onrender.com/
+
 const api = axios.create({
-  baseURL: 'http://127.0.0.1:8000/',
+  baseURL: render,
 });
 
 api.interceptors.request.use(
