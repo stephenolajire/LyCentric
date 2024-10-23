@@ -5,7 +5,7 @@ const ContactHero = () => {
   return (
     <section className={styles.hero}>
       <div className={styles.heroContent}>
-        <h1 className={styles.header}>Contact Us</h1>
+        {/* <h1 className={styles.header}>Contact Us</h1> */}
         <p className={styles.text}>
           We would love to hear from you! Whether you have a question about our products,
           need assistance with your order, or just want to share feedback, our team is 
