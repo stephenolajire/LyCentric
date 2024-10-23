@@ -5,17 +5,20 @@ import axios from "axios";
 import styles from "../css/Category.module.css";
 import api from "../constant/api";
 import { GlobalContext } from "../context/GlobalContext";
+import Spinner from "../components/Spinner";
 
 const Audience = () => {
   const { categoryId, audienceId } = useParams(); // Capture both params
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const { audience, fetchAudience } = useContext(GlobalContext);
+  const { audience, fetchAudience,link1, link2 } = useContext(GlobalContext);
   const [pagination, setPagination] = useState({ next: null, previous: null });
 
   const fetchProducts = async (
-    url = `https://llcentric-backend.onrender.com/api/products/${categoryId}/${audienceId}`
+    url = `${link2}/api/products/${categoryId}/${audienceId}`
   ) => {
+    setLoading(true); // Set loading to true before starting the request
     try {
       const response = await axios.get(url);
       if (response) {
@@ -29,8 +32,11 @@ const Audience = () => {
       }
     } catch (err) {
       console.error("Error fetching product data:", err.message);
+    } finally {
+      setLoading(false); // Set loading to false after the request is done
     }
   };
+  
 
   useEffect(() => {
     fetchAudience();
@@ -57,14 +63,21 @@ const Audience = () => {
           ))}
         </div>
       </div>
+
       <div>
-        {products.length === 0 ? (
-          <div className={styles.item}>No items are available</div>
+        {loading ? (
+          <Spinner />
         ) : (
-          <div className={styles.grid}>
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+          <div>
+            {products.length === 0 ? (
+              <div className={styles.item}>No items are available</div>
+            ) : (
+              <div className={styles.grid}>
+                {products.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>

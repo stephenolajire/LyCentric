@@ -20,6 +20,7 @@ import Message from "./user/Message";
 import Verified from "./user/Verified";
 import ConfirmEmail from "./user/ConfirmEmail";
 import PageNotFound from "./pages/PageNotFound";
+import ContactPage from "./pages/ContactPage";
 
 function App() {
   return (
@@ -68,6 +69,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route path="/contact" element={<ContactPage/>}/>
           </Route>
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />

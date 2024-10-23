@@ -19,15 +19,16 @@ export const GlobalProvider = ({ children }) => {
   const [userProfile, setUserProfile] = useState({});
   const [products, setProducts] = useState([]);
 
-  // const navigate = useNavigate ()
+  const link1 = "https://llcentric-backend.onrender.com"
+  const link2 = "http://127.0.0.1:8000"
 
   const fetchData = async () => {
     const cart_code = localStorage.getItem("cart_code");
 
     try {
       if (cart_code) {
-        const response = await axios.get(
-          `https://llcentric-backend.onrender.com/api/cart/${cart_code}`
+        const response = await api.get(
+          `api/cart/${cart_code}`
         );
         setCartNumber(response.data[0].total_quantity);
         setItems(response.data[0].items);
@@ -47,8 +48,8 @@ export const GlobalProvider = ({ children }) => {
 
     try {
       if (recent_code) {
-        const response = await axios.get(
-          `https://llcentric-backend.onrender.com/api/recent/${recent_code}`
+        const response = await api.get(
+          `api/recent/${recent_code}`
         );
         setProducts(response.data);
         console.log(response.data);
@@ -214,6 +215,8 @@ export const GlobalProvider = ({ children }) => {
         userProfile,
         addToRecentlyViewed,
         products,
+        link1,
+        link2,
       }}
     >
       {children}

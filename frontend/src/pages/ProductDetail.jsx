@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Carousel } from "react-responsive-carousel";
@@ -6,16 +6,19 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // Carousel styl
 import styles from "../css/ProductDetail.module.css";
 import ProductCard from "../components/Card";
 import AddToCartButton from "../components/AddToCartButton";
+import { GlobalContext } from "../context/GlobalContext";
+import Spinner from "../components/Spinner";
 
 const ProductDetail = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [products, setProducts] = useState([]);
+  const {link1, link2} = useContext(GlobalContext)
 
   const fetchProductDetails = async () => {
     try {
       const response = await axios.get(
-        `https://llcentric-backend.onrender.com/api/product/${productId}`
+        `${link2}/api/product/${productId}`
       );
       if (response.data.product) {
         setProduct(response.data.product);
@@ -35,8 +38,10 @@ const ProductDetail = () => {
   }, [productId]);
 
   if (!product) {
-    return <div>Loading...</div>;
+    return <Spinner/>
   }
+
+
 
   return (
     <section>

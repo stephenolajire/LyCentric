@@ -6,9 +6,10 @@ import styles from "../css/Category.module.css";
 import api from "../constant/api";
 import { GlobalContext } from "../context/GlobalContext";
 import NavCategory from "../components/NavCategory";
+import Spinner from "../components/Spinner";
 
 const Category = () => {
-  const { audience, fetchAudience } = useContext(GlobalContext);
+  const { audience, fetchAudience, link1, link2 } = useContext(GlobalContext);
   const { categoryId } = useParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -35,8 +36,9 @@ const Category = () => {
   }, []);
 
   const fetchData = async (
-    url = `https://llcentric-backend.onrender.com/category/${categoryId}`
+    url = `${link2}/api/category/${categoryId}`
   ) => {
+    setLoading(true)
     try {
       const response = await axios.get(url);
       if (response) {
@@ -51,6 +53,9 @@ const Category = () => {
     } catch (err) {
       console.error("Error fetching product data:", err.message);
     }
+    finally {
+      setLoading(false)
+    }
   };
 
   useEffect(() => {
@@ -61,8 +66,11 @@ const Category = () => {
     fetchAudience();
   }, []);
 
+  if (loading) {
+    return <Spinner/>
+  }
   return (
-    <section>
+    <section className={styles.section}>
       <div className={styles.catList}>
         {category.map((cat) => (
           <NavCategory category={cat} key={cat.id} />

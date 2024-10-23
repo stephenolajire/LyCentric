@@ -9,7 +9,7 @@
   overflow-x: hidden;
 }
 
-Section{
+.Section{
   padding: 5rem;
   width: 100%;
   /* background-color: rgba(128, 0, 128, 0.105); */
@@ -95,8 +95,8 @@ Section{
     gap: 2rem;
   }
 
-  section{
-    padding: 20px;
+  .section{
+    padding: 2rem;
   }
 
   .catList {
@@ -117,7 +117,7 @@ Section{
     gap: 0rem;
     justify-content: space-between;
     width: 90%;
-    padding: 0px 5px;
+    padding: 0rem 1.2rem;
   }
 
   .buttonCat button{
@@ -143,11 +143,56 @@ Section{
     grid-template-columns: 1fr 1fr 1fr;
   }
 
-  section{
+  .section{
     padding: 2rem;
+  }
+
+  .buttonCat{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: space-between;
+    width: 90%;
   }
 
   .catList {
     display: none;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .catList {
+    display: flex;
+  }
+
+  .section {
+    padding: 5rem 2rem;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  .catList {
+    display: flex;
+  }
+}
+
+@media (min-width: 1201px) and (max-width: 1368px) {
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+
+  .catList {
+    display: flex;
   }
 }

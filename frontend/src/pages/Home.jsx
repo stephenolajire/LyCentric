@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import Hero from '../components/Hero';
 import ProductCard from '../components/Card';
 import styles from '../css/Home.module.css';
 import CategoryList from '../components/CategoryList';
 import api from '../constant/api'
+import { GlobalContext } from '../context/GlobalContext';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [pagination, setPagination] = useState({ next: null, previous: null });
   const [category, setCategory] = useState([])
+  const {link1, link2} = useContext(GlobalContext)
 
   const fetchCategory = async () => {
     const response = await api.get("api/category")
@@ -29,7 +31,7 @@ const Home = () => {
     fetchCategory()
   }, [])
 
-  const fetchData = async (url = 'https://llcentric-backend.onrender.com/api/allproduct') => {
+  const fetchData = async (url = `${link2}/api/allproduct`) => {
     try {
       const response = await axios.get(url);
       if (response) {

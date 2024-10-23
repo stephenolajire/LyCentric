@@ -1,0 +1,35 @@
+.hero {
+    background: linear-gradient(90deg, #6a0dad1e, #ffd9001e, #6a0dad1e, #ffd9001e); /* Purple to Gold */
+    padding: 10rem 2rem;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Box-shadow */
+  }
+  
+  .heroContent {
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .header {
+    font-size: 6rem;
+    /* font-weight: lighter; */
+    color: #6a0dad;
+  }
+  
+  .text, .text2 {
+    font-size: 1.6rem;
+    line-height: 3rem;
+    /* font-weight: bold; */
+    color: #6a0dad;
+  }
+
+  @media (min-width: 250px) and (max-width: 767px) {
+    .hero {
+      padding: 5rem 2rem;
+    }
+
+    .text2 {
+      display: none;
+    }
+  }
+  

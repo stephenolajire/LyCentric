@@ -15,7 +15,7 @@ body{
 .person{
   width: 4rem;
   height: 4rem;
-  color: purple;
+  color:#6a0dad;
 }
 
 .personCont{
@@ -50,7 +50,7 @@ body{
 
 .search {
   width: 70rem;
-  border: 2px solid rgba(128, 0, 128);
+  border: 2px solid #6a0dad;
   height: 4rem;
   border-radius: 8px;
   font-size: 1.4rem;
@@ -74,7 +74,7 @@ body{
   height: 4rem;
   text-align: center;
   color: #f3e8ff;
-  background-color: rgba(128, 0, 128, 0.900);
+  background-color: #6a0dad;
   border-radius: 2rem;
   font-size: 1.6rem;
   transition: transform 1s ease;
@@ -85,7 +85,7 @@ body{
 }
 
 .signup {
-  color: rgba(128, 0, 128, 0.900);
+  color: #6a0dad;
   font-size: 1.6rem;
   font-weight: bold;
   position: relative;
@@ -97,7 +97,7 @@ body{
   display: block;
   height: 2px;
   width: 0%;
-  background-color: rgba(128, 0, 128, 0.900);
+  background-color: #6a0dad;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -115,7 +115,7 @@ body{
   justify-content: space-between;
   align-items: center;
   height: 8rem;
-  background-color: rgba(128, 0, 128);
+  background-color: #6a0dad;
   padding-right: 6rem;
 }
 
@@ -158,7 +158,7 @@ body{
   top: 18.2rem;
   z-index: 10;
   width: 15rem;
-  background-color: rgba(128, 0, 128);
+  background-color: #6a0dad;
   height: auto;
   padding: 2rem;
   animation: slideDown 0.5s ease-in-out;
@@ -200,7 +200,7 @@ body{
 .quantity{
   border: 1px solid white;
   background-color: white;
-  color: purple;
+  color: #6a0dad;
   font-size: 1.2rem;
   font-weight: 900;
   width: 2rem;
@@ -216,7 +216,7 @@ body{
 }
 
 .phoneSearch{
-  background-color: purple;
+  background-color: #6a0dad;
   width: 100%;
   display: none;
 }
@@ -255,7 +255,7 @@ body{
   gap: 2rem;
   padding: 1rem 2rem;
   overflow-x: auto;
-  border: 2px solid purple;
+  border: 2px solid #6a0dad;
   display: none;
 
 }
@@ -317,7 +317,7 @@ body{
     height: auto;
     top: 8rem;
     background-color: #fff;
-    color: rgba(128, 0, 128, 0.500);
+    color: #6a0dad;
     padding: 2rem;
     padding-right: 0rem;
     left: 0;
@@ -394,3 +394,42 @@ body{
     display: flex;
   }
 }
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .topNav {
+    width: 100%;
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+  .search {
+    width: 40rem;
+  }
+
+}
+
+@media (min-width: 992px) and (max-width: 1024px) {
+  .topNav {
+    width: 100%;
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+  .search {
+    width: 50rem;
+  }
+}
+
+
+@media (min-width: 1025px) and (max-width: 1200px) {
+  .topNav {
+    width: 100%;
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+  .search {
+    width: 60rem;
+  }
+}
+
+
+
+
