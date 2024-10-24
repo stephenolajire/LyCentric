@@ -1,0 +1,83 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: auto;
+  }
+  
+  form div {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+  }
+  
+  .input {
+    width: 100%;
+    height: 4rem;
+    padding-left: 1rem;
+    outline: none;
+    font-size: 1.6rem;
+    color: #6a0dad;
+    border: 1px solid #6a0dad;
+    animation: slideIn 2s ease;
+  }
+  
+  .textarea {
+    border: 1px solid #6a0dad;
+    padding-left: 1rem;
+    padding-top: 1.5rem;
+    font-size: 1.6rem;
+    animation: slideIn 2s ease;
+    color: #6a0dad;
+    outline: #6a0dad;
+  }
+  
+  .btndiv {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .btndiv button {
+    width: 15rem;
+    height: 4rem;
+    text-align: center;
+    background-color: #6a0dad;
+    border: 1px solid #6a0dad;
+    color: #fff;
+    animation: slideIn 2s ease;
+    font-size: 1.6rem;
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateX(50%);
+    }
+  
+  
+    to {
+      transform: translateX(0%);
+    }
+  }
+  
+  
+  @media (min-width: 250px) and (max-width: 767px) {
+    form div {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+  
+    .textarea {
+      margin-top: 2rem;
+    }
+  }
+  

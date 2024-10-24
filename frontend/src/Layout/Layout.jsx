@@ -4,6 +4,7 @@ import Footer from '../components/Footer'
 import { Outlet } from 'react-router-dom'
 import axios from 'axios'
 import api from '../constant/api'
+import ContactLine from '../components/ContactLine'
 
 const Layout = () => {
 
@@ -30,6 +31,7 @@ const Layout = () => {
   return (
     <div>
       <NavBar category={category}/>
+      <ContactLine/>
       <Outlet/>
       <Footer/>
     </div>

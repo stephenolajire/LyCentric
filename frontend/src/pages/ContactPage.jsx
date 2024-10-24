@@ -1,6 +1,8 @@
 import React from 'react'
 import style from "../css/ContactPage.module.css"
 import ContactHero from '../components/ContactHero'
+import Form from '../components/Form'
+import Social from '../components/Social'
 
 const ContactPage = () => {
   return (
@@ -12,21 +14,10 @@ const ContactPage = () => {
         <div className={style.info}>
           <p className={style.text}>Please fill in the information below</p>
         </div>
-        <div className={style.ContactInfo}>
-          <div className={style.social}>
-              <div className={style.socialFlex}>
-
-              </div>
-          </div>
-          <div className={style.form}>
-              <form className={style.form}>
-                  <div className={style.formFlex}>
-
-                  </div>
-                  <textarea rows={15}></textarea>
-              </form>
-          </div>
-        </div>
+      </div>
+      <div className={style.contactInfo}>
+        <Social/>
+        <Form/>
       </div>
     </main>
   )
