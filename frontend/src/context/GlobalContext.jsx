@@ -19,8 +19,8 @@ export const GlobalProvider = ({ children }) => {
   const [userProfile, setUserProfile] = useState({});
   const [products, setProducts] = useState([]);
 
-  const link1 = "https://llcentric-backend.onrender.com"
-  const link2 = "http://127.0.0.1:8000"
+  const link2 = "https://llcentric-backend.onrender.com"
+  const link1 = "http://127.0.0.1:8000"
 
   const fetchData = async () => {
     const cart_code = localStorage.getItem("cart_code");
