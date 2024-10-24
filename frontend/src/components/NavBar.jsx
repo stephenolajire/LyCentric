@@ -106,7 +106,7 @@ const NavBar = ({ category }) => {
               <Link to="/contact">Contact Us</Link>
             </li>
             <li className={styles.navItem}>
-              <Link to="/help">Help</Link>
+              <Link to="/faqs">FAQs</Link>
             </li>
             {isAuthenticated ? (
               <>

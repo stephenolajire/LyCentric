@@ -21,6 +21,7 @@ import Verified from "./user/Verified";
 import ConfirmEmail from "./user/ConfirmEmail";
 import PageNotFound from "./pages/PageNotFound";
 import ContactPage from "./pages/ContactPage";
+import ChatBoxPage from "./pages/ChatBoxPage";
 
 function App() {
   return (
@@ -79,6 +80,14 @@ function App() {
           <Route path="/verifyemail" element={<VerifyEmail />} />
           <Route path="/resetpassword/:uid/:token" element={<ResetPassword />} />
           <Route path="*" element={<PageNotFound />} />
+          <Route
+              path="/ai"
+              element={
+                <ProtectedRoute>
+                  <ChatBoxPage/>
+                </ProtectedRoute>
+              }
+            />
         </Routes>
       </BrowserRouter>
     </GlobalProvider>

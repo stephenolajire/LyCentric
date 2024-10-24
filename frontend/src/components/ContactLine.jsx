@@ -1,18 +1,16 @@
 import React from 'react'
-import { FaWhatsapp } from "react-icons/fa";
-import { SlPhone } from "react-icons/sl";
+import { FaRegMessage } from "react-icons/fa6";
 import style from "../css/ContactLine.module.css"
+import { Link } from 'react-router-dom';
 
 const ContactLine = () => {
   return (
     <div className={style.container}>
       <div className={style.divIcon}>
-        <a href="tel:+2348025056939">
-            <SlPhone className={style.icon}/>
-        </a>
-        <a href='www.wa.me'>
-            <FaWhatsapp className={style.icon}/>
-        </a>
+        <Link to="/ai">
+            <FaRegMessage className={style.icon}/>
+        </Link>
+        {/* <p>Chat us</p> */}
       </div>
     </div>
   )

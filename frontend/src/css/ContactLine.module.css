@@ -1,19 +1,48 @@
 .container {
     height: 100vh;
     position: fixed;
-    bottom: -85%;
+    bottom: -90%;
     right: 0%;
 }
 
 .icon {
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
     /* background-color: #6a0dad; */
-    color: #6a0dad;
+    color: #fff;
 }
 
 .divIcon {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
+    background-color: #6a0dad;
+    height: 6rem;
+    width: 6rem;
+    border-radius: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.divIcon p {
+    color: #fff;
+    font-size: 1.4rem;
+    text-transform: capitalize;
+}
+
+@media (max-width: 539px) {
+    .divIcon {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 0.4rem;
+    }
+
+    .container {
+        right: 3%;
+    }
+
+    .icon {
+        width: 2rem;
+        height: 2rem;
+    }
 }
