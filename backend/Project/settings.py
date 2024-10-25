@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'User',
     'cloudinary_storage',
     'cloudinary',
-    'ChatBox',
 ]
 
 MIDDLEWARE = [
