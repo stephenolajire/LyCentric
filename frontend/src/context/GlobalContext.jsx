@@ -19,17 +19,15 @@ export const GlobalProvider = ({ children }) => {
   const [userProfile, setUserProfile] = useState({});
   const [products, setProducts] = useState([]);
 
-  const link2 = "https://llcentric-backend.onrender.com"
-  const link1 = "http://127.0.0.1:8000"
+  const link2 = "https://llcentric-backend.onrender.com";
+  const link1 = "http://127.0.0.1:8000";
 
   const fetchData = async () => {
     const cart_code = localStorage.getItem("cart_code");
 
     try {
       if (cart_code) {
-        const response = await api.get(
-          `api/cart/${cart_code}`
-        );
+        const response = await api.get(`api/cart/${cart_code}`);
         setCartNumber(response.data[0].total_quantity);
         setItems(response.data[0].items);
         setTotal(response.data[0]);
@@ -48,17 +46,14 @@ export const GlobalProvider = ({ children }) => {
 
     try {
       if (recent_code) {
-        const response = await api.get(
-          `api/recent/${recent_code}`
-        );
+        const response = await api.get(`api/recent/${recent_code}`);
         setProducts(response.data);
         console.log(response.data);
-      } 
+      }
     } catch (err) {
       console.log(err);
     }
   };
-
 
   const auth = async () => {
     const token = localStorage.getItem("access");
@@ -100,9 +95,9 @@ export const GlobalProvider = ({ children }) => {
   };
 
   const generateRecentlyViewedCode = () => {
-    let recentCode = localStorage.getItem( "recent_code");
+    let recentCode = localStorage.getItem("recent_code");
     if (!recentCode) {
-     recentCode =  "recent_" + Math.random().toString(36).substr(2, 9);
+      recentCode = "recent_" + Math.random().toString(36).substr(2, 9);
       localStorage.setItem("recent_code", recentCode);
     }
     return recentCode;
@@ -195,7 +190,6 @@ export const GlobalProvider = ({ children }) => {
       console.log(error);
     }
   };
-
 
   return (
     <GlobalContext.Provider

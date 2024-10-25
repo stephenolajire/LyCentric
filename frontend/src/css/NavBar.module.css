@@ -1,31 +1,30 @@
-*{
+* {
   margin: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
-html{
+html {
   font-size: 62.5%;
 }
 
-body{
+body {
   font-family: Roboto;
 }
 
-.person{
+.person {
   width: 4rem;
   height: 4rem;
-  color:#6a0dad;
+  color: #6a0dad;
 }
 
-.personCont{
+.personCont {
   display: flex;
   flex-direction: row;
   gap: 1.5rem;
 }
 
-
-.topNav{
+.topNav {
   width: 100vw;
   display: flex;
   flex-direction: row;
@@ -37,12 +36,14 @@ body{
   padding: 1rem 6rem;
 }
 
-.imgContainer, .navLogo {
+.imgContainer,
+.navLogo {
   width: 8rem;
   height: 8rem;
 }
 
-.imgContainer > a > .logo, .navLogo > img {
+.imgContainer > a > .logo,
+.navLogo > img {
   width: 100%;
   height: 100%;
   border-radius: 4rem;
@@ -55,21 +56,22 @@ body{
   border-radius: 8px;
   font-size: 1.4rem;
   padding-left: 1rem;
-  color: rgba(128, 128, 128, 0.600);
+  color: rgba(128, 128, 128, 0.6);
 }
 
-.search:focus{
+.search:focus {
   outline: none;
 }
 
-.buttonDiv, .contflex{
+.buttonDiv,
+.contflex {
   display: flex;
   flex-direction: row;
   gap: 2rem;
   justify-content: center;
 }
 
-.loginBtn{
+.loginBtn {
   width: 12rem;
   height: 4rem;
   text-align: center;
@@ -80,7 +82,7 @@ body{
   transition: transform 1s ease;
 }
 
-.loginBtn:hover{
+.loginBtn:hover {
   transform: scale(1.1);
 }
 
@@ -119,7 +121,7 @@ body{
   padding-right: 6rem;
 }
 
-.flexx{
+.flexx {
   width: 100vw;
   display: flex;
   flex-direction: row;
@@ -128,7 +130,7 @@ body{
   /* background-color: rgba(128, 0, 128, 0.500); */
 }
 
-.logoNav{
+.logoNav {
   display: none;
 }
 
@@ -141,13 +143,13 @@ body{
   /* justify-content: flex-start; */
 }
 
-.dropdown{
+.dropdown {
   display: flex;
   flex-direction: row;
   gap: 0.4rem;
 }
 
-.arrow{
+.arrow {
   width: 2rem;
   height: 2rem;
   margin-top: 0.2rem;
@@ -164,32 +166,33 @@ body{
   animation: slideDown 0.5s ease-in-out;
 }
 
-.dropdownItem{
+.dropdownItem {
   margin-bottom: 1rem;
 }
 
-.dropdownItem:nth-last-child(){
+.dropdownItem:nth-last-child() {
   margin-bottom: 0px;
 }
 
-.close, .hamburgerIcon{
+.close,
+.hamburgerIcon {
   width: 2.5rem;
   height: 2.5rem;
   color: #f3e8ff;
   display: none;
 }
 
-.navLink{
+.navLink {
   display: none;
 }
 
-.cart{
+.cart {
   width: 2.5rem;
   height: 2.5rem;
   color: #fff;
 }
 
-.cartNumber{
+.cartNumber {
   position: relative;
   height: 8rem;
   display: flex;
@@ -197,7 +200,7 @@ body{
   justify-content: center;
   align-items: center;
 }
-.quantity{
+.quantity {
   border: 1px solid white;
   background-color: white;
   color: #6a0dad;
@@ -212,16 +215,15 @@ body{
   position: absolute;
   left: 1.2rem;
   top: 2.3rem;
-
 }
 
-.phoneSearch{
+.phoneSearch {
   background-color: #6a0dad;
   width: 100%;
   display: none;
 }
 
-.formInput{
+.formInput {
   width: 90%;
   margin: auto;
   height: 5rem;
@@ -230,7 +232,7 @@ body{
   justify-content: center;
 }
 
-.searchPhone{
+.searchPhone {
   width: 100%;
   height: 4rem;
   padding-left: 1rem;
@@ -238,7 +240,6 @@ body{
   border: none;
   outline: none;
 }
-
 
 @keyframes slideDown {
   from {
@@ -257,13 +258,9 @@ body{
   overflow-x: auto;
   border: 2px solid #6a0dad;
   display: none;
-
 }
 
-
-
-@media only screen and (max-width:575.99px){
-
+@media only screen and (max-width: 575.99px) {
   @keyframes slideIn {
     from {
       transform: translateX(-100%);
@@ -273,8 +270,6 @@ body{
     }
   }
 
-
-  
   @keyframes slideOut {
     from {
       transform: translateX(0);
@@ -284,33 +279,33 @@ body{
     }
   }
 
-  .topNav{
+  .topNav {
     display: none;
   }
 
-  .catList{
+  .catList {
     display: flex;
   }
 
-  .navigation{
+  .navigation {
     display: flex;
     padding: 20px;
     justify-content: space-between;
   }
 
-  .navLogo{
+  .navLogo {
     width: 4rem;
     height: 4rem;
   }
 
-  .logoNav{
+  .logoNav {
     display: block;
     height: 4rem;
     width: 4rem;
     border-radius: 2rem;
   }
 
-  .menu{
+  .menu {
     position: absolute;
     display: block;
     width: 100vw;
@@ -325,11 +320,11 @@ body{
     /* display: none; */
   }
 
-  .menu li{
+  .menu li {
     margin-bottom: 1rem;
   }
 
-  .dropdownMenu{
+  .dropdownMenu {
     position: relative;
     display: block;
     top: 0;
@@ -339,7 +334,8 @@ body{
     z-index: 40;
   }
 
-  .close, .hamburgerIcon{
+  .close,
+  .hamburgerIcon {
     display: block;
     margin-left: 3rem;
     display: flex;
@@ -347,37 +343,36 @@ body{
     margin-top: 2.5rem;
   }
 
-  .navLink{
+  .navLink {
     display: block;
   }
 
-  .menuOpen{
+  .menuOpen {
     display: block;
     animation: slideIn 0.5s ease-in;
   }
-  
-  .menuClosed{
+
+  .menuClosed {
     display: none;
     animation: slideOut 0.5s ease-out;
   }
 
-  .cartIcon{
+  .cartIcon {
     display: flex;
     flex-direction: row;
     justify-content: center;
     height: 8rem;
-  } 
+  }
 
-  .icon{
+  .icon {
     display: flex;
     justify-content: center;
     height: 8rem;
   }
 
-  .phoneSearch{
+  .phoneSearch {
     display: block;
   }
-
 }
 
 @media (min-width: 576px) and (max-width: 767px) {
@@ -404,7 +399,6 @@ body{
   .search {
     width: 40rem;
   }
-
 }
 
 @media (min-width: 992px) and (max-width: 1024px) {
@@ -418,7 +412,6 @@ body{
   }
 }
 
-
 @media (min-width: 1025px) and (max-width: 1200px) {
   .topNav {
     width: 100%;
@@ -429,7 +422,3 @@ body{
     width: 60rem;
   }
 }
-
-
-
-
