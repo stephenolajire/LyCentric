@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import ProductCard from "../components/Card";
-import { Link, useParams } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import axios from "axios";
 import styles from "../css/Category.module.css";
 import api from "../constant/api";
@@ -82,12 +82,15 @@ const Category = () => {
         </Link>
         <div className={styles.buttonCat}>
           {audience.map((item) => (
-            <Link
+            <NavLink
               key={item.id}
               to={`/category/${categoryId}/audience/${item.id}`}
+              className={({ isActive }) =>
+                isActive ? styles.active : styles.inactive
+              }
             >
               <button key={item.id}>{item.name}</button>
-            </Link>
+            </NavLink>
           ))}
         </div>
       </div>

@@ -6,6 +6,7 @@ import styles from "../css/Category.module.css";
 import api from "../constant/api";
 import { GlobalContext } from "../context/GlobalContext";
 import Spinner from "../components/Spinner";
+import { NavLink } from "react-router-dom";
 
 const Audience = () => {
   const { categoryId, audienceId } = useParams(); // Capture both params
@@ -54,12 +55,15 @@ const Audience = () => {
         </Link>
         <div className={styles.buttonCat}>
           {audience.map((item) => (
-            <Link
+            <NavLink
               key={item.id}
               to={`/category/${categoryId}/audience/${item.id}`}
+              className={({ isActive }) =>
+                isActive ? styles.active : styles.inactive
+              }
             >
               <button key={item.id}>{item.name}</button>
-            </Link>
+            </NavLink>
           ))}
         </div>
       </div>

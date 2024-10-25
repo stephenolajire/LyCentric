@@ -52,16 +52,23 @@
   font-size: 1.6rem;
 }
 
-.buttonCat button {
+.inactive, .active {
   width: 10rem;
   height: 3.2rem;
-  border: 1px solid rgba(128, 0, 128, 0.9);
+  border: 1px solid #6a0dad80;
   border-radius: 1.6rem;
-  background-color: rgba(128, 0, 128, 0.9);
+  background-color: #6a0dad80;
   color: white;
   font-size: 1.2rem;
   font-family: Roboto;
-  opacity: 0.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.active {
+  border: 1px solid #6a0dad;
+  background-color: #6a0dad
 }
 
 
@@ -117,15 +124,20 @@
     gap: 0rem;
     justify-content: space-between;
     width: 90%;
-    padding: 0rem 1.2rem;
+    /* padding: 0rem 1.2rem; */
+    padding-left: 3rem;
   }
 
-  .buttonCat button{
+  .inactive, .active{
     height: 0rem;
     width: 0rem;
-    color: blue;
     font-weight: 900;
-    opacity: 0.5;
+    color: #6a0dad80;
+    text-align: center;
+  }
+
+  .active {
+    color: #6a0dad;
   }
 
   .buttonCat button:hover{
