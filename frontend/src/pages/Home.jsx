@@ -6,14 +6,17 @@ import styles from '../css/Home.module.css';
 import CategoryList from '../components/CategoryList';
 import api from '../constant/api'
 import { GlobalContext } from '../context/GlobalContext';
+import Spinner from '../components/Spinner'
 
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [pagination, setPagination] = useState({ next: null, previous: null });
   const [category, setCategory] = useState([])
   const {link1, link2} = useContext(GlobalContext)
+  const [loading, setLoading] = useState (true)
 
   const fetchCategory = async () => {
+    setLoading (true)
     const response = await api.get("api/category")
     try{
       if (response){
@@ -24,6 +27,8 @@ const Home = () => {
       }
     }catch(err){
       console.log(err.message)
+    }finally {
+      setLoading(false)
     }
   }
 
@@ -51,6 +56,11 @@ const Home = () => {
   useEffect(() => {
     fetchData();  // Fetch initial data on component mount
   }, []);
+
+
+  if (loading) {
+    return <Spinner/>
+  }
 
   return (
     <main>

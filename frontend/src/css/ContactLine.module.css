@@ -30,7 +30,7 @@
     text-transform: capitalize;
 }
 
-@media (max-width: 539px) {
+@media (min-width:250px) and (max-width: 576px) {
     .divIcon {
         width: 4rem;
         height: 4rem;
@@ -39,6 +39,7 @@
 
     .container {
         right: 3%;
+        /* top: -95%; */
     }
 
     .icon {

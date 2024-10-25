@@ -61,10 +61,10 @@ const Signup = () => {
     <div className={styles.outer}>
       <div className={styles.signupContainer}>
         <form onSubmit={handleSubmit} className={styles.signupForm}>
-          <h3 className="welcome">
-            Welcome to <span className="lycen">Lycentric</span> Home of Wears
+          <h3 className={styles.welcome}>
+            Welcome to <span className={styles.lycen}>Lycentric</span> Home of Wears
           </h3>
-          <p className="detail">Please provide all the information correctly</p>
+          <p className={styles.detail}>Please provide all the information correctly</p>
 
           {error && <p style={{color:"red", fontSize:"1.6rem", marginBottom:"1rem"}}>{error}</p>}
 
@@ -203,7 +203,7 @@ const Signup = () => {
             </button>
 
           <div>
-            <p className="signupText">
+            <p className={styles.signupText}>
               Already have an account ? Please click{" "}
               <Link to="/login">
                 <span className="link">here</span>

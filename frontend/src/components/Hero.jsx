@@ -2,18 +2,23 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "../css/Hero.module.css";
 import api from "../constant/api";
+import Spinner from "./Spinner";
 
 const Hero = () => {
   const [heroes, setHeroes] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [loading, setLoading] = useState (true)
 
   const fetchHeroData = async () => {
+    setLoading (true)
     try {
       const response = await api.get("api/hero");
       setHeroes(response.data); // Set heroes state with the fetched data
       console.log(response.data);
     } catch (error) {
       console.error("Error fetching hero data:", error);
+    }finally {
+      setLoading (false)
     }
   };
 
@@ -30,6 +35,10 @@ const Hero = () => {
 
     return () => clearInterval(slideInterval);
   }, [heroes.length]);
+
+  if (loading) {
+    return <Spinner/>
+  }
 
   return (
     <div className={styles.heroContainer}>

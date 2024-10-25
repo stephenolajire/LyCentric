@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import "../css/Login.css";
+import style from "../css/Login.module.css";
 import { Link } from "react-router-dom";
 import api from "../constant/api";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -46,16 +46,16 @@ const Login = () => {
   };
 
   return (
-    <div className="formContainer">
-      <form className="form" onSubmit={handleSubmit}>
-        <h3 className="welcome">
-          Welcome Back to <span className="lycen">Lycentric</span>
+    <div className={style.formContainer}>
+      <form className={style.form} onSubmit={handleSubmit}>
+        <h3 className={style.welcome}>
+          Welcome Back to <span className={style.lycen}>Lycentric</span>
         </h3>
-        <p className="detail">Please provide your login details correctly</p>
+        <p className={style.detail}>Please provide your login details correctly</p>
 
-        {error && <p className="error">{error}</p>}
+        {error && <p className={style.error}>{error}</p>}
 
-        <div className="formDiv">
+        <div className={style.formDiv}>
           <label>Email</label>
           <input
             type="email"
@@ -65,7 +65,7 @@ const Login = () => {
           />
         </div>
 
-        <div className="formDiv">
+        <div className={style.formDiv}>
           <label>Password</label>
           <input
             type="password"
@@ -75,18 +75,18 @@ const Login = () => {
           />
         </div>
         <Link to="/verifyemail">
-          <p className="forgot">Forgot Password?</p>
+          <p className={style.forgot}>Forgot Password?</p>
         </Link>
         <div>
-          <button className="login" disabled={!email || !password || loading}>
+          <button className={style.login} disabled={!email || !password || loading}>
             {loading ? "Loading ..." : "Login"}
           </button>
         </div>
         <div>
-          <p className="signupText">
+          <p className={style.signupText}>
             Don't have an account yet? Please click{" "}
             <Link to="/signup">
-              <span className="link">here</span>
+              <span className={style.link}>here</span>
             </Link>{" "}
             to signup
           </p>

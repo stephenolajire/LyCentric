@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import "../css/ChatBox.css"
+import api from '../constant/api';
 
 const ChatBoxPage = () => {
   const [messages, setMessages] = useState([]);
@@ -17,7 +18,7 @@ const ChatBoxPage = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:8000/chat/', {
+      const response = await api.post('api/chat/', {
         message: inputMessage
       });
 
