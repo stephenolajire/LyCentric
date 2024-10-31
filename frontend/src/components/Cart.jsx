@@ -150,8 +150,8 @@ const Cart = ({ item }) => {
           <div className={styles.imageText}>
             <img src={item.product.images[0].image} alt={item.product.name} />
             <div>
-              <h3>{item.product.name}</h3>
-              <h3>Size: {item.product.size}</h3>
+              <h3 className={styles.pname}>{item.product.name}</h3>
+              <h3 className={styles.psize}>Size: {item.product.size}</h3>
             </div>
           </div>
           <div className={styles.RemoveCont}>

@@ -8,6 +8,14 @@
   width: auto;
 }
 
+.pname{
+  text-transform: capitalize;
+}
+
+.psize {
+  text-transform: uppercase;
+}
+
 .containerGrid {
   display: flex;
   flex-direction: row;
