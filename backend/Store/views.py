@@ -1,14 +1,17 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
+from django.conf import settings
 from .models import*
+import requests
 from .serializers import*
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
 from uuid import UUID
 from rest_framework.response import Response
 from django.db.models import Q
 from .paginations import CustomPagination
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 class HeroView(ListAPIView):
   permission_classes = [AllowAny]
@@ -268,4 +271,129 @@ class ProductSearchView(APIView):
             return paginator.get_paginated_response(serializer.data)
         
         return Response({"error": "No item with such name."}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class OrderView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = request.user
+        data = request.data
+
+        # Extract form data
+        fname = data.get('firstName')
+        lname = data.get('lastName')
+        pnumber = data.get('phoneNumber')
+        email = data.get('email')
+        state = data.get('state')
+        city = data.get('city')
+        lg = data.get('localGovernment')
+        nb = data.get('nearestBusStop')
+        address = data.get('homeAddress')
+        cart_code = data.get('cart_code')
+        payment_option = data.get('paymentOption')
+
+        # Retrieve cart and cart items
+        cart = get_object_or_404(Cart, cart_code=cart_code)
+        cart_items = CartItem.objects.filter(cart=cart)
+        amount = sum(item.quantity * item.product.price for item in cart_items)
+
+        # Initialize order data (do not save `items` yet)
+        order_data = {
+            "firstName": fname,
+            "lastName": lname,
+            "phoneNumber": pnumber,
+            "email": email,
+            "state": state,
+            "city": city,
+            "localGovernment": lg,
+            "nearestBusStop": nb,
+            "homeAddress": address,
+            "cart": cart,
+            "paymentMethod": payment_option,
+            "amount": amount,
+            "user": user
+        }
+
+        if payment_option == 'Paystack':
+            paystack_url = "https://api.paystack.co/transaction/initialize"
+            headers = {
+                "Authorization": f"Bearer {settings.PAYSTACK_SECRET_KEY}",
+                "Content-Type": "application/json",
+            }
+            payload = {
+                "email": user.email,
+                "amount": int(amount * 100),  # Convert to kobo
+                "callback_url": f"http://localhost:5173/paystack/callback/{cart_code}/"
+            }
+
+            response = requests.post(paystack_url, json=payload, headers=headers)
+            response_data = response.json()
+
+            if response_data.get('status'):
+                order = Order.objects.create(**order_data)
+                order.items.set(cart_items)
+                order.status = "pending"
+                order.save()
+                payment_url = response_data['data']['authorization_url']
+                return Response({"payment_url": payment_url}, status=status.HTTP_200_OK)
+            else:
+                return Response({"error": "Payment initiation failed"}, status=status.HTTP_400_BAD_REQUEST)
+
+        elif payment_option == 'Flutterwave':
+            flutterwave_url = "https://api.flutterwave.com/v3/payments"
+            headers = {
+                "Authorization": f"Bearer {settings.FLUTTER_WAVE_SECRET_KEY}",
+                "Content-Type": "application/json",
+            }
+            # Convert the amount to a float or integer
+            amount_value = float(amount)  # or int(amount) if you only need whole numbers
+            
+            payload = {
+                "tx_ref": f"LYC-{user.id}-{cart_code}",
+                "amount": amount_value,
+                "currency": "NGN",
+                "redirect_url": "http://localhost:5173/flutterwave/callback/",
+                "customer": {
+                    "email": user.email,
+                    "phonenumber": pnumber,
+                    "name": f"{fname} {lname}"
+                },
+            }
+
+            response = requests.post(flutterwave_url, json=payload, headers=headers)
+            response_data = response.json()
+
+            if response_data.get('status') == 'success':
+                order = Order.objects.create(**order_data)
+                order.items.set(cart_items)
+                payment_url = response_data['data']['link']
+                return Response({"payment_url": payment_url}, status=status.HTTP_200_OK)
+            else:
+                return Response({"error": "Payment initiation failed"}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({"error": "Invalid payment option selected."}, status=status.HTTP_400_BAD_REQUEST)
+
+        
+
+class PaystackCallbackView(APIView):
+    def get(self, request, cart_code):
+        # Retrieve transaction reference from Paystack
+        reference = request.query_params.get('reference')
+        paystack_url = f"https://api.paystack.co/transaction/verify/{reference}"
+        headers = {
+            "Authorization": f"Bearer {settings.PAYSTACK_SECRET_KEY}",
+        }
+
+        response = requests.get(paystack_url, headers=headers)
+        response_data = response.json()
+
+        if response_data['status'] and response_data['data']['status'] == 'success':
+            # Find and update order
+            order = get_object_or_404(Order, cart__cart_code=cart_code)
+            order.status = 'completed'
+            order.save()
+            return Response({"message": "Payment successful"}, status=status.HTTP_200_OK)
+        else:
+            return Response({"error": "Payment verification failed"}, status=status.HTTP_400_BAD_REQUEST)
 

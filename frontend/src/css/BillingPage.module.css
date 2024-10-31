@@ -1,77 +1,107 @@
 .billingContainer {
-  min-height: 100vh;
+  width: 90%;
+  margin: auto;
   background-color: #f4f4f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 24px;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  padding: 5rem;
+  box-shadow: 0px 0px 3px 2px #f4f4f4;
+  border-top-left-radius: 10rem;
+  border-bottom-right-radius: 10rem;
+  gap: 4rem;
 }
 
 .billingForm {
-  background-color: #ffffff;
-  padding: 32px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  height: auto;
+  background-color: #fff;
+  padding: 0rem 5rem;
+}
+
+.formTitle, .PaymentsOption {
+  color: #6a0dad9a;
+  font-size: 3rem;
+  padding: 2rem 0rem;
+}
+
+.formRow{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 4rem;
+}
+
+label {
+  font-size: 1.6rem;
+  color: #131313;
+  margin-bottom: 0.8rem;
+}
+
+.formRow input {
   width: 100%;
-  max-width: 600px;
+  height: 4rem;
+  background-color: white;
+  outline: #6a0dad83;
+  border: 1px solid #6a0dad83;
+  margin-bottom: 2rem;
+  font-size: 1.6rem;
+  padding-left: 1rem;
 }
 
-.formTitle {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 24px;
-  color: #333;
-}
-
-.formRow {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.formField {
-  flex: 1;
-  min-width: 100%;
-  margin-bottom: 16px;
-}
-
-.formField label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 14px;
-  color: #333;
-}
-
-.formField input {
+.homeAddress {
   width: 100%;
-  padding: 1.2rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 1px solid #6a0dad83;
+  outline: #6a0dad83;
+  font-size: 1.6rem;
+  padding: 1rem;
 }
 
 .submitBtn {
   width: 100%;
-  padding: 1.4rem;
-  background-color: purple;
-  color: #ffffff;
-  font-weight: bold;
-  border-radius: 4px;
-  cursor: pointer;
+  background-color: #6a0dad;
+  font-size: 1.6rem;
+  color: white;
+  text-align: center;
+  margin: 2rem 0rem;
+  height: 4rem;
 }
 
-.submitBtn:hover {
-  background-color: #4338ca;
+.PaymentsOption {
+  text-align: center;
 }
 
-/* Responsive Design */
-@media (min-width: 600px) {
-  .formField {
-    min-width: calc(50% - 16px);
+.PaymentsOptionDiv {
+  height: auto;
+  background-color: #fff;
+}
+
+
+@media (min-width: 250px) and (max-width:767px) {
+  .billingContainer {
+    grid-template-columns: 1fr;
+    padding: 2rem;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+
+  .billingForm {
+    padding: 2rem;
   }
 }
 
-@media (min-width: 900px) {
-  .formField {
-    min-width: calc(50% - 16px);
+@media (min-width: 768px) and (max-width: 991px) {
+  .billingContainer{
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+  .billingContainer {
+    padding: 3rem;
+    gap: 2rem;
+  }
+
+  .billingForm {
+    padding: 3rem;
   }
 }

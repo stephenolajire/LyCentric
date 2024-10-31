@@ -1,22 +1,43 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styles from '../css/PaymentsOption.module.css'
+import React, { useState } from "react";
+import styles from "../css/PaymentsOption.module.css";
 
-const PaymentsOption = () => {
+const PaymentsOption = ({ onPaymentMethodChange }) => {
+  // State to track the selected payment method
+  const [selectedMethod, setSelectedMethod] = useState("");
+
+  const handleButtonClick = (method) => {
+    setSelectedMethod(method); // Update local state
+    onPaymentMethodChange(method); // Send the selected method to BillingPage
+  };
+
   return (
     <div className={styles.grid}>
       <div className={styles.outer}>
-        <Link to="/checkout">
-          <button className={styles.b1}>Flutterwave</button>
-        </Link>
-        <Link to="/checkout">
-          <button className={styles.b2}>Paystack</button>
-        </Link>
-        <Link to="/checkout">
-          <button className={styles.b3}>Olaiya Dotun</button>
-        </Link>
+        <button
+          className={`${styles.b1} ${
+            selectedMethod === "Flutterwave" ? styles.selected : ""
+          }`}
+          onClick={() => handleButtonClick("Flutterwave")}
+        >
+          Flutterwave
+        </button>
+        <button
+          className={`${styles.b2} ${
+            selectedMethod === "Paystack" ? styles.selected : ""
+          }`}
+          onClick={() => handleButtonClick("Paystack")}
+        >
+          Paystack
+        </button>
+        <button
+          className={`${styles.b3} ${
+            selectedMethod === "Olaiya Dotun" ? styles.selected : ""
+          }`}
+          onClick={() => handleButtonClick("Olaiya Dotun")}
+        >
+          Olaiya Dotun
+        </button>
       </div>
-
     </div>
   );
 };

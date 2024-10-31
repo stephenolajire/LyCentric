@@ -105,6 +105,7 @@ class RecentItem(models.Model):
     
 
 class Order (models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     firstName = models.CharField (max_length=200)
     lastName = models.CharField (max_length=200)
     phoneNumber = models.CharField (max_length=20)
@@ -114,9 +115,10 @@ class Order (models.Model):
     localGovernment = models.CharField (max_length=300)
     nearestBusStop = models.CharField (max_length=500)
     homeAddress = models.CharField (max_length=1000)
-    user = models.ForeignKey (User, on_delete=models.CASCADE)
+    items = models.ManyToManyField(CartItem)
+    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     cart = models.ForeignKey (Cart, on_delete=models.CASCADE)
-    items = models.ForeignKey (CartItem, on_delete=models.CASCADE)
+    paymentMethod = models.CharField (max_length=300)
     amount = models.FloatField ()
     created = models.DateTimeField(auto_now_add=True)
 

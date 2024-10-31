@@ -3,8 +3,9 @@ import { GlobalContext } from "../context/GlobalContext";
 import Cart from "../components/Cart";
 import styles from "../css/CartPage.module.css";
 import Payment from "../components/Payment";
-import RecentCard from "../components/RecentCard"
+import RecentCard from "../components/RecentCard";
 // import ProductCard from '../components/Card'
+import Empty from "../components/Empty";
 
 const CartPage = () => {
   const { items, fetchRecent, products } = useContext(GlobalContext);
@@ -13,23 +14,22 @@ const CartPage = () => {
     fetchRecent();
   }, []);
 
+  if (items.length == 0) {
+    return <Empty/>
+  }
+
   return (
     <section>
-      {/* Cart Items */}
-      {items.length === 0 ? (
-        <p>Your Cart is empty</p>
-      ) : (
-        <div className={styles.grid}>
-          <div className={styles.cartGrid}>
-            {items.map((item) => (
-              <Cart item={item} key={item.id} />
-            ))}
-          </div>
-          <div>
-            <Payment to="/checkout" text="checkout" />
-          </div>
+      <div className={styles.grid}>
+        <div className={styles.cartGrid}>
+          {items.map((item) => (
+            <Cart item={item} key={item.id} />
+          ))}
         </div>
-      )}
+        <div>
+          <Payment to="/checkout" text="checkout" />
+        </div>
+      </div>
 
       {/* Recently Viewed Products */}
       <div>

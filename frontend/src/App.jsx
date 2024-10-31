@@ -22,6 +22,8 @@ import ConfirmEmail from "./user/ConfirmEmail";
 import PageNotFound from "./pages/PageNotFound";
 import ContactPage from "./pages/ContactPage";
 import ChatBoxPage from "./pages/ChatBoxPage";
+import PaystackPayment from './pages/PaystackPayment'
+import Success from "./pages/Success";
 
 function App() {
   return (
@@ -62,7 +64,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
-             <Route
+            <Route
               path="/editprofile"
               element={
                 <ProtectedRoute>
@@ -70,24 +72,36 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route path="/contact" element={<ContactPage/>}/>
-          </Route>
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/message" element={<Message/>} />
-          <Route path="/verified" element={<Verified />} />
-          <Route path="/confirm_email/:uid/:token" element={<ConfirmEmail />} />
-          <Route path="/verifyemail" element={<VerifyEmail />} />
-          <Route path="/resetpassword/:uid/:token" element={<ResetPassword />} />
-          <Route path="*" element={<PageNotFound />} />
-          <Route
-              path="/ai"
+            <Route path="/contact" element={<ContactPage />} />
+            <Route
+              path="/paystack/callback/:cart_code"
               element={
                 <ProtectedRoute>
-                  <ChatBoxPage/>
+                  <PaystackPayment />
                 </ProtectedRoute>
               }
             />
+            <Route path="/success" element={<Success />} />
+          </Route>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/message" element={<Message />} />
+          <Route path="/verified" element={<Verified />} />
+          <Route path="/confirm_email/:uid/:token" element={<ConfirmEmail />} />
+          <Route path="/verifyemail" element={<VerifyEmail />} />
+          <Route
+            path="/resetpassword/:uid/:token"
+            element={<ResetPassword />}
+          />
+          <Route path="*" element={<PageNotFound />} />
+          <Route
+            path="/ai"
+            element={
+              <ProtectedRoute>
+                <ChatBoxPage />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </GlobalProvider>

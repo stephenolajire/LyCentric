@@ -17,4 +17,6 @@ urlpatterns = [
   path('cart/decrement', DecrementCartItemView.as_view(), name='decrement_cart_item'),
   path('cart/item/delete/', DeleteView.as_view(), name='delete_cart_item'),
   path('products/search/', ProductSearchView.as_view(), name='product-search'),
+  path('payment/', OrderView.as_view(), name='product-order'),
+  path('paystack/callback/<str:cart_code>/', PaystackCallbackView.as_view(), name='paystack-callback'),
 ]
