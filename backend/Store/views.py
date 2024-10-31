@@ -324,7 +324,7 @@ class OrderView(APIView):
             payload = {
                 "email": user.email,
                 "amount": int(amount * 100),  # Convert to kobo
-                "callback_url": f"http://localhost:5173/paystack/callback/{cart_code}/"
+                "callback_url": f"{settings.FRONTEND_URL}/paystack/callback/{cart_code}/"
             }
 
             response = requests.post(paystack_url, json=payload, headers=headers)
@@ -353,7 +353,7 @@ class OrderView(APIView):
                 "tx_ref": f"LYC-{user.id}-{cart_code}",
                 "amount": amount_value,
                 "currency": "NGN",
-                "redirect_url": "http://localhost:5173/flutterwave/callback/",
+                "redirect_url": f"{settings.FRONTEND_URL}/flutterwave/callback/",
                 "customer": {
                     "email": user.email,
                     "phonenumber": pnumber,

@@ -73,6 +73,10 @@ label {
   background-color: #fff;
 }
 
+.small {
+  display: none;
+}
+
 
 @media (min-width: 250px) and (max-width:767px) {
   .billingContainer {
@@ -86,6 +90,14 @@ label {
 
   .billingForm {
     padding: 2rem;
+  }
+
+  .small {
+    display: block;
+  }
+  
+  .PaymentsOptionDiv {
+    display: none;
   }
 }
 
