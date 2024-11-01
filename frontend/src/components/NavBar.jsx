@@ -42,10 +42,6 @@ const NavBar = ({ category }) => {
     setSearchTerm("");
   };
 
-  const cartFetch = () => {
-    fetchData ()
-  }
-
   return (
     <header className={styles.container}>
       {/* Desktop View */}
@@ -134,7 +130,7 @@ const NavBar = ({ category }) => {
           </ul>
         </div>
         <div className={styles.icon}>
-          <Link to="/cartpage" onClick={cartFetch}>
+          <Link to="/cartpage">
             <div className={styles.cartNumber}>
               <div className={styles.quantity}>
                 {cartNumber ? cartNumber : 0}
