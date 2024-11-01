@@ -211,6 +211,7 @@ export const GlobalProvider = ({ children }) => {
         products,
         link1,
         link2,
+        setItems,
       }}
     >
       {children}

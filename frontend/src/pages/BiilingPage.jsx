@@ -60,9 +60,16 @@ const BillingPage = () => {
 
   return (
     <div className={styles.billingContainer}>
+      <div className={styles.small}>
+        <p
+          style={{ fontSize: "1.6rem", textAlign: "center", marginTop: "3rem" }}
+        >
+          Please select payment option
+        </p>
+        <PaymentsOption onPaymentMethodChange={handlePaymentMethodChange} />
+      </div>
       <div className={styles.billingForm}>
         <h1 className={styles.formTitle}>Receiver's Details</h1>
-        <p style={{ fontSize: "1.6rem" }}>Please select payment option</p>
         <form onSubmit={handleSubmit}>
           <div className={styles.formRow}>
             <div className={styles.formField}>
@@ -167,9 +174,6 @@ const BillingPage = () => {
               onChange={handleChange}
               required
             ></textarea>
-          </div>
-          <div className={styles.small}>
-            <PaymentsOption onPaymentMethodChange={handlePaymentMethodChange} />
           </div>
           <button type="submit" className={styles.submitBtn}>
             Submit

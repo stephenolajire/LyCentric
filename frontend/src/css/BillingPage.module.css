@@ -94,6 +94,7 @@ label {
 
   .small {
     display: block;
+    width: 100%;
   }
   
   .PaymentsOptionDiv {
@@ -104,6 +105,7 @@ label {
 @media (min-width: 768px) and (max-width: 991px) {
   .billingContainer{
     grid-template-columns: 1fr;
+    gap: 0;
   }
 }
 

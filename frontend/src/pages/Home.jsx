@@ -17,7 +17,7 @@ const Home = () => {
 
   const fetchCategory = async () => {
     setLoading (true)
-    const response = await api.get("api/category")
+    const response = await api.get("api/category/")
     try{
       if (response){
         console.log(response.data)

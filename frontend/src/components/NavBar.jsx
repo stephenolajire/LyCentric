@@ -16,7 +16,7 @@ const NavBar = ({ category }) => {
   const [isDropdown, setIsDropDown] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { cartNumber, isAuthenticated, auth, Profile, handleSearch } =
+  const { cartNumber, isAuthenticated, auth, Profile, handleSearch, fetchData } =
     useContext(GlobalContext);
   const navigate = useNavigate();
 
@@ -41,6 +41,10 @@ const NavBar = ({ category }) => {
     navigate(`/searchpage?q=${searchTerm}`);
     setSearchTerm("");
   };
+
+  const cartFetch = () => {
+    fetchData ()
+  }
 
   return (
     <header className={styles.container}>
@@ -130,7 +134,7 @@ const NavBar = ({ category }) => {
           </ul>
         </div>
         <div className={styles.icon}>
-          <Link to="/cartpage">
+          <Link to="/cartpage" onClick={cartFetch}>
             <div className={styles.cartNumber}>
               <div className={styles.quantity}>
                 {cartNumber ? cartNumber : 0}

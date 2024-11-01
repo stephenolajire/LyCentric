@@ -7,13 +7,13 @@ import style from "../css/Verified.module.css";
 const Verified = () => {
     return (
       <div className={style.containers}>
+        <h2>Your Email Address has been Verified</h2>
         <div className={style.conts}>
           <MdVerified className={style.icon} />
         </div>
         <Link to="/login">
           <button className={style.homeBtn}>click to login</button>
         </Link>
-        <h2>Email has been Verified</h2>
       </div>
     );
 };

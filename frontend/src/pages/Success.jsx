@@ -1,17 +1,24 @@
 import style from "../css/Success.module.css";
-import { Link } from "react-router-dom";
 import { MdVerified } from "react-icons/md";
 import { useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../context/GlobalContext";
 
 const Success = () => {
-  // Ensure useContext is used correctly to access fetchData
-  const { fetchData } = useContext(GlobalContext);
+  const { fetchData, setItems } = useContext(GlobalContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Call fetchData to fetch necessary data on component mount
-    fetchData().catch((error) => console.error("Error fetching data:", error));
-  }, [fetchData]); // Include fetchData in the dependency array
+    fetchData()
+      .then(() => {
+        setItems([]); // Clear cart items in state after payment verification
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, [fetchData, setItems]);
+
+  const handleGoHome = () => {
+    navigate("/", { replace: true });
+  };
 
   return (
     <div className={style.containers}>
@@ -19,9 +26,9 @@ const Success = () => {
         <MdVerified className={style.icon} />
         <h2>Payment Verified</h2>
       </div>
-      <Link to="/">
-        <button className={style.homeBtn}>Go back home</button>
-      </Link>
+      <button onClick={handleGoHome} className={style.homeBtn}>
+        Go back home
+      </button>
     </div>
   );
 };
