@@ -1,0 +1,57 @@
+.containers {
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 3rem;
+    background-color: #f4f4f4;
+}
+
+.conts {
+    height: 20rem;
+    width: 20rem;
+    border-radius: 10rem;
+    border: 1px solid green;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: green;
+    gap: 5rem;
+}
+
+.containers h2 {
+    font-size: 2rem;
+    color: #131313;
+}
+
+@keyframes scale {
+    0% {
+        transform: scale(1.2);
+    }
+    50% {
+        transform: scale(0.8);
+    }
+    100% {
+        transform: scale(1.2);
+    }
+}
+
+.homeBtn {
+    background-color: blue;
+    color: #fff;
+    font-size: 1.6rem;
+    height: 4rem;
+    width: 20rem;
+    border: none;
+    text-align: center;
+}
+
+.icon {
+    width: 10rem;
+    height: 10rem;
+    /* background-color: green; */
+    color: white;
+}
+
