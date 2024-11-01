@@ -28,7 +28,7 @@ const SearchPage = () => {
   }, [query]);
 
   return (
-    <section>
+    <section className={styles.section}>
       <h3 className={styles.all}>Search Results for "{query}"</h3>
       {error ? (
         <p>{error}</p>
