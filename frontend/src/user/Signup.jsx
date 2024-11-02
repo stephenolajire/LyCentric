@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react"; // Add useEffect import
 import api from "../constant/api";
 import { statesAndLgas } from "../constant/constant";
 import styles from "../css/Signup.module.css";
@@ -27,6 +27,11 @@ const Signup = () => {
   const [lgas, setLgas] = useState([]);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Scroll to the top of the page when the component mounts
+    window.scrollTo(0, 0);
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -46,20 +51,19 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     const data = new FormData();
-
+    
     // Append form data to FormData
     Object.entries(formData).forEach(([key, value]) => {
       data.append(key, value);
     });
-
+    
     if (profileImage) {
       data.append("profile_image", profileImage);
     }
-
+    
     try {
-      loading(true)
+      setLoading(true);
       const response = await api.post("api/signup/", data);
       console.log("Signup Successful:", response.data);
       navigate("/message");
