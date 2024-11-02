@@ -1,15 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../css/EditProfilePage.module.css";
 import { statesAndLgas } from "../constant/constant";
 import api from "../constant/api";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
+import logo from "../assets/newlogo.jpg";
+import Spinner from "../components/Spinner";
 
 const EditProfilePage = () => {
   const [userProfile, setUserProfile] = useState(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const Profile = async () => {
+  const fetchProfile = async () => {
     try {
       const response = await api.get("api/profile");
       if (response.status === 200) {
@@ -21,7 +23,7 @@ const EditProfilePage = () => {
   };
 
   useEffect(() => {
-    Profile();
+    fetchProfile();
   }, []);
 
   const [firstname, setFirstName] = useState("");
@@ -35,6 +37,7 @@ const EditProfilePage = () => {
   const [nearestBusStop, setNearestBusStop] = useState("");
   const [phonenumber, setPhoneNumber] = useState("");
   const [houseAddress, setHouseAddress] = useState("");
+  const [profileImage, setProfileImage] = useState(null); // Initialize as null
 
   // Update form fields when userProfile is fetched
   useEffect(() => {
@@ -56,23 +59,25 @@ const EditProfilePage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newUserProfile = {
-      first_name: firstname,
-      last_name: lastname,
-      email: email,
-      phone_number: phonenumber,
-      state: state,
-      country: country,
-      city_or_town: cityTown,
-      local_government: selectedLocalGovernment,
-      nearest_bus_stop: nearestBusStop,
-      house_address: houseAddress,
-    };
+    const formData = new FormData(); // Create a new FormData object
 
-    console.log(newUserProfile)
+    // Append form data
+    formData.append("first_name", firstname);
+    formData.append("last_name", lastname);
+    formData.append("email", email);
+    formData.append("phone_number", phonenumber);
+    formData.append("state", state);
+    formData.append("country", country);
+    formData.append("city_or_town", cityTown);
+    formData.append("local_government", selectedLocalGovernment);
+    formData.append("nearest_bus_stop", nearestBusStop);
+    formData.append("house_address", houseAddress);
+     if (profileImage) {
+       formData.append("profile_image", profileImage); // Corrected key name
+     }
 
     try {
-      const response = await api.patch("api/user/update/", newUserProfile);
+      const response = await api.patch("api/user/update/", formData)
       if (response.status === 200) {
         Swal.fire({
           icon: "success",
@@ -80,8 +85,8 @@ const EditProfilePage = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        Profile(); 
-        navigate ("/profile")
+        fetchProfile();
+        navigate("/profile");
       } else {
         Swal.fire({
           icon: "error",
@@ -99,16 +104,21 @@ const EditProfilePage = () => {
   };
 
   if (!userProfile) {
-    return <div>Loading...</div>; // Show loading state if profile data is not yet fetched
+    return <Spinner/>; 
   }
 
   return (
     <div className={styles.signupContainer}>
       <form className={styles.signupForm} onSubmit={handleSubmit}>
-        <h3 className="welcome">
-          Update Your <span className="lycen">Lycentric</span> Profile
+        <div className={styles.plogodiv}>
+          <img className={styles.plogo} src={logo} alt="logo" />
+        </div>
+        <h3 className={styles.welcome}>
+          Update Your <span className={styles.lycen}>Lycentric</span> Profile
         </h3>
-        <p className="detail">Please provide all the information correctly</p>
+        <p className={styles.details}>
+          Please provide all the information correctly
+        </p>
         <div className={styles.grid}>
           <div className={styles.formGroup}>
             <input
@@ -138,6 +148,12 @@ const EditProfilePage = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
               required
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <input
+              type="file"
+              onChange={(e) => setProfileImage(e.target.files[0])} // Store the file
             />
           </div>
         </div>
@@ -231,10 +247,10 @@ const EditProfilePage = () => {
         </button>
 
         <div>
-          <p className="signupText">
+          <p className={styles.textSign}>
             Want to go back? Please click{" "}
             <Link to="/profile">
-              <span className="link">here</span>
+              <span className={styles.link}>here</span>
             </Link>{" "}
             to return to profile.
           </p>

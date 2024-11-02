@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import api from "../constant/api";
 import { useNavigate, useLocation } from "react-router-dom";
 import { GlobalContext } from "../context/GlobalContext";
+import logo from '../assets/newlogo.jpg'
 
 const Login = () => {
   const { auth } = useContext(GlobalContext);
@@ -48,10 +49,15 @@ const Login = () => {
   return (
     <div className={style.formContainer}>
       <form className={style.form} onSubmit={handleSubmit}>
+        <div className={style.plogodiv}>
+          <img className={style.plogo} src={logo} alt="logo" />
+        </div>
         <h3 className={style.welcome}>
           Welcome Back to <span className={style.lycen}>Lycentric</span>
         </h3>
-        <p className={style.detail}>Please provide your login details correctly</p>
+        <p className={style.detail}>
+          Please provide your login details correctly
+        </p>
 
         {error && <p className={style.error}>{error}</p>}
 
@@ -78,7 +84,10 @@ const Login = () => {
           <p className={style.forgot}>Forgot Password?</p>
         </Link>
         <div>
-          <button className={style.login} disabled={!email || !password || loading}>
+          <button
+            className={style.login}
+            disabled={!email || !password || loading}
+          >
             {loading ? "Loading ..." : "Login"}
           </button>
         </div>

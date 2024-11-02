@@ -1,11 +1,36 @@
 .profileContainer {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
+  width: 90%;
+  margin: auto;
+  padding: 2rem;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #fff;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  /* height: 60vh; */
+  place-content: center;
+}
+
+.profileImage {
+  height: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profileCont {
+  height: 40rem;
+  width: 40rem;
+  border-radius: 20rem;
+}
+
+.profileCont img {
+  height: 100%;
+  width: 100%;
+  border-radius: 20rem;
 }
 
 .profileHeading {
@@ -21,18 +46,38 @@
 }
 
 .detailItem {
-  margin-bottom: 10px;
-  font-size: 16px;
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
   color: #555;
+  text-transform: capitalize;
 }
 
 .detailItem strong {
   color: #333;
 }
 
-.login{
+.profileBtn{
   margin-top: 1rem;
-  color: blue;
-  font-size: 1.5rem;
-  text-align: right;
+  background-color: #6a0dad;
+  font-size: 1.6rem;
+  text-align: center;
+  height: 4rem;
+  width: 80%;
+  color: #fff;
 }
+
+@media (max-width: 575px) {
+  .profileContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .profileCont, .profileCont img {
+    width: 30rem;
+    height: 30rem;
+    border-radius: 15rem;
+  }
+
+  .profileBtn {
+    width: 100%;
+  }
+} 

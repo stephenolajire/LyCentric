@@ -8,7 +8,7 @@ class CustomUserAdmin(UserAdmin):
     list_filter = ('is_staff', 'is_active', 'country', 'state', 'city_or_town')
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal Info', {'fields': ('first_name', 'last_name', 'phone_number', 'state', 'country', 'city_or_town', 'local_government', 'nearest_bus_stop', 'house_address', 'verified')}),
+        ('Personal Info', {'fields': ('first_name', 'last_name', 'phone_number', 'state', 'country', 'city_or_town', 'local_government', 'nearest_bus_stop', 'house_address', 'verified', 'profile_image')}),
         ('Permissions', {'fields': ('is_staff', 'is_active', 'is_superuser', 'groups', 'user_permissions')}),
         ('Important dates', {'fields': ('last_login',)}),
     )

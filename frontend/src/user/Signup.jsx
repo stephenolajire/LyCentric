@@ -3,10 +3,12 @@ import api from "../constant/api";
 import { statesAndLgas } from "../constant/constant";
 import styles from "../css/Signup.module.css";
 import { Link, useNavigate } from "react-router-dom";
+import logo from "../assets/newlogo.jpg";
 
 const Signup = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [profileImage, setProfileImage] = useState(null);
 
   const [formData, setFormData] = useState({
     first_name: "",
@@ -23,37 +25,48 @@ const Signup = () => {
   });
 
   const [lgas, setLgas] = useState([]);
-  const navigate = useNavigate(); // Initialize useNavigate for redirecting
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    e.preventDefault();
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
 
     // Update LGAs when the state is selected
-    if (e.target.name === "state") {
-      const selectedState = e.target.value;
-      setLgas(statesAndLgas[selectedState] || []); // Load LGAs based on selected state
+    if (name === "state") {
+      setLgas(statesAndLgas[value] || []);
+      setFormData((prevData) => ({
+        ...prevData,
+        local_government: "", // Reset local government when state changes
+      }));
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    const data = new FormData();
+
+    // Append form data to FormData
+    Object.entries(formData).forEach(([key, value]) => {
+      data.append(key, value);
+    });
+
+    if (profileImage) {
+      data.append("profile_image", profileImage);
+    }
+
     try {
-      const response = await api.post("api/signup/", formData);
-      console.log(response.data)
+      const response = await api.post("api/signup/", data);
       console.log("Signup Successful:", response.data);
-      navigate("/message"); 
-      // navigate("/login"); 
+      navigate("/message");
     } catch (error) {
       console.error("Error signing up:", error.message);
       setError(error.response?.data?.message || "An error occurred");
-    }
-    finally {
-      setLoading(false); // Always reset loading state
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -61,12 +74,24 @@ const Signup = () => {
     <div className={styles.outer}>
       <div className={styles.signupContainer}>
         <form onSubmit={handleSubmit} className={styles.signupForm}>
+          <div className={styles.plogodiv}>
+            <img className={styles.plogo} src={logo} alt="logo" />
+          </div>
           <h3 className={styles.welcome}>
-            Welcome to <span className={styles.lycen}>Lycentric</span> Home of Wears
+            Welcome to <span className={styles.lycen}>Lycentric</span> Home of
+            Wears
           </h3>
-          <p className={styles.detail}>Please provide all the information correctly</p>
+          <p className={styles.detail}>
+            Please provide all the information correctly
+          </p>
 
-          {error && <p style={{color:"red", fontSize:"1.6rem", marginBottom:"1rem"}}>{error}</p>}
+          {error && (
+            <p
+              style={{ color: "red", fontSize: "1.6rem", marginBottom: "1rem" }}
+            >
+              {error}
+            </p>
+          )}
 
           <div className={styles.grid}>
             <div className={styles.formGroup}>
@@ -189,6 +214,13 @@ const Signup = () => {
             </div>
           </div>
           <div className={styles.formGroup}>
+            <input
+              type="file"
+              onChange={(e) => setProfileImage(e.target.files[0])}
+              required
+            />
+          </div>
+          <div className={styles.formGroup}>
             <textarea
               name="house_address"
               value={formData.house_address}
@@ -198,17 +230,21 @@ const Signup = () => {
               required
             />
           </div>
-          <button type="submit" className={styles.submitButton} disabled={loading}>
-              {loading ? "Loading ..." : "SignUp"}
-            </button>
+          <button
+            type="submit"
+            className={styles.submitButton}
+            disabled={loading}
+          >
+            {loading ? "Loading ..." : "SignUp"}
+          </button>
 
           <div>
             <p className={styles.signupText}>
-              Already have an account ? Please click{" "}
+              Already have an account? Please click{" "}
               <Link to="/login">
-                <span className="link">here</span>
+                <span className={styles.link}>here</span>
               </Link>{" "}
-              to login
+              to login.
             </p>
           </div>
         </form>

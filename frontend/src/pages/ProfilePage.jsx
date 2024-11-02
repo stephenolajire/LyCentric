@@ -12,7 +12,11 @@ const ProfilePage = () => {
   const { userProfile, Profile } = useContext(GlobalContext);
   return (
     <div className={styles.profileContainer}>
-      <h2 className={styles.profileHeading}>User Profile</h2>
+      <div className={styles.profileImage}>
+        <div className={styles.profileCont}>
+          <img src={userProfile.profile_image}/>
+        </div>
+      </div>
       <div className={styles.profileDetails}>
         <div className={styles.detailItem}>
           <strong>First Name:</strong> {userProfile.first_name}
@@ -50,7 +54,7 @@ const ProfilePage = () => {
         </div>
         <div>
           <Link to='/editprofile'>
-            <p className={styles.login}>Edit Profile</p>
+            <button className={styles.profileBtn}>Edit Profile</button>
           </Link>
         </div>
       </div>

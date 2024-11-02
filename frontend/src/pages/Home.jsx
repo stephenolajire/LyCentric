@@ -36,6 +36,19 @@ const Home = () => {
     fetchCategory()
   }, [])
 
+  useEffect(() => {
+    const checkUserVerification = async () => {
+      try {
+        const response = await api.get("api/check_user");
+        console.log(response.data.message);
+      } catch (error) {
+        console.error("Error checking user verification:", error);
+      }
+    };
+
+    checkUserVerification();
+  }, []);
+
   const fetchData = async (url = `${link2}/api/allproduct`) => {
     try {
       const response = await axios.get(url);

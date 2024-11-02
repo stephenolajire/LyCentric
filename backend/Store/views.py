@@ -12,6 +12,14 @@ from rest_framework.response import Response
 from django.db.models import Q
 from .paginations import CustomPagination
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from django.conf import settings
+from django.core.mail import send_mail
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.utils.encoding import force_str
+from django.utils.http import urlsafe_base64_decode
+
 
 class HeroView(ListAPIView):
   permission_classes = [AllowAny]
@@ -397,3 +405,4 @@ class PaystackCallbackView(APIView):
         else:
             return Response({"error": "Payment verification failed"}, status=status.HTTP_400_BAD_REQUEST)
 
+    

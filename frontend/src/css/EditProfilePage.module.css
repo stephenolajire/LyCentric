@@ -1,7 +1,5 @@
 .signupContainer {
-  /* position: absolute; */
-  /* top: 5%; */
-  height: 90%;
+  min-height: 100vh;
   width: 60%;
   margin: auto;
   border-radius: 1rem;
@@ -9,8 +7,20 @@
 
 .signupForm{
   box-shadow: 0 0px 5px 2px #999;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin: 2rem 0rem;
+  border-radius: 1rem;
+}
+
+.plogo {
+  height: 8rem;
+  width: 8rem;
+  border-radius: 4rem;
+}
+
+.plogodiv {
+  width: 8rem;
+  height: 8rem;
+  margin: auto;
 }
 
 .welcome{
@@ -77,14 +87,30 @@ textarea {
   color: #999;
 }
 
+.textSign {
+  font-size: 1.6rem;
+  text-align: center;
+  color: #131313;
+}
+
+.link {
+  color: blue;
+}
+
+.details {
+  font-size: 1.6rem;
+  text-align: center;
+  color: #131313;
+}
+
 .submitButton {
-  background-color: purple;
+  background-color: #6a0dad;
   color: #fff;
   border: none;
   height: 4rem;
-  border-radius: 1rem;
+  /* border-radius: 1rem; */
   width: 100%;
-  font-size: 16px;
+  font-size: 1.6rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -107,5 +133,14 @@ textarea {
     display: grid;
     grid-template-columns: 1fr;
     gap: 0rem;
+  }
+
+  .textSign {
+    font-size: 1.4rem;
+  }
+
+  .welcome, .lycen {
+    font-size: 2rem;
+    margin-bottom: 1rem;
   }
 }

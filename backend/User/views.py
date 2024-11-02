@@ -32,7 +32,7 @@ class SignupView(APIView):
 
             mail_subject = 'Activate your account'
             message = f"Click the link to activate your account: {verification_link}"
-            send_mail(mail_subject, message, 'horlharmighty2000@gmail.com', [user.email])
+            send_mail(mail_subject, message, settings.EMAIL_HOST_USER, [user.email])
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         # Log the validation errors
@@ -149,3 +149,25 @@ class SetNewPasswordView(APIView):
         user.save()
 
         return Response({"message": "Password has been reset successfully"}, status=status.HTTP_202_ACCEPTED)
+
+
+class CheckUserView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        
+        # Check if the user is verified
+        if not user.verified:  # Assuming 'verified' is a boolean field
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            token_generator = PasswordResetTokenGenerator()
+            token = token_generator.make_token(user)
+            verification_link = f"{settings.FRONTEND_URL}/confirm_email/{uid}/{token}"
+
+            mail_subject = 'Activate your account'
+            message = f"Click the link to activate your account: {verification_link}"
+            send_mail(mail_subject, message, settings.EMAIL_HOST_USER, [user.email])
+
+            return Response({"message": "Verification email sent."}, status=200)
+
+        return Response({"message": "User is already verified."}, status=200)

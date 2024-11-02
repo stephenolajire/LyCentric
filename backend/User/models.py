@@ -29,6 +29,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     nearest_bus_stop = models.CharField(max_length=100, blank=True)
     house_address = models.TextField(blank=True)
     verified = models.BooleanField(default=False)
+    profile_image = models.ImageField(null=True)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
