@@ -59,6 +59,7 @@ const Signup = () => {
     }
 
     try {
+      loading(true)
       const response = await api.post("api/signup/", data);
       console.log("Signup Successful:", response.data);
       navigate("/message");

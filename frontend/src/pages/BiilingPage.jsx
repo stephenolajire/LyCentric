@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PaymentsOption from "../components/PaymentsOption";
 import styles from "../css/BillingPage.module.css"; // Using CSS module
 import api from "../constant/api";
@@ -57,6 +57,10 @@ const BillingPage = () => {
 
     console.log("Submitted order data:", orderData);
   };
+
+  useEffect (() => {
+     window.scrollTo(0, 0);
+  })
 
   return (
     <div className={styles.billingContainer}>
