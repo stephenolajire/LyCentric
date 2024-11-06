@@ -135,6 +135,7 @@ class Order (models.Model):
     cart = models.ForeignKey (Cart, on_delete=models.CASCADE)
     paymentMethod = models.CharField (max_length=300)
     amount = models.FloatField ()
+    status = models.CharField(max_length=200, default="pending")
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
