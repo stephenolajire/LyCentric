@@ -7,7 +7,6 @@ const Message = () => {
       <MdOutgoingMail  style={{color:"grey", height:"10rem", width:"10rem"}}/>
       <p
         style={{
-          color: "black",
           fontSize: "1.6rem",
           padding: "2rem 2rem",
           textAlign: "center",

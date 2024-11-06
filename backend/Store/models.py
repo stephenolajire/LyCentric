@@ -30,7 +30,7 @@ class Product(models.Model):
     audience = models.ForeignKey(AudienceType, related_name='age', on_delete=models.CASCADE)
     category = models.ForeignKey(Category, related_name='group', on_delete=models.CASCADE)
     stock = models.PositiveIntegerField(default=0)
-    size = models.CharField(max_length=100)
+    # size = models.CharField(max_length=100)
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -50,6 +50,21 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return f"{self.product.name} Image"
+    
+class ProductSize(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    product = models.ForeignKey(Product, related_name='sizes', on_delete=models.CASCADE)
+    size = models.CharField(max_length=250, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+class ProductColor(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    product = models.ForeignKey(Product, related_name='colors', on_delete=models.CASCADE)
+    color = models.CharField(max_length=250, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.product.name} Color"
 
 
 class Cart(models.Model):
@@ -65,6 +80,7 @@ class CartItem(models.Model):
     cart = models.ForeignKey(Cart, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name='cart_items', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
+    size = models.CharField(max_length=20, blank=True, null=True)
 
     def __str__(self):
         return f"{self.quantity} of {self.product.name} in {self.cart.cart_code}"
@@ -73,7 +89,6 @@ class CartItem(models.Model):
         return self.quantity * self.product.price
 
     
-
 class HeroSection (models.Model):
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     image = models.ImageField(upload_to='Hero')

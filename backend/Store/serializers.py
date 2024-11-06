@@ -23,24 +23,40 @@ class ProductImageSerializer(serializers.ModelSerializer):
         model = ProductImage
         fields = ['id', 'image', 'created']
 
+class ProductSizeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductSize
+        fields = ['id', 'size', 'created']
+
+class ProductColorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductSize
+        fields = ['id', 'color', 'created']
+
+
 class ProductSerializer(serializers.ModelSerializer):
     images = ProductImageSerializer(many=True, read_only=True)
+    sizes = ProductSizeSerializer (many=True, read_only=True)
+    colors = ProductColorSerializer(many=True, read_only=True)
     
     class Meta:
         model = Product
-        fields = ['id', 'name', 'description', 'price', 'old_price', 'category', 'audience', 'size', 'stock', 'available', 'created', 'updated', 'images']
+        fields = ['id', 'name', 'description', 'price', 
+                  'old_price', 'category', 'audience','stock', 
+                  'available', 'created', 'updated', 'images', 
+                  'sizes','colors',
+                ]
     
 class CartItemSerializer(serializers.ModelSerializer):
     product = ProductSerializer(read_only=True) 
     total_price = serializers.SerializerMethodField()  # Calculating total price for the cart item
-
     class Meta:
         model = CartItem
-        fields = ['id', 'product', 'quantity', 'total_price']  # Include the necessary fields
+        fields = ['id', 'product', 'quantity', 'total_price', 'size']  # Include the necessary fields
 
     def get_total_price(self, obj):
         return obj.quantity * obj.product.price
-    
+
 
 class CartSerializer(serializers.ModelSerializer):
     items = CartItemSerializer(many=True, read_only=True)  # Display all items in the cart

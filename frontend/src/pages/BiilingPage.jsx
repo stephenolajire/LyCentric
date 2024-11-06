@@ -187,6 +187,7 @@ const BillingPage = () => {
       </div>
       <div className={styles.PaymentsOptionDiv}>
         <h3 className={styles.PaymentsOption}>Payment Options</h3>
+        <p style={{fontSize:"1.4rem", color:"green", marginTop:"1rem", textAlign:"center"}}>(ONLY PAYSTACK IS WORKING)</p>
         <PaymentsOption onPaymentMethodChange={handlePaymentMethodChange} />
       </div>
     </div>

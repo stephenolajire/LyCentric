@@ -13,12 +13,21 @@ class ProductImageInline (admin.TabularInline):
     model = ProductImage
     raw_id_fields = ['product']
 
+class ProductSizeInline (admin.TabularInline):
+    model = ProductSize
+    raw_id_fields = ['product']
+
+
+class ProductColorInline (admin.TabularInline):
+    model = ProductColor
+    raw_id_fields = ['product']
+
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'price', 'old_price', 'category', 'audience', 'size', 'stock', 'available', 'created', 'updated']
+    list_display = ['id', 'name', 'price', 'old_price', 'category', 'audience', 'stock', 'available', 'created', 'updated']
     search_fields = ['name']
     ordering = ['created']
-    inlines = [ProductImageInline]
+    inlines = [ProductImageInline, ProductSizeInline, ProductColorInline]
 admin.site.register(Product, ProductAdmin)
 
 
