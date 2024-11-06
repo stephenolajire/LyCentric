@@ -73,6 +73,10 @@ const BillingPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if(!selectedPaymentMethod) {
+      alert("Pls select a payment option")
+    }
+
     const orderData = {
       ...formData,
       paymentOption: selectedPaymentMethod,
