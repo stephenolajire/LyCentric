@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PaymentsOption from "../components/PaymentsOption";
-import styles from "../css/BillingPage.module.css"; // Using CSS module
+import styles from "../css/BillingPage.module.css";
 import api from "../constant/api";
+import { GlobalContext } from "../context/GlobalContext";
 
 const BillingPage = () => {
+  const { userProfile } = useContext(GlobalContext);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
-  const cart_code = localStorage.getItem ("cart_code")
+  const [orderForSelf, setOrderForSelf] = useState(true); // New state for selecting "Order for myself" or "Order for other"
+  const cart_code = localStorage.getItem("cart_code");
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -18,7 +22,41 @@ const BillingPage = () => {
     homeAddress: "",
   });
 
-  // State for selected payment method
+  useEffect(() => {
+    // Scroll to top on component mount
+    window.scrollTo(0, 0);
+  }, []);
+
+  const handleOrderOptionChange = (selfOrder) => {
+    setOrderForSelf(selfOrder);
+    if (selfOrder) {
+      // Fill form with userProfile data if ordering for self
+      setFormData({
+        firstName: userProfile.first_name || "",
+        lastName: userProfile.last_name || "",
+        phoneNumber: userProfile.phone_number || "",
+        email: userProfile.email || "",
+        state: userProfile.state || "",
+        city: userProfile.city_or_town || "",
+        localGovernment: userProfile.local_government || "",
+        nearestBusStop: userProfile.nearest_bus_stop || "",
+        homeAddress: userProfile.house_address || "",
+      });
+    } else {
+      // Reset form to empty if ordering for someone else
+      setFormData({
+        firstName: "",
+        lastName: "",
+        phoneNumber: "",
+        email: "",
+        state: "",
+        city: "",
+        localGovernment: "",
+        nearestBusStop: "",
+        homeAddress: "",
+      });
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,51 +67,66 @@ const BillingPage = () => {
   };
 
   const handlePaymentMethodChange = (method) => {
-    setSelectedPaymentMethod(method); // Update selected payment method
+    setSelectedPaymentMethod(method);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Prepare the order data including payment method and cart code
     const orderData = {
       ...formData,
-      paymentOption: selectedPaymentMethod, // Ensure the backend expects this field
+      paymentOption: selectedPaymentMethod,
       cart_code: cart_code,
     };
 
     try {
       const response = await api.post("api/payment/", orderData);
-
-      // Handle response based on success or failure
       if (response.status === 200 && response.data.payment_url) {
-        window.location.href = response.data.payment_url;  // Redirect to payment page
+        window.location.href = response.data.payment_url;
       } else {
         console.error("Order failed:", response);
       }
     } catch (error) {
       console.error("Error in payment submission:", error);
+      console.log(response.data)
     }
 
     console.log("Submitted order data:", orderData);
   };
 
-  useEffect (() => {
-     window.scrollTo(0, 0);
-  })
-
   return (
     <div className={styles.billingContainer}>
       <div className={styles.small}>
         <p
-          style={{ fontSize: "1.6rem", textAlign: "center", marginTop: "3rem" }}
+          style={{
+            fontSize: "1.6rem",
+            textAlign: "center",
+            marginTop: "3rem",
+          }}
         >
           Please select payment option
         </p>
-        <p style={{fontSize:"1.4rem", color:"green", marginTop:"3rem", textAlign:"center"}}>(ONLY PAYSTACK IS WORKING)</p>
+        <p
+          style={{
+            fontSize: "1.4rem",
+            color: "green",
+            marginTop: "3rem",
+            textAlign: "center",
+          }}
+        >
+          (ONLY PAYSTACK IS WORKING)
+        </p>
         <PaymentsOption onPaymentMethodChange={handlePaymentMethodChange} />
       </div>
       <div className={styles.billingForm}>
+        <div className={styles.optionButtons}>
+          <button className={styles.self} onClick={() => handleOrderOptionChange(true)}>
+            Order for Myself
+          </button>
+          <button className={styles.other} onClick={() => handleOrderOptionChange(false)}>
+            Order for Other
+          </button>
+        </div>
         <h1 className={styles.formTitle}>Receiver's Details</h1>
         <form onSubmit={handleSubmit}>
           <div className={styles.formRow}>
@@ -187,7 +240,16 @@ const BillingPage = () => {
       </div>
       <div className={styles.PaymentsOptionDiv}>
         <h3 className={styles.PaymentsOption}>Payment Options</h3>
-        <p style={{fontSize:"1.4rem", color:"green", marginTop:"1rem", textAlign:"center"}}>(ONLY PAYSTACK IS WORKING)</p>
+        <p
+          style={{
+            fontSize: "1.4rem",
+            color: "green",
+            marginTop: "1rem",
+            textAlign: "center",
+          }}
+        >
+          (ONLY PAYSTACK IS WORKING)
+        </p>
         <PaymentsOption onPaymentMethodChange={handlePaymentMethodChange} />
       </div>
     </div>

@@ -1,5 +1,5 @@
 .containers {
-    height: 50vh;
+    height: 60vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -9,20 +9,13 @@
 }
 
 .conts {
-    height: 20rem;
-    width: 20rem;
-    border-radius: 10rem;
-    border: 1px solid green;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: green;
+    height: 10rem;
+    width: 10rem;
 }
 
-.conts h2 {
+.containers h2, .containers p {
     font-size: 2rem;
-    color: #fff;
+    color: #131313;
 }
 
 @keyframes scale {
@@ -51,6 +44,6 @@
     width: 10rem;
     height: 10rem;
     /* background-color: green; */
-    color: white;
+    color: green;
 }
 

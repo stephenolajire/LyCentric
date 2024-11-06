@@ -24,8 +24,9 @@ const Success = () => {
     <div className={style.containers}>
       <div className={style.conts}>
         <MdVerified className={style.icon} />
-        <h2>Payment Verified</h2>
       </div>
+        <h2>Your Payment has been received and Verified</h2>
+        <p>Thank you for your patronage</p>
       <button onClick={handleGoHome} className={style.homeBtn}>
         Go back home
       </button>

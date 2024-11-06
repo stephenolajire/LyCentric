@@ -22,9 +22,9 @@ const EditProfilePage = () => {
     }
   };
 
-  useEffect(() => {
-    fetchProfile();
-  }, []);
+  // useEffect(() => {
+  //   fetchProfile();
+  // }, []);
 
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");

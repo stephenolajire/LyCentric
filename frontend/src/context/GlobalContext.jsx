@@ -191,6 +191,10 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
+  useEffect(()=>{
+    Profile();
+  }, [])
+
   return (
     <GlobalContext.Provider
       value={{

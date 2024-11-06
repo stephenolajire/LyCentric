@@ -23,6 +23,19 @@
   padding: 2rem 0rem;
 }
 
+.self, .other{
+  width: 10rem;
+  color: #fff;
+  height: 4rem;
+  margin-top: 2rem;
+  text-align: center;
+  background-color: #6a0dad;
+}
+
+.self {
+  margin-right: 2rem;
+}
+
 .formRow{
   display: grid;
   grid-template-columns: 1fr 1fr;
