@@ -9,7 +9,7 @@ const Checkout = ({item}) => {
           <div className={styles.imageText}>
             <img src={item.product.images[0].image} alt={item.product.name} />
             <div>
-              <h3>{item.product.name}</h3>
+              <h3 className={styles.name}>{item.product.name}</h3>
               <h3>Quantity: {item.quantity}</h3>
             </div>
           </div>
