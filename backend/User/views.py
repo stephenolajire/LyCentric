@@ -158,7 +158,7 @@ class CheckUserView(APIView):
         user = request.user
         
         # Check if the user is verified
-        if not user.verified:  # Assuming 'verified' is a boolean field
+        if not user.verified:
             uid = urlsafe_base64_encode(force_bytes(user.pk))
             token_generator = PasswordResetTokenGenerator()
             token = token_generator.make_token(user)

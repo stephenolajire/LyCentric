@@ -41,9 +41,7 @@
 }
 
 .selected {
-  background-color: #6a0dad83; /* Example color */
-  color: white;
-  border: 1px solid #6a0dad83;
+  opacity: 0.5;
 }
 
 
