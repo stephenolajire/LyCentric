@@ -8,22 +8,21 @@ import ProductCard from "../components/Card";
 import AddToCartButton from "../components/AddToCartButton";
 import { GlobalContext } from "../context/GlobalContext";
 import Spinner from "../components/Spinner";
+import '../css/Carousel.css'
 
 const ProductDetail = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [products, setProducts] = useState([]);
-  const {link1, link2} = useContext(GlobalContext)
+  const { link1, link2 } = useContext(GlobalContext);
 
   const fetchProductDetails = async () => {
     try {
-      const response = await axios.get(
-        `${link2}/api/product/${productId}`
-      );
+      const response = await axios.get(`${link2}/api/product/${productId}`);
       if (response.data.product) {
         setProduct(response.data.product);
         setProducts(response.data.similar_products);
-        console.log(product);
+        console.log(response.data.product);
         console.log(products);
       } else {
         console.error("Error: No response data");
@@ -38,19 +37,17 @@ const ProductDetail = () => {
   }, [productId]);
 
   if (!product) {
-    return <Spinner/>
+    return <Spinner />;
   }
-
-
 
   return (
     <section>
       <div className={styles.productDetail}>
         <div className={styles.slider}>
           {product.images && product.images.length > 0 && (
-            <Carousel showThumbs={false} infiniteLoop autoPlay>
+            <Carousel showThumbs={true} infiniteLoop autoPlay>
               {product.images.map((image) => (
-                <div key={image.id}>
+                <div className={styles.imageContainer} key={image.id}>
                   <img
                     src={image.image}
                     alt={product.name}
@@ -70,13 +67,37 @@ const ProductDetail = () => {
           </div>
           {product.old_price && (
             <div className={styles.priceDiv}>
-              <p className={styles.priceName}>Price:</p>
-              <h4 className={styles.price}>${product.old_price}</h4>
+              <p className={styles.priceName}>Old Price:</p>
+              <h4 className={styles.oldPrice}>${product.old_price}</h4>
             </div>
           )}
           <div className={styles.priceDiv}>
             <p className={styles.priceName}>Size:</p>
-            <h4 className={styles.price}>{product.size}</h4>
+            {product.sizes.length > 0 ? (
+              <div className={styles.sizeCont}>
+                {product.sizes.map((size) => (
+                  <button key={size.id} className={styles.btnSize}>
+                    {size.size}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <button className={styles.btnSize}>{product.sizes[0]}</button>
+            )}
+          </div>
+
+          <div className={styles.priceDiv}>
+            <p className={styles.priceName}>Size:</p>
+            {product.sizes.length > 0 ? (
+              <div className={styles.sizeCont}>
+                {product.colors.map((color) => (
+                  <button style={{backgroundColor:`${color.color}`}} key={color.id} className={styles.btnColor}>
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <button className={styles.btnSize}>{product.sizes[0]}</button>
+            )}
           </div>
 
           <div className={styles.priceDiv}>
