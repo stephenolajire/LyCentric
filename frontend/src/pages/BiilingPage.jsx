@@ -5,7 +5,7 @@ import api from "../constant/api";
 import { GlobalContext } from "../context/GlobalContext";
 
 const BillingPage = () => {
-  const { userProfile } = useContext(GlobalContext);
+  const { userProfile, Profile} = useContext(GlobalContext);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
   const [orderForSelf, setOrderForSelf] = useState(true); // New state for selecting "Order for myself" or "Order for other"
   const cart_code = localStorage.getItem("cart_code");
@@ -97,6 +97,10 @@ const BillingPage = () => {
 
     console.log("Submitted order data:", orderData);
   };
+
+  useEffect(()=>{
+    Profile()
+  }, [])
 
   return (
     <div className={styles.billingContainer}>
