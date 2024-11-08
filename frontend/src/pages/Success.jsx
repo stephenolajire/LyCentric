@@ -14,6 +14,7 @@ const Success = () => {
         setItems([]);
       })
       .catch((error) => console.error("Error fetching data:", error));
+    window.location.reload()
   }, [fetchData, setItems]);
 
   const handleGoHome = () => {
