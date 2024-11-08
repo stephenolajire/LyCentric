@@ -14,7 +14,6 @@ const Success = () => {
         setItems([]);
       })
       .catch((error) => console.error("Error fetching data:", error));
-    window.location.reload()
   }, [fetchData, setItems]);
 
   const handleGoHome = () => {
@@ -26,7 +25,7 @@ const Success = () => {
       <div className={style.conts}>
         <MdVerified className={style.icon} />
       </div>
-        <h2>Your Payment has been received and Verified</h2>
+        <h2>Your Payment has been Verified</h2>
         <p>Thank you for your patronage</p>
       <button onClick={handleGoHome} className={style.homeBtn}>
         Go back home
