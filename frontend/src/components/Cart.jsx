@@ -150,13 +150,23 @@ const Cart = ({ item }) => {
           <div className={styles.imageText}>
             <img src={item.product.images[0].image} alt={item.product.name} />
             <div>
-              <h3 className={styles.pname}>{item.product.name}</h3>
-              <h3 className={styles.psize}>Size: {item.product.size}</h3>
+              <div className={styles.contC}>
+                <h3 className={styles.pname}>Name:</h3>
+                <h3 className={styles.pcolor}>{item.product.name}</h3>
+              </div>
+              <div className={styles.contC}>
+                <h3 className={styles.psize}>Size:</h3>
+                <h3 className={styles.pcolor}>{item.size}</h3>
+              </div>
+              <div className={styles.contC}>
+                <h3 className={styles.psize}>Color:</h3>
+                <h3 className={styles.pcolor}>{item.color}</h3>
+              </div>
             </div>
           </div>
           <div className={styles.RemoveCont}>
             <p className={styles.remove}>Remove</p>
-            <MdDeleteForever className={styles.delete} onClick={deleteItem}/>
+            <MdDeleteForever className={styles.delete} onClick={deleteItem} />
           </div>
         </div>
         <div className={styles.RightGrid}>

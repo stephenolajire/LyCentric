@@ -13,7 +13,17 @@
 }
 
 .psize {
-  text-transform: uppercase;
+  text-transform: capitalize;
+}
+
+.contC {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.pcolor{
+  text-transform: capitalize;
 }
 
 .containerGrid {
@@ -128,8 +138,12 @@
   cursor: not-allowed;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 575px) {
   .priceCont h3 {
     font-size: 1.5rem;
+  }
+
+  .pname {
+    display: none;
   }
 }

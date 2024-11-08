@@ -56,8 +56,12 @@
   font-family: Roboto;
 }
 
+.h3{
+  text-transform: capitalize;
+}
+
 .name {
-  text-transform: uppercase;
+  text-transform: capitalize;
 }
 
 .remove{

@@ -19,8 +19,8 @@ export const GlobalProvider = ({ children }) => {
   const [userProfile, setUserProfile] = useState({});
   const [products, setProducts] = useState([]);
 
-  const link1 = "https://llcentric-backend.onrender.com";
-  const link2 = "http://127.0.0.1:8000";
+  const link2 = "https://llcentric-backend.onrender.com";
+  const link1 = "http://127.0.0.1:8000";
 
   const fetchData = async () => {
     const cart_code = localStorage.getItem("cart_code");
@@ -48,7 +48,6 @@ export const GlobalProvider = ({ children }) => {
       if (recent_code) {
         const response = await api.get(`api/recent/${recent_code}`);
         setProducts(response.data);
-        console.log(response.data);
       }
     } catch (err) {
       console.log(err);
@@ -103,16 +102,18 @@ export const GlobalProvider = ({ children }) => {
     return recentCode;
   };
 
-  const addToCart = async (productId) => {
+  const addToCart = async (productId, selectedSize, selectedColor) => {
     setLoading(true);
     setError(null);
     setSuccess(false);
 
-    const cartCode = generateCartCode(); // Get or create cart code
+    const cartCode = generateCartCode();
     const payload = {
       cart_code: cartCode,
       product_id: productId,
       quantity: 1,
+      size : selectedSize,
+      color: selectedColor,
     };
 
     try {
@@ -120,14 +121,12 @@ export const GlobalProvider = ({ children }) => {
       if (response.status === 200) {
         setLoading(false);
         setSuccess(true);
-        // Show success alert
         Swal.fire({
           icon: "success",
           title: "Item added successfully!",
           showConfirmButton: false,
           timer: 1500,
         });
-        console.log(response.data);
       }
     } catch (err) {
       setLoading(false);
@@ -140,6 +139,7 @@ export const GlobalProvider = ({ children }) => {
     }
     fetchData();
   };
+
 
   const addToRecentlyViewed = async (productId) => {
     setLoading(true);

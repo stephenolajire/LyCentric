@@ -9,6 +9,7 @@ const BillingPage = () => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
   const [orderForSelf, setOrderForSelf] = useState(true); // New state for selecting "Order for myself" or "Order for other"
   const cart_code = localStorage.getItem("cart_code");
+  const [loading, setLoading] = useState(false)
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -73,8 +74,18 @@ const BillingPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if(!selectedPaymentMethod) {
-      alert("Pls select a payment option")
+    if (!selectedPaymentMethod) {
+      alert("Please select a payment option.");
+      return;
+    }
+
+    // Check if all required fields are filled
+    const isFormValid = Object.values(formData).every(
+      (field) => field.trim() !== ""
+    );
+    if (!isFormValid) {
+      alert("Please fill out all required fields.");
+      return;
     }
 
     const orderData = {
@@ -84,6 +95,7 @@ const BillingPage = () => {
     };
 
     try {
+      setLoading(true);
       const response = await api.post("api/payment/", orderData);
       if (response.status === 200 && response.data.payment_url) {
         window.location.href = response.data.payment_url;
@@ -92,11 +104,23 @@ const BillingPage = () => {
       }
     } catch (error) {
       console.error("Error in payment submission:", error);
-      console.log(response.data)
+    } finally {
+      setLoading(false);
+      setFormData({
+        firstName: "",
+        lastName: "",
+        phoneNumber: "",
+        email: "",
+        state: "",
+        city: "",
+        localGovernment: "",
+        nearestBusStop: "",
+        homeAddress: "",
+      });
+      setSelectedPaymentMethod("");
     }
-
-    console.log("Submitted order data:", orderData);
   };
+
 
   useEffect(()=>{
     Profile()
@@ -128,10 +152,16 @@ const BillingPage = () => {
       </div>
       <div className={styles.billingForm}>
         <div className={styles.optionButtons}>
-          <button className={styles.self} onClick={() => handleOrderOptionChange(true)}>
+          <button
+            className={styles.self}
+            onClick={() => handleOrderOptionChange(true)}
+          >
             Order for Myself
           </button>
-          <button className={styles.other} onClick={() => handleOrderOptionChange(false)}>
+          <button
+            className={styles.other}
+            onClick={() => handleOrderOptionChange(false)}
+          >
             Order for Other
           </button>
         </div>
@@ -241,9 +271,23 @@ const BillingPage = () => {
               required
             ></textarea>
           </div>
-          <button type="submit" className={styles.submitBtn}>
-            Submit
-          </button>
+          {loading ? (
+            <button
+              type="submit"
+              className={styles.submitBtn}
+              disabled={loading}
+            >
+              Loading...
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className={styles.submitBtn}
+              disabled={loading}
+            >
+              Submit
+            </button>
+          )}
         </form>
       </div>
       <div className={styles.PaymentsOptionDiv}>

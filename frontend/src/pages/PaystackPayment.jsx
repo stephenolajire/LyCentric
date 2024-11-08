@@ -25,7 +25,8 @@ const PaystackPayment = () => {
 
         if (response.status === 200) {
           localStorage.removeItem("cart_code")
-          navigate("/success");
+          alert("Payment Successful")
+          navigate("/");
         } else {
           alert("Payment verification failed.");
         }
@@ -36,7 +37,7 @@ const PaystackPayment = () => {
     };
 
     verifyPayment();
-  }, [cart_code, location.search, navigate]);
+  }, []);
 
   return (
     <div className={style.container}>

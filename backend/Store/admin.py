@@ -25,7 +25,7 @@ class ProductColorInline (admin.TabularInline):
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'price', 'old_price', 'category', 'audience', 'stock', 'available', 'created', 'updated']
-    search_fields = ['name']
+    search_fields = ['name', 'id']
     ordering = ['created']
     inlines = [ProductImageInline, ProductSizeInline, ProductColorInline]
 admin.site.register(Product, ProductAdmin)
@@ -55,7 +55,18 @@ class RecentAdmin(admin.ModelAdmin):
     inlines = [RecentItemInline]
 admin.site.register(Recent, RecentAdmin)
 
+class OrderItemInline (admin.TabularInline):
+    model = OrderItem
+    raw_id_fields = ['order']
+
+
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['id', 'firstName', 'lastName', 'phoneNumber', 'email', 'state', 'localGovernment', 'homeAddress', 'paymentMethod', 'amount', 'status', 'created']
+    search_fields = ['id', 'name', 'paymentMethod', 'phoneNumber', 'email', 'amount']
+    ordering = ['created']     
+    inlines = [OrderItemInline]
+admin.site.register(Order, OrderAdmin)
+
 
 admin.site.register(AudienceType)
 admin.site.register(Category)
-admin.site.register(Order)

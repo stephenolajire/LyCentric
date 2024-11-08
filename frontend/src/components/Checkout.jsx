@@ -10,7 +10,9 @@ const Checkout = ({item}) => {
             <img src={item.product.images[0].image} alt={item.product.name} />
             <div>
               <h3 className={styles.name}>{item.product.name}</h3>
-              <h3>Quantity: {item.quantity}</h3>
+              <h3 className={styles.h3}>Quantity: {item.quantity}</h3>
+              <h3 className={styles.h3}>Size: {item.size}</h3>
+              <h3 className={styles.h3}>Color: {item.color}</h3>
             </div>
           </div>
         </div>

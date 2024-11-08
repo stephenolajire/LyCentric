@@ -107,27 +107,40 @@ class AddToCartView(CreateAPIView):
     serializer_class = CartItemSerializer
 
     def create(self, request, *args, **kwargs):
-        # Get the cart code from request data or generate a new one
         cart_code = request.data.get('cart_code')
         product_id = request.data.get('product_id')
         quantity = request.data.get('quantity', 1)
+        color = request.data.get('color')
+        size = request.data.get('size')
 
-        # Check if a cart with the given code exists
-        if cart_code:
-            cart, created = Cart.objects.get_or_create(cart_code=cart_code)
-        else:
+        # Ensure cart code is provided
+        if not cart_code:
             return Response({"error": "Cart code is required."}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Check if the cart item already exists, update or create it
-        cart_item, item_created = CartItem.objects.get_or_create(cart=cart, product_id=product_id)
+        # Get or create the cart
+        cart, created = Cart.objects.get_or_create(cart_code=cart_code)
+
+        # Update or create CartItem with unique product, color, and size
+        cart_item, item_created = CartItem.objects.get_or_create(
+            cart=cart,
+            product_id=product_id,
+            color=color,
+            size=size,
+            defaults={'quantity': quantity}  # Set quantity if item is new
+        )
+        
+        # If the item already exists, update the quantity
         if not item_created:
-            cart_item.quantity += int(quantity)  # Update quantity
+            cart_item.quantity += int(quantity)
             cart_item.save()
 
+        # Respond with cart details
         return Response({
             'cart_code': cart.cart_code,
             'product_id': cart_item.product_id,
-            'quantity': cart_item.quantity
+            'quantity': cart_item.quantity,
+            'color': cart_item.color,
+            'size': cart_item.size
         }, status=status.HTTP_200_OK)
     
 
@@ -279,7 +292,7 @@ class ProductSearchView(APIView):
             return paginator.get_paginated_response(serializer.data)
         
         return Response({"error": "No item with such name."}, status=status.HTTP_400_BAD_REQUEST)
-
+    
 
 class OrderView(APIView):
     permission_classes = [IsAuthenticated]
@@ -301,12 +314,12 @@ class OrderView(APIView):
         cart_code = data.get('cart_code')
         payment_option = data.get('paymentOption')
 
-        # Retrieve cart and cart items
+        # Retrieve cart and calculate total amount
         cart = get_object_or_404(Cart, cart_code=cart_code)
         cart_items = CartItem.objects.filter(cart=cart)
         amount = sum(item.quantity * item.product.price for item in cart_items)
 
-        # Initialize order data (do not save `items` yet)
+        # Initialize order data (excluding items for now)
         order_data = {
             "firstName": fname,
             "lastName": lname,
@@ -323,6 +336,7 @@ class OrderView(APIView):
             "user": user
         }
 
+        # Payment initiation
         if payment_option == 'Paystack':
             paystack_url = "https://api.paystack.co/transaction/initialize"
             headers = {
@@ -340,9 +354,22 @@ class OrderView(APIView):
 
             if response_data.get('status'):
                 order = Order.objects.create(**order_data)
-                order.items.set(cart_items)
+                
+                # Save each cart item as an order item
+                for item in cart_items:
+                    OrderItem.objects.create(
+                        order=order,
+                        product=item.product,
+                        product_quantity=item.quantity,
+                        product_color=item.color,
+                        product_size=item.size,
+                        product_name=item.product.name
+                    )
+                
                 order.status = "pending"
                 order.save()
+                
+                # Return payment URL for the frontend
                 payment_url = response_data['data']['authorization_url']
                 return Response({"payment_url": payment_url}, status=status.HTTP_200_OK)
             else:
@@ -354,12 +381,9 @@ class OrderView(APIView):
                 "Authorization": f"Bearer {settings.FLUTTER_WAVE_SECRET_KEY}",
                 "Content-Type": "application/json",
             }
-            # Convert the amount to a float or integer
-            amount_value = float(amount)  # or int(amount) if you only need whole numbers
-            
             payload = {
                 "tx_ref": f"LYC-{user.id}-{cart_code}",
-                "amount": amount_value,
+                "amount": float(amount),  # Ensure amount is float
                 "currency": "NGN",
                 "redirect_url": f"{settings.FRONTEND_URL}/flutterwave/callback/",
                 "customer": {
@@ -374,15 +398,24 @@ class OrderView(APIView):
 
             if response_data.get('status') == 'success':
                 order = Order.objects.create(**order_data)
-                order.items.set(cart_items)
+
+                # Save each cart item as an order item
+                for item in cart_items:
+                    OrderItem.objects.create(
+                        order=order,
+                        product_quantity=item.quantity,
+                        product_color=item.color,
+                        product_size=item.size,
+                        product_name=item.product.name
+                    )
+
                 payment_url = response_data['data']['link']
                 return Response({"payment_url": payment_url}, status=status.HTTP_200_OK)
             else:
                 return Response({"error": "Payment initiation failed"}, status=status.HTTP_400_BAD_REQUEST)
+
         else:
             return Response({"error": "Invalid payment option selected."}, status=status.HTTP_400_BAD_REQUEST)
-
-        
 
 class PaystackCallbackView(APIView):
     def get(self, request, cart_code):
@@ -401,8 +434,30 @@ class PaystackCallbackView(APIView):
             order = get_object_or_404(Order, cart__cart_code=cart_code)
             order.status = 'completed'
             order.save()
+
+            # Deduct stock and update availability for each product in the order
+            for order_item in order.order_items.all():
+                product = order_item.product
+                quantity_ordered = order_item.product_quantity
+
+                # Log the current stock and ordered quantity
+                print(f"Before deduction: {product.stock}, Quantity Ordered: {quantity_ordered}")
+
+                product.stock -= quantity_ordered
+
+                # If stock is zero or negative, update availability
+                if product.stock <= 0:
+                    product.available = False
+
+                # Log the updated stock
+                print(f"After deduction: {product.stock}")
+                
+                product.save()
+
             return Response({"message": "Payment successful"}, status=status.HTTP_200_OK)
         else:
             return Response({"error": "Payment verification failed"}, status=status.HTTP_400_BAD_REQUEST)
+
+
 
     

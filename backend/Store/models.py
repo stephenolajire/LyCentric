@@ -80,7 +80,8 @@ class CartItem(models.Model):
     cart = models.ForeignKey(Cart, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name='cart_items', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
-    size = models.CharField(max_length=20, blank=True, null=True)
+    size = models.CharField(max_length=200, blank=True, null=True)
+    color = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
         return f"{self.quantity} of {self.product.name} in {self.cart.cart_code}"
@@ -130,7 +131,7 @@ class Order (models.Model):
     localGovernment = models.CharField (max_length=300)
     nearestBusStop = models.CharField (max_length=500)
     homeAddress = models.CharField (max_length=1000)
-    items = models.ManyToManyField(CartItem)
+    # items = models.ManyToManyField(CartItem)
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     cart = models.ForeignKey (Cart, on_delete=models.CASCADE)
     paymentMethod = models.CharField (max_length=300)
@@ -140,6 +141,23 @@ class Order (models.Model):
 
     def __str__(self):
         return self.firstName
+
+    class Meta:
+        ordering = ['-created']
+
+class OrderItem(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="order_items")
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product_quantity = models.IntegerField()
+    product_color = models.CharField(max_length=50, null=True, blank=True)
+    product_size = models.CharField(max_length=50, null=True, blank=True)
+    # productId= models.CharField(max_length=200, null=True, blank=True)
+    product_name = models.CharField(max_length=200, null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+
+    def __str__(self):
+        return self.product_name
 
     class Meta:
         ordering = ['-created']
