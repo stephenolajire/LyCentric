@@ -11,7 +11,7 @@ const Payment = ({to, text}) => {
         <h3 className={styles.summary}>Cart Summary</h3>
         <div className={styles.subTotal}>
           <p>Subtotal</p>
-          <h3>$ {total.total_cart_price}</h3>
+          <h3>N{total.total_cart_price}</h3>
         </div>
         <p className={styles.delivery}>Delivery fee is not included</p>
         
