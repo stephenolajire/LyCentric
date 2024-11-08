@@ -1,175 +1,145 @@
 .productDetail {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 5rem;
   width: 70%;
-  height: auto;
   margin: auto;
-  box-shadow: 0px 0px 3px 2px #999;
+  padding: 20px;
+  gap: 4rem;
+  height: auto;
+  /* box-shadow: 0px 0px 3px 2px #99999986; */
+  border-radius: 2rem;
 }
 
 .slider {
   width: 100%;
-  margin: 0 auto;
-  height: auto;
-  object-fit: cover;
-  object-position: center;
+  height: 100%;
+}
+
+.imageContainer {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
 }
 
 .productImage {
+  border-radius: 2rem;
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: cover;
   object-position: center;
 }
 
-
 .details {
-  text-align: left;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: auto;
+  justify-content: space-evenly;
 }
 
-
-.productName{
-  font-size: 4rem;
-  font-weight: 900;
+.productName {
+  font-size: 3rem;
   color: #131313;
+  font-weight: bold;
+  margin-bottom: 1rem;
   opacity: 0.7;
   text-transform: uppercase;
 }
 
 .description {
-  margin: 5px 0px;
-  font-size: 1.7rem;
-  opacity: 0.7;
-  margin-bottom: 2rem;
-  line-height: 3rem;
-}
-
-.priceDiv{
-  display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-  align-items: center;
-  margin-bottom: 2rem;
-  height: 3rem;
-}
-
-.size, .price{
-  font-size: 2rem;
-  color: #131313;
-  opacity: 0.7;
-}
-
-.price{
-  color: #131313;
-  opacity: 0.7;
-  /* font-weight: bold; */
-}
-
-.priceName{
   font-size: 1.6rem;
-}
-
-.buttonDiv{
-  width: 80%;
-  height: 4rem;
-  margin: auto;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-}
-
-.selected {
+  color: #131313;
+  line-height: 3rem;
   opacity: 0.7;
+  margin-bottom: 1.5rem;
 }
 
-.select{
-  background-color: #131313;
-  color: #fff;
+.priceDiv {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  /* margin-bottom: 1.5rem; */
 }
 
-.all{
-  font-size: 3rem;
-  margin-bottom: 3rem;
+.priceName {
+  font-weight: bold;
+  font-size: 1.6rem;
+  opacity: 0.7;
+  color: #131313;
+}
+
+.price {
+  font-size: 1.6rem;
+  font-weight: bold;
   color: #131313;
   opacity: 0.7;
-  font-weight: 900;
+}
+
+.sizeCont, .buttonDiv {
+  display: flex;
+  gap: 1rem;
+}
+
+.btnSize, .btnColor {
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
 .btnSize {
-  width: 2.5rem;
-  height: 2.5rem;
-  background-color: white;
   color: #131313;
-  border: 1px solid #131313;
-  text-align: center;
-  text-transform: uppercase;
-  margin-right: 1rem;
   font-size: 1.6rem;
+  height: 2.5rem;
+  width: 2.5rem;
+  /* text-align: center; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #131313;
+  text-transform: uppercase;
 }
 
-.select{
+.btnSize.select {
   background-color: #131313;
   color: #fff;
-}
-
-.sizeCont {
-  display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-}
-
-.outStock{
-  font-size: 2.5rem;
-  color: #131313;
-  text-align: center;
-  /* text-transform: capitalize; */
-  opacity: 0.7;
 }
 
 .btnColor {
   width: 2.5rem;
   height: 2.5rem;
-  border-radius: 1.25rem;
-  margin-right: 1rem;
-  /* border: 1px solid #131313; */
+  /* border-radius: 1rem; */
 }
 
-.btnSizeCont {
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
+.btnColor.selected {
+  opacity: 0.5;
 }
 
-@media (max-width:600px){
-  .productDetail{
-    display: grid;
+.outStock {
+  color: #d9534f;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.buttonDiv {
+  margin-top: 20px;
+}
+
+@media (min-width: 250px) and (max-width: 767px) {
+  .productName {
+    font-size: 2rem;
+  }
+
+  .priceDiv {
+    margin-bottom: 2rem;
+  }
+
+  .productDetail {
     grid-template-columns: 1fr;
     width: 100%;
     gap: 2rem;
-    /* height: auto; */
+    padding: 0px;
   }
 
-  .details{
-    padding:2rem 2rem 5rem 2rem;
-    /* height: 100%; */
-  }
-
-  .buttonDiv{
-    width: 90%;
-    height: 4rem;
-    /* margin-top: -2rem;/ */
-  }
-
-  .grid{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+  .buttonDiv {
+    margin-top: -2rem;
   }
 }

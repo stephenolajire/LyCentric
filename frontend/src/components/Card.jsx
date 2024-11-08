@@ -27,7 +27,7 @@ const ProductCard = ({ product }) => {
                   : product.description}
               </p>
             </div>
-            <p className={styles.productPrice}>{`$ ${product.price}`}</p>
+            <p className={styles.productPrice}>{`N${product.price}`}</p>
 
             {/* Product Rating - Example with 4 filled stars and 1 empty star */}
             <div className={styles.productRating}>

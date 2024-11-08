@@ -61,18 +61,18 @@ const ProductDetail = () => {
         </div>
         <div className={styles.details}>
           <div>
-            <h2 className={styles.productName} >{product.name}</h2>
+            <h2 className={styles.productName}>{product.name}</h2>
             <p className={styles.description}>{product.description}</p>
           </div>
           <div className={styles.priceDiv}>
             <p className={styles.priceName}>Price:</p>
-            <h4 className={styles.price}>${product.price}</h4>
+            <h4 className={styles.price}> N{product.price}</h4>
           </div>
 
           <div className={styles.priceDiv}>
+            <p className={styles.priceName}>Size:</p>
             {product.sizes.length > 0 && (
               <div className={styles.sizeCont}>
-                <p className={styles.priceName}>Size:</p>
                 {product.sizes.map((size) => (
                   <button
                     key={size.id}
