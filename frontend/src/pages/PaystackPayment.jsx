@@ -25,14 +25,12 @@ const PaystackPayment = () => {
 
         if (response.status === 200) {
           localStorage.removeItem("cart_code")
-          alert("Payment Successful")
-          navigate("/");
+          navigate("/success");
         } else {
           alert("Payment verification failed.");
         }
       } catch (error) {
         console.error("Verification error:", error);
-        alert("An error occurred while verifying payment.");
       }
     };
 

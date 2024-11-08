@@ -11,7 +11,7 @@ const Success = () => {
   useEffect(() => {
     fetchData()
       .then(() => {
-        setItems([]); // Clear cart items in state after payment verification
+        setItems([]);
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, [fetchData, setItems]);

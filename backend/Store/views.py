@@ -432,6 +432,8 @@ class PaystackCallbackView(APIView):
         if response_data['status'] and response_data['data']['status'] == 'success':
             # Find and update order
             order = get_object_or_404(Order, cart__cart_code=cart_code)
+            if order.status == 'completed':
+                return
             order.status = 'completed'
             order.save()
 
