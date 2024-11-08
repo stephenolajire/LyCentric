@@ -171,7 +171,7 @@ const Cart = ({ item }) => {
         </div>
         <div className={styles.RightGrid}>
           <div className={styles.priceCont}>
-            <h3>${item.product.price}</h3>
+            <h3>N{item.product.price}</h3>
             {/* <h3>${item.product.old_price}</h3> */}
           </div>
           <div className={styles.priceCont}>
