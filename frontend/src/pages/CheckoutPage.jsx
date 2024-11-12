@@ -18,7 +18,7 @@ const CheckoutPage = () => {
             ))}
             <div className={styles.CheckoutPrice}>
               <h3>Total:</h3>
-              <h3>$ {total.total_cart_price}</h3>
+              <h3>N {total.total_cart_price}</h3>
             </div>
           </div>
           <div className={styles.shadowBox}>
