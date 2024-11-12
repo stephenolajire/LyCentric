@@ -14,7 +14,7 @@ const Layout = () => {
     const response = await api.get("api/category/")
     try{
       if (response){
-        console.log(response.data)
+        // console.log(response.data)
         setCategory(response.data)
       }else{
         console.log(response.error)
