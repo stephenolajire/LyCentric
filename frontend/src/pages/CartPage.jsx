@@ -8,7 +8,7 @@ import RecentCard from "../components/RecentCard";
 import Empty from "../components/Empty";
 
 const CartPage = () => {
-  const { items, fetchRecent, products } = useContext(GlobalContext);
+  const { items, fetchRecent, recents } = useContext(GlobalContext);
 
   useEffect(() => {
     fetchRecent();
@@ -36,8 +36,8 @@ const CartPage = () => {
         <h3 className={styles.recently}>Recently Viewed Products</h3>
       </div>
       <div className={styles.grids}>
-        {products.length > 0 ? (
-          products.map((product) => (
+        {recents.length > 0 ? (
+          recents.map((product) => (
             <RecentCard key={product.id} product={product} />
           ))
         ) : (

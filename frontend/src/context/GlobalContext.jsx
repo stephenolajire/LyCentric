@@ -18,9 +18,79 @@ export const GlobalProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userProfile, setUserProfile] = useState({});
   const [products, setProducts] = useState([]);
+  const [recents, setRecents] = useState([]);
+  const [category, setCategory] = useState([]);
+  const [heroes, setHeroes] = useState([]);
+  const [pagination, setPagination] = useState({ next: null, previous: null });
 
   const link2 = "https://llcentric-backend.onrender.com";
   const link1 = "http://127.0.0.1:8000";
+
+  const fetchCategory = async () => {
+    setLoading(true);
+    const response = await api.get("api/category/");
+    try {
+      if (response) {
+        console.log(response.data);
+        setCategory(response.data);
+      } else {
+        console.log(response.error);
+      }
+    } catch (err) {
+      console.log(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (category.length === 0) {
+      fetchCategory();
+    }
+  }, []);
+
+  const fetchProducts = async (url = `${link2}/api/allproduct`) => {
+    try {
+      const response = await axios.get(url);
+      if (response) {
+        setProducts(response.data.results); // Update products with the results
+        setPagination({
+          next: response.data.next,
+          previous: response.data.previous,
+        }); // Update pagination URLs
+      } else {
+        console.error("Error: No response data");
+      }
+    } catch (err) {
+      console.error("Error fetching product data:", err.message);
+    }
+  };
+
+  useEffect(() => {
+    if (products.length === 0) {
+      fetchProducts();
+    }
+  }, []);
+
+  const fetchHeroData = async () => {
+    setLoading(true);
+    try {
+      const response = await api.get("api/hero");
+      setHeroes(response.data); // Set heroes state with the fetched data
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching hero data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (heroes.length === 0) {
+      fetchHeroData()
+    }
+  }, []);
+
 
   const fetchData = async () => {
     const cart_code = localStorage.getItem("cart_code");
@@ -37,7 +107,7 @@ export const GlobalProvider = ({ children }) => {
       }
     } catch (err) {
       console.log(err);
-      setCartNumber(null); // Handle errors by resetting cart number
+      setCartNumber(null);
     }
   };
 
@@ -47,7 +117,7 @@ export const GlobalProvider = ({ children }) => {
     try {
       if (recent_code) {
         const response = await api.get(`api/recent/${recent_code}`);
-        setProducts(response.data);
+        setRecents(response.data);
       }
     } catch (err) {
       console.log(err);
@@ -112,7 +182,7 @@ export const GlobalProvider = ({ children }) => {
       cart_code: cartCode,
       product_id: productId,
       quantity: 1,
-      size : selectedSize,
+      size: selectedSize,
       color: selectedColor,
     };
 
@@ -139,7 +209,6 @@ export const GlobalProvider = ({ children }) => {
     }
     fetchData();
   };
-
 
   const addToRecentlyViewed = async (productId) => {
     setLoading(true);
@@ -191,9 +260,9 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     Profile();
-  }, [])
+  }, []);
 
   return (
     <GlobalContext.Provider
@@ -216,6 +285,11 @@ export const GlobalProvider = ({ children }) => {
         link1,
         link2,
         setItems,
+        category,
+        products,
+        pagination,
+        heroes,
+        recents,
       }}
     >
       {children}

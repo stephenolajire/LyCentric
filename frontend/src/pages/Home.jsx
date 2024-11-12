@@ -9,32 +9,7 @@ import { GlobalContext } from '../context/GlobalContext';
 import Spinner from '../components/Spinner'
 
 const Home = () => {
-  const [products, setProducts] = useState([]);
-  const [pagination, setPagination] = useState({ next: null, previous: null });
-  const [category, setCategory] = useState([])
-  const {link1, link2} = useContext(GlobalContext)
-  const [loading, setLoading] = useState (true)
-
-  const fetchCategory = async () => {
-    setLoading (true)
-    const response = await api.get("api/category/")
-    try{
-      if (response){
-        console.log(response.data)
-        setCategory(response.data)
-      }else{
-        console.log(response.error)
-      }
-    }catch(err){
-      console.log(err.message)
-    }finally {
-      setLoading(false)
-    }
-  }
-
-  useEffect (() => {
-    fetchCategory()
-  }, [])
+  const {category, products, loading, pagination} = useContext(GlobalContext)
 
   useEffect(() => {
     const checkUserVerification = async () => {
@@ -49,26 +24,7 @@ const Home = () => {
     checkUserVerification();
   }, []);
 
-  const fetchData = async (url = `${link2}/api/allproduct`) => {
-    try {
-      const response = await axios.get(url);
-      if (response) {
-        setProducts(response.data.results);  // Update products with the results
-        setPagination({ 
-          next: response.data.next, 
-          previous: response.data.previous 
-        });  // Update pagination URLs
-      } else {
-        console.error('Error: No response data');
-      }
-    } catch (err) {
-      console.error('Error fetching product data:', err.message);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();  // Fetch initial data on component mount
-  }, []);
+  
 
 
   if (loading) {
