@@ -24,6 +24,7 @@ import ContactPage from "./pages/ContactPage";
 import ChatBoxPage from "./pages/ChatBoxPage";
 import PaystackPayment from './pages/PaystackPayment'
 import Success from "./pages/Success";
+import FlutterwaveCallback from "./pages/FlutterWave";
 
 function App() {
   return (
@@ -78,6 +79,15 @@ function App() {
               element={
                 <ProtectedRoute>
                   <PaystackPayment />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/flutterwave/callback/:cart_code"
+              element={
+                <ProtectedRoute>
+                  <FlutterwaveCallback />
                 </ProtectedRoute>
               }
             />

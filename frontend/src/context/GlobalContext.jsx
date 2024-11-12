@@ -31,7 +31,6 @@ export const GlobalProvider = ({ children }) => {
     const response = await api.get("api/category/");
     try {
       if (response) {
-        console.log(response.data);
         setCategory(response.data);
       } else {
         console.log(response.error);
@@ -76,8 +75,7 @@ export const GlobalProvider = ({ children }) => {
     setLoading(true);
     try {
       const response = await api.get("api/hero");
-      setHeroes(response.data); // Set heroes state with the fetched data
-      console.log(response.data);
+      setHeroes(response.data); 
     } catch (error) {
       console.error("Error fetching hero data:", error);
     } finally {
@@ -101,7 +99,6 @@ export const GlobalProvider = ({ children }) => {
         setCartNumber(response.data[0].total_quantity);
         setItems(response.data[0].items);
         setTotal(response.data[0]);
-        console.log(response.data);
       } else {
         setCartNumber(null);
       }
@@ -238,7 +235,6 @@ export const GlobalProvider = ({ children }) => {
     try {
       const response = await api.get("api/audience"); // Adjusted endpoint
       if (response.data) {
-        console.log(response.data);
         setAudience(response.data);
       } else {
         console.error("Error: No response data");
@@ -252,7 +248,6 @@ export const GlobalProvider = ({ children }) => {
     const response = await api.get("api/profile");
     try {
       if (response.status === 200) {
-        console.log(response.data);
         setUserProfile(response.data);
       }
     } catch (error) {

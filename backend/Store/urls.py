@@ -19,4 +19,5 @@ urlpatterns = [
   path('products/search/', ProductSearchView.as_view(), name='product-search'),
   path('payment/', OrderView.as_view(), name='product-order'),
   path('paystack/callback/<str:cart_code>/', PaystackCallbackView.as_view(), name='paystack-callback'),
+  path('flutterwave/callback/<str:cart_code>/', FlutterwaveCallbackView.as_view(), name='flutterwave_callback'),
 ]

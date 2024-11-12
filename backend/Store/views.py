@@ -19,6 +19,9 @@ from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class HeroView(ListAPIView):
@@ -385,7 +388,7 @@ class OrderView(APIView):
                 "tx_ref": f"LYC-{user.id}-{cart_code}",
                 "amount": float(amount),  # Ensure amount is float
                 "currency": "NGN",
-                "redirect_url": f"{settings.FRONTEND_URL}/flutterwave/callback/",
+                "redirect_url": f"{settings.FRONTEND_URL}/flutterwave/callback/{cart_code}",
                 "customer": {
                     "email": user.email,
                     "phonenumber": pnumber,
@@ -403,6 +406,7 @@ class OrderView(APIView):
                 for item in cart_items:
                     OrderItem.objects.create(
                         order=order,
+                        product=item.product,
                         product_quantity=item.quantity,
                         product_color=item.color,
                         product_size=item.size,
@@ -419,7 +423,6 @@ class OrderView(APIView):
 
 class PaystackCallbackView(APIView):
     def get(self, request, cart_code):
-        # Retrieve transaction reference from Paystack
         reference = request.query_params.get('reference')
         paystack_url = f"https://api.paystack.co/transaction/verify/{reference}"
         headers = {
@@ -430,10 +433,12 @@ class PaystackCallbackView(APIView):
         response_data = response.json()
 
         if response_data['status'] and response_data['data']['status'] == 'success':
-            # Find and update order
-            order = get_object_or_404(Order, cart__cart_code=cart_code)
+            # Retrieve the latest Order with the matching cart_code
+            order = Order.objects.filter(cart__cart_code=cart_code).latest('created')  # Assumes a created_at timestamp
+
             if order.status == 'completed':
-                return
+                return Response({"message": "Order already completed"}, status=status.HTTP_200_OK)
+
             order.status = 'completed'
             order.save()
 
@@ -442,18 +447,10 @@ class PaystackCallbackView(APIView):
                 product = order_item.product
                 quantity_ordered = order_item.product_quantity
 
-                # Log the current stock and ordered quantity
-                print(f"Before deduction: {product.stock}, Quantity Ordered: {quantity_ordered}")
-
+                # Adjust stock and availability
                 product.stock -= quantity_ordered
-
-                # If stock is zero or negative, update availability
                 if product.stock <= 0:
                     product.available = False
-
-                # Log the updated stock
-                print(f"After deduction: {product.stock}")
-                
                 product.save()
 
             return Response({"message": "Payment successful"}, status=status.HTTP_200_OK)
@@ -461,5 +458,59 @@ class PaystackCallbackView(APIView):
             return Response({"error": "Payment verification failed"}, status=status.HTTP_400_BAD_REQUEST)
 
 
+class FlutterwaveCallbackView(APIView):
+    def get(self, request, cart_code):
+        transaction_id = request.query_params.get('transaction_id')
+        if not transaction_id:
+            return Response({"error": "Transaction ID missing from request"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Verify payment status with Flutterwave
+        flutterwave_url = f"https://api.flutterwave.com/v3/transactions/{transaction_id}/verify"
+        headers = {
+            "Authorization": f"Bearer {settings.FLUTTER_WAVE_SECRET_KEY}",
+        }
+
+        try:
+            response = requests.get(flutterwave_url, headers=headers)
+            response.raise_for_status()  # Raise an error if the request failed
+            response_data = response.json()
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Failed to verify payment: {e}")
+            return Response({"error": "Failed to connect to payment verification service"}, status=status.HTTP_502_BAD_GATEWAY)
+
+        # Check if verification was successful and payment is completed
+        if response_data.get('status') == 'success' and response_data.get('data', {}).get('status') == 'successful':
+            try:
+                # Retrieve the order by cart_code
+                order = Order.objects.filter(cart__cart_code=cart_code).latest('created')
+                if order.status == 'completed':
+                    return Response({"message": "Order already completed"}, status=status.HTTP_200_OK)
+                
+                # Update order status
+                order.status = 'completed'
+                order.save()
+
+                # Deduct stock and update availability for each product in the order
+                for order_item in order.order_items.all():
+                    product = order_item.product
+                    quantity_ordered = order_item.product_quantity
+
+                    logger.info(f"Product stock before deduction: {product.stock}, Quantity Ordered: {quantity_ordered}")
+                    product.stock -= quantity_ordered
+
+                    if product.stock <= 0:
+                        product.available = False
+
+                    logger.info(f"Product stock after deduction: {product.stock}")
+                    product.save()
+
+                return Response({"message": "Payment successful"}, status=status.HTTP_200_OK)
+            except Order.DoesNotExist:
+                return Response({"error": "Order not found"}, status=status.HTTP_404_NOT_FOUND)
+            except Exception as e:
+                logger.error(f"Error processing order: {e}")
+                return Response({"error": "An error occurred while processing the order"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            return Response({"error": "Payment verification failed"}, status=status.HTTP_400_BAD_REQUEST)
 
     
