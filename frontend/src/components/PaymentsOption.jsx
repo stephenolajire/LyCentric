@@ -29,14 +29,14 @@ const PaymentsOption = ({ onPaymentMethodChange }) => {
         >
           Paystack
         </button>
-        <button
+        {/* <button
           className={`${styles.b3} ${
             selectedMethod === "Olaiya Dotun" ? styles.selected : ""
           }`}
           onClick={() => handleButtonClick("Olaiya Dotun")}
         >
           Olaiya Dotun
-        </button>
+        </button> */}
       </div>
     </div>
   );
