@@ -138,7 +138,7 @@ const BillingPage = () => {
         >
           Please select payment option
         </p>
-        <p
+        {/* <p
           style={{
             fontSize: "1.4rem",
             color: "green",
@@ -147,7 +147,7 @@ const BillingPage = () => {
           }}
         >
           (ONLY PAYSTACK IS WORKING)
-        </p>
+        </p> */}
         <PaymentsOption onPaymentMethodChange={handlePaymentMethodChange} />
       </div>
       <div className={styles.billingForm}>
