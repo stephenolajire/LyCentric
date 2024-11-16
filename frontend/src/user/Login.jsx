@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import api from "../constant/api";
 import { useNavigate, useLocation } from "react-router-dom";
 import { GlobalContext } from "../context/GlobalContext";
-import logo from '../assets/newlogo.jpg'
+import logo from "../assets/newlogo.jpg";
+import {jwtDecode} from "jwt-decode"; // Correct import
 
 const Login = () => {
   const { auth } = useContext(GlobalContext);
@@ -28,21 +29,34 @@ const Login = () => {
     try {
       const response = await api.post("api/token/", userInfo);
       if (response.status === 200) {
-        console.log(response.data);
-        localStorage.setItem("access", response.data.access);
-        localStorage.setItem("refresh", response.data.refresh);
-        navigate(from || "/", { replace: true });
+        const access = response.data.access;
+        const refresh = response.data.refresh
+        const decodedToken = jwtDecode(access); // Decode the access token
+        const isAdmin = decodedToken.is_admin; // Extract `is_admin` claim
+
+        // Store tokens
+        localStorage.setItem("access", access);
+        localStorage.setItem("refresh", refresh);
+
+        // Navigate based on user role
+        if (isAdmin) {
+          navigate("/admin");
+        } else {
+          navigate(from || "/", { replace: true });
+        }
+
+        // Trigger global auth and reset state
         auth();
-        setPassword("");   // Resetting password
-        setEmail("");      // Resetting email
+        setPassword("");
+        setEmail("");
       } else {
         console.log("Something went wrong");
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setError(error.response?.data?.detail || "An error occurred");
     } finally {
-      setLoading(false); // Always reset loading state
+      setLoading(false); // Reset loading state
     }
   };
 

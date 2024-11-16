@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // Carousel styles
 import styles from "../css/ProductDetail.module.css";
-import ProductCard from "../components/Card";
 import AddToCartButton from "../components/AddToCartButton";
 import { GlobalContext } from "../context/GlobalContext";
 import Spinner from "../components/Spinner";
@@ -12,68 +10,61 @@ import "../css/Carousel.css";
 
 const ProductDetail = () => {
   const { productId } = useParams();
-  const [product, setProduct] = useState(null);
-  const [products, setProducts] = useState([]);
-  const { link1, link2 } = useContext(GlobalContext);
+  const { products } = useContext(GlobalContext);
 
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
 
-  const fetchProductDetails = async () => {
-    try {
-      const response = await axios.get(`${link2}/api/product/${productId}`);
-      if (response.data.product) {
-        setProduct(response.data.product);
-        setProducts(response.data.similar_products);
-      } else {
-        console.error("Error: No response data");
-      }
-    } catch (err) {
-      console.error("Error fetching product details:", err.message);
-    }
-  };
+  // Find the product by ID
+  const filteredProduct = products?.find(
+    (product) => product.id === (productId)
+  );
 
-  useEffect(() => {
-    fetchProductDetails();
-  }, [productId]);
-
-  if (!product) {
+  // console.log (filteredProduct)
+  // Display a loader if the product is not found yet
+  if (!filteredProduct) {
     return <Spinner />;
   }
 
   return (
     <section>
       <div className={styles.productDetail}>
+        {/* Product Images */}
         <div className={styles.slider}>
-          {product.images && product.images.length > 0 && (
+          {filteredProduct.images && filteredProduct.images.length > 0 ? (
             <Carousel showThumbs={false} infiniteLoop autoPlay>
-              {product.images.map((image) => (
+              {filteredProduct.images.map((image) => (
                 <div className={styles.imageContainer} key={image.id}>
                   <img
                     src={image.image}
-                    alt={product.name}
+                    alt={filteredProduct.name}
                     className={styles.productImage}
                   />
                 </div>
               ))}
             </Carousel>
+          ) : (
+            <p>No images available</p>
           )}
         </div>
+
+        {/* Product Details */}
         <div className={styles.details}>
           <div>
-            <h2 className={styles.productName}>{product.name}</h2>
-            <p className={styles.description}>{product.description}</p>
+            <h2 className={styles.productName}>{filteredProduct.name}</h2>
+            <p className={styles.description}>{filteredProduct.description}</p>
           </div>
           <div className={styles.priceDiv}>
             <p className={styles.priceName}>Price:</p>
-            <h4 className={styles.price}> N{product.price}</h4>
+            <h4 className={styles.price}>N{filteredProduct.price}</h4>
           </div>
 
+          {/* Sizes */}
           <div className={styles.priceDiv}>
             <p className={styles.priceName}>Size:</p>
-            {product.sizes.length > 0 && (
+            {filteredProduct.sizes && filteredProduct.sizes.length > 0 ? (
               <div className={styles.sizeCont}>
-                {product.sizes.map((size) => (
+                {filteredProduct.sizes.map((size) => (
                   <button
                     key={size.id}
                     className={`${styles.btnSize} ${
@@ -85,14 +76,17 @@ const ProductDetail = () => {
                   </button>
                 ))}
               </div>
+            ) : (
+              <p>Size information not available</p>
             )}
           </div>
 
+          {/* Colors */}
           <div className={styles.priceDiv}>
             <p className={styles.priceName}>Color:</p>
-            {product.colors.length > 0 ? (
+            {filteredProduct.colors && filteredProduct.colors.length > 0 ? (
               <div className={styles.sizeCont}>
-                {product.colors.map((color) => (
+                {filteredProduct.colors.map((color) => (
                   <button
                     style={{
                       backgroundColor: `${color.color}`,
@@ -108,24 +102,31 @@ const ProductDetail = () => {
                 ))}
               </div>
             ) : (
-              <button className={styles.btnSize}>{product.colors[0]}</button>
+              <p>Color information not available</p>
             )}
           </div>
+
+          {/* Stock */}
           <div className={styles.priceDiv}>
             <p className={styles.priceName}>In Store:</p>
-            <h4 className={styles.price}>{product.stock}</h4>
+            <h4 className={styles.price}>
+              {filteredProduct.stock > 0
+                ? filteredProduct.stock
+                : "Out of Stock"}
+            </h4>
           </div>
 
+          {/* Add to Cart */}
           <div className={styles.buttonDiv}>
-            {!product.available ? (
+            {filteredProduct.stock <= 0 ? (
               <p className={styles.outStock}>Out of stock</p>
             ) : (
               <AddToCartButton
                 styles="block"
-                productId={product.id}
+                productId={filteredProduct.id}
                 selectedSize={selectedSize}
                 selectedColor={selectedColor}
-                product={product}
+                product={filteredProduct}
               />
             )}
           </div>

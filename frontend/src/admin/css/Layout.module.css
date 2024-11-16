@@ -1,0 +1,8 @@
+.layout {
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
+    background-color: #6a0dad27;
+    height: auto;
+    padding-right: 4rem;
+}

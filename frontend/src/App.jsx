@@ -25,6 +25,8 @@ import ChatBoxPage from "./pages/ChatBoxPage";
 import PaystackPayment from './pages/PaystackPayment'
 import Success from "./pages/Success";
 import FlutterwaveCallback from "./pages/FlutterWave";
+import Dashboard from "./admin/pages/Dashboard";
+import AdminLayout from "./admin/layout/Layout";
 
 function App() {
   return (
@@ -112,6 +114,19 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          {/* admin routes */}
+
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route
+              index="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
         </Routes>
       </BrowserRouter>
     </GlobalProvider>

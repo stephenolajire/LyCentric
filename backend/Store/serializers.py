@@ -1,5 +1,8 @@
 from rest_framework import serializers
 from .models import *
+from django.contrib.auth import get_user_model
+
+User = get_user_model ()
 
 
 class HeroSerializer (serializers.ModelSerializer):
@@ -93,12 +96,8 @@ class RecentSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    # To represent the `User`, `Cart`, and `CartItem` as nested serializers.
-    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())  # Reference to the User model
-    cart = serializers.PrimaryKeyRelatedField(queryset=Cart.objects.all())  # Reference to the Cart model
-    items = serializers.PrimaryKeyRelatedField(queryset=CartItem.objects.all())  # Reference to the CartItem model
 
     class Meta:
         model = Order
-        fields = ['id', 'firstName', 'lastName', 'phoneNumber', 'email', 'state', 'city', 'localGovernment', 'nearestBusStop', 'homeAddress', 'status', 'user', 'cart', 'items', 'amount', 'created']
+        fields = ['id', 'firstName', 'lastName', 'phoneNumber', 'email', 'state', 'city', 'localGovernment', 'nearestBusStop', 'homeAddress', 'status', 'amount', 'created']
         read_only_fields = ['created']

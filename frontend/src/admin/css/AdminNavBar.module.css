@@ -1,0 +1,68 @@
+.adminNav {
+    background-color: #6a0dad;
+    width: 25rem;
+    height: 100vh;
+    position: fixed;
+    padding-left: 2rem;
+}
+
+.admin {
+    font-size: 2rem;
+    color: #f4f4f4;
+    margin-top: 4rem;
+}
+
+.adminDetails {
+    display: flex;
+    flex-direction: row;
+    gap: 1.6rem;
+    margin-top: 2rem;
+    align-items: center;
+}
+
+.adminDetails img {
+    width: 5rem;
+    height: 5rem;
+}
+
+.name {
+    font-size: 1.4rem;
+    color: #f4f4f4;
+    text-transform: capitalize;
+}
+
+.pages, .dashboard {
+    font-size: 1.4rem;
+    color: #f4f4f4;
+    margin-top: 2rem;
+    text-transform: capitalize;
+}
+
+.dashboard {
+    margin-top: 0rem;
+}
+
+.linkContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    align-items: center;
+    margin-top: 2rem;
+    padding-left: 2rem;
+}
+
+.icon {
+    width: 2rem;
+    height: 2rem;
+    color: #f4f4f4;
+}
+
+@media (min-width: 250px) and (max-width: 575px) {
+    /* .adminNav {
+        width: 3rem;
+    }
+
+    .dashboard {
+        display: hidden;
+    } */
+}
