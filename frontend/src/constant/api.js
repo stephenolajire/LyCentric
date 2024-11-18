@@ -5,7 +5,7 @@ const link = "http://127.0.0.1:8000/"
 const render = "https://llcentric-backend.onrender.com/"
 
 const api = axios.create({
-  baseURL:render,
+  baseURL: render,
 });
 
 api.interceptors.request.use(

@@ -21,6 +21,7 @@ export const GlobalProvider = ({ children }) => {
   const [recents, setRecents] = useState([]);
   const [category, setCategory] = useState([]);
   const [heroes, setHeroes] = useState([]);
+  const [orderHistory, setOrderHistory] = useState([]);
   const [pagination, setPagination] = useState({ next: null, previous: null });
 
   const link2 = "https://llcentric-backend.onrender.com";
@@ -48,7 +49,7 @@ export const GlobalProvider = ({ children }) => {
     }
   }, []);
 
-  const fetchProducts = async (url = `${link2}/api/allproduct`) => {
+  const fetchProducts = async (url = `${link2}/api/allproduct`)=> {
     try {
       const response = await axios.get(url);
       if (response) {
@@ -244,6 +245,12 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
+  useEffect (() => {
+    if (audience.length === 0) {
+      fetchAudience()
+    }
+  })
+
   const Profile = async () => {
     const response = await api.get("api/profile");
     try {
@@ -258,6 +265,31 @@ export const GlobalProvider = ({ children }) => {
   useEffect(() => {
     Profile();
   }, []);
+  
+
+  // Admin
+
+  const fetchOrder = async () => {
+    setLoading(true)
+    try {
+      const response = await api.get("api/orderhistory");
+      if (response.data) {
+        setOrderHistory(response.data);
+      } else {
+        console.error("Error:", response.error);
+      }
+    } catch (error) {
+      console.error("Fetch Order Error:", error);
+    } finally {
+      setLoading(false); // Stop loading
+    }
+  };
+
+  useEffect(() => {
+    if (orderHistory.length === 0) {
+      fetchOrder()
+    }
+  }, []); 
 
   return (
     <GlobalContext.Provider
@@ -285,9 +317,10 @@ export const GlobalProvider = ({ children }) => {
         pagination,
         heroes,
         recents,
+        orderHistory,
       }}
     >
       {children}
     </GlobalContext.Provider>
   );
-};
+}
