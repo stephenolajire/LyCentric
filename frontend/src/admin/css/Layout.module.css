@@ -3,6 +3,6 @@
     flex-direction: row;
     gap: 4rem;
     background-color: #6a0dad27;
-    height: auto;
+    min-height: 100vh;
     padding-right: 4rem;
 }

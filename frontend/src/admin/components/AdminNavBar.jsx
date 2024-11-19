@@ -24,7 +24,7 @@ const AdminNavBar = () => {
               <p className={style.dashboard}>Dashboard</p>
             </div>
           </Link>
-          <Link>
+          <Link to="/admin/orders">
             <div className={style.linkContainer}>
               <MdOutlineSubtitles className={style.icon} />
               <p className={style.dashboard}>all orders</p>

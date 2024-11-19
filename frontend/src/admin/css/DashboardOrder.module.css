@@ -3,6 +3,12 @@
     height: auto;
 }
 
+.AllOrder {
+  padding-left: 29rem;
+  width: 100%;
+  padding-bottom: 4rem;
+}
+
 .container {
     width: 100%;
 }
@@ -43,4 +49,17 @@
 
 .table tr:hover {
   background-color: #ddd;
+}
+
+.paginationControls {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 2rem;
+  color: blue;
+}
+
+.prevBtn, .nextBtn{
+  font-size: 1.4rem;
+  margin-top: 2rem;
 }

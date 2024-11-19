@@ -23,9 +23,10 @@ export const GlobalProvider = ({ children }) => {
   const [heroes, setHeroes] = useState([]);
   const [orderHistory, setOrderHistory] = useState([]);
   const [pagination, setPagination] = useState({ next: null, previous: null });
+  const [orderPagination, setOrderPagination] = useState({ next: null, previous: null });
 
-  const link2 = "https://llcentric-backend.onrender.com";
-  const link1 = "http://127.0.0.1:8000";
+  const link1 = "https://llcentric-backend.onrender.com";
+  const link2 = "http://127.0.0.1:8000";
 
   const fetchCategory = async () => {
     setLoading(true);
@@ -269,12 +270,16 @@ export const GlobalProvider = ({ children }) => {
 
   // Admin
 
-  const fetchOrder = async () => {
-    setLoading(true)
+  const fetchOrder = async (url = `${link2}/api/orderhistory`) => {
+    setLoading(true);
     try {
-      const response = await api.get("api/orderhistory");
+      const response = await api.get(url);
       if (response.data) {
-        setOrderHistory(response.data);
+        setOrderHistory(response.data.results);
+        setOrderPagination({
+          next: response.data.next,
+          previous: response.data.previous,
+        });
       } else {
         console.error("Error:", response.error);
       }
@@ -318,6 +323,7 @@ export const GlobalProvider = ({ children }) => {
         heroes,
         recents,
         orderHistory,
+        orderPagination,
       }}
     >
       {children}

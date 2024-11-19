@@ -1,4 +1,4 @@
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import Layout from "./Layout/Layout";
 import Home from "./pages/Home";
 import BiilingPage from "./pages/BiilingPage";
@@ -27,12 +27,14 @@ import Success from "./pages/Success";
 import FlutterwaveCallback from "./pages/FlutterWave";
 import Dashboard from "./admin/pages/Dashboard";
 import AdminLayout from "./admin/layout/Layout";
+import AllOrder from "./admin/pages/AllOrder";
 
 function App() {
   return (
     <GlobalProvider>
       <BrowserRouter>
         <Routes>
+          {/* Main Layout */}
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="category/:categoryId" element={<Category />} />
@@ -40,11 +42,11 @@ function App() {
               path="category/:categoryId/audience/:audienceId"
               element={<Audience />}
             />
-            <Route path="/product/:productId" element={<ProductDetail />} />
-            <Route path="/cartpage/" element={<CartPage />} />
-            <Route path="/searchpage/" element={<SearchPage />} />
+            <Route path="product/:productId" element={<ProductDetail />} />
+            <Route path="cartpage" element={<CartPage />} />
+            <Route path="searchpage" element={<SearchPage />} />
             <Route
-              path="/checkout"
+              path="checkout"
               element={
                 <ProtectedRoute>
                   <CheckoutPage />
@@ -52,7 +54,7 @@ function App() {
               }
             />
             <Route
-              path="/profile"
+              path="profile"
               element={
                 <ProtectedRoute>
                   <ProfilePage />
@@ -60,7 +62,7 @@ function App() {
               }
             />
             <Route
-              path="/payment"
+              path="payment"
               element={
                 <ProtectedRoute>
                   <BiilingPage />
@@ -68,65 +70,66 @@ function App() {
               }
             />
             <Route
-              path="/editprofile"
+              path="editprofile"
               element={
                 <ProtectedRoute>
                   <EditProfilePage />
                 </ProtectedRoute>
               }
             />
-            <Route path="/contact" element={<ContactPage />} />
+            <Route path="contact" element={<ContactPage />} />
             <Route
-              path="/paystack/callback/:cart_code"
+              path="paystack/callback/:cart_code"
               element={
                 <ProtectedRoute>
                   <PaystackPayment />
                 </ProtectedRoute>
               }
             />
-
             <Route
-              path="/flutterwave/callback/:cart_code"
+              path="flutterwave/callback/:cart_code"
               element={
                 <ProtectedRoute>
                   <FlutterwaveCallback />
                 </ProtectedRoute>
               }
             />
-            <Route path="/success" element={<Success />} />
-          </Route>
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/message" element={<Message />} />
-          <Route path="/verified" element={<Verified />} />
-          <Route path="/confirm_email/:uid/:token" element={<ConfirmEmail />} />
-          <Route path="/verifyemail" element={<VerifyEmail />} />
-          <Route
-            path="/resetpassword/:uid/:token"
-            element={<ResetPassword />}
-          />
-          <Route path="*" element={<PageNotFound />} />
-          <Route
-            path="/ai"
-            element={
-              <ProtectedRoute>
-                <ChatBoxPage />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* admin routes */}
-
-          <Route path="/admin" element={<AdminLayout />}>
+            <Route path="success" element={<Success />} />
             <Route
-              index="/dashboard"
+              path="ai"
               element={
                 <ProtectedRoute>
-                  <Dashboard />
+                  <ChatBoxPage />
                 </ProtectedRoute>
               }
             />
           </Route>
+
+          {/* User Routes */}
+          <Route path="signup" element={<Signup />} />
+          <Route path="login" element={<Login />} />
+          <Route path="message" element={<Message />} />
+          <Route path="verified" element={<Verified />} />
+          <Route path="confirm_email/:uid/:token" element={<ConfirmEmail />} />
+          <Route path="verifyemail" element={<VerifyEmail />} />
+          <Route path="resetpassword/:uid/:token" element={<ResetPassword />} />
+
+          {/* Admin Routes */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <AdminLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index="dashboard" element={<Dashboard />} />
+            <Route path="/admin/orders" element={<AllOrder />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Route>
+
+          {/* Fallback Route */}
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
     </GlobalProvider>

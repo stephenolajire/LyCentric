@@ -9,7 +9,7 @@ import { GlobalContext } from '../context/GlobalContext';
 import Spinner from '../components/Spinner'
 
 const Home = () => {
-  const {category, products, loading, pagination} = useContext(GlobalContext)
+  const {category, products, loading, pagination, fetchData} = useContext(GlobalContext)
 
   useEffect(() => {
     const checkUserVerification = async () => {
