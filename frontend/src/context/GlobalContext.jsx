@@ -22,8 +22,13 @@ export const GlobalProvider = ({ children }) => {
   const [category, setCategory] = useState([]);
   const [heroes, setHeroes] = useState([]);
   const [orderHistory, setOrderHistory] = useState([]);
+  const [allOrder, setAllOrder] = useState([]);
   const [pagination, setPagination] = useState({ next: null, previous: null });
-  const [orderPagination, setOrderPagination] = useState({ next: null, previous: null });
+  const [orderPagination, setOrderPagination] = useState({
+    next: null,
+    previous: null,
+  });
+  const [totalUsers, setTotalUsers] = useState(0);
 
   const link1 = "https://llcentric-backend.onrender.com";
   const link2 = "http://127.0.0.1:8000";
@@ -50,7 +55,7 @@ export const GlobalProvider = ({ children }) => {
     }
   }, []);
 
-  const fetchProducts = async (url = `${link2}/api/allproduct`)=> {
+  const fetchProducts = async (url = `${link2}/api/allproduct`) => {
     try {
       const response = await axios.get(url);
       if (response) {
@@ -77,7 +82,7 @@ export const GlobalProvider = ({ children }) => {
     setLoading(true);
     try {
       const response = await api.get("api/hero");
-      setHeroes(response.data); 
+      setHeroes(response.data);
     } catch (error) {
       console.error("Error fetching hero data:", error);
     } finally {
@@ -87,10 +92,9 @@ export const GlobalProvider = ({ children }) => {
 
   useEffect(() => {
     if (heroes.length === 0) {
-      fetchHeroData()
+      fetchHeroData();
     }
   }, []);
-
 
   const fetchData = async () => {
     const cart_code = localStorage.getItem("cart_code");
@@ -246,11 +250,11 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
-  useEffect (() => {
+  useEffect(() => {
     if (audience.length === 0) {
-      fetchAudience()
+      fetchAudience();
     }
-  })
+  });
 
   const Profile = async () => {
     const response = await api.get("api/profile");
@@ -266,16 +270,31 @@ export const GlobalProvider = ({ children }) => {
   useEffect(() => {
     Profile();
   }, []);
-  
 
   // Admin
 
-  const fetchOrder = async (url = `${link2}/api/orderhistory`) => {
+  const fetchOrder = async () => {
+    setLoading(true);
+    try {
+      const response = await api.get("api/orderhistory");
+      if (response.data) {
+        setOrderHistory(response.data);
+      } else {
+        console.error("Error:", response.error);
+      }
+    } catch (error) {
+      console.error("Fetch Order Error:", error);
+    } finally {
+      setLoading(false); // Stop loading
+    }
+  };
+
+  const fetchOrders = async (url = `${link2}/api/allorders`) => {
     setLoading(true);
     try {
       const response = await api.get(url);
       if (response.data) {
-        setOrderHistory(response.data.results);
+        setAllOrder(response.data.results);
         setOrderPagination({
           next: response.data.next,
           previous: response.data.previous,
@@ -289,12 +308,27 @@ export const GlobalProvider = ({ children }) => {
       setLoading(false); // Stop loading
     }
   };
-
   useEffect(() => {
     if (orderHistory.length === 0) {
-      fetchOrder()
+      fetchOrder();
     }
-  }, []); 
+
+    fetchOrders();
+  }, []);
+
+  const sendVerification = async () => {
+    try {
+      const response = await api.get("api/check_user");
+      console.log(response.data.message);
+      setTotalUsers(response.data.total_user); // Update state with total users
+    } catch (error) {
+      console.error("Error checking user verification:", error);
+    }
+  };
+
+  useEffect(() => {
+    sendVerification()
+  })
 
   return (
     <GlobalContext.Provider
@@ -323,10 +357,14 @@ export const GlobalProvider = ({ children }) => {
         heroes,
         recents,
         orderHistory,
+        allOrder,
         orderPagination,
+        fetchOrders,
+        sendVerification,
+        totalUsers,
       }}
     >
       {children}
     </GlobalContext.Provider>
   );
-}
+};

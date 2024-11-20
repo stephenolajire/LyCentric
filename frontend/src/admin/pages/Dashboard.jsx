@@ -10,9 +10,11 @@ import MonthlyEarnings from "../components/MonthlyEarnings";
 import DashboardOrder from "../components/DashboardOrder";
 
 import { GlobalContext } from "../../context/GlobalContext";
+import { Link } from "react-router-dom";
+
 
 const Dashboard = () => {
-  const { orderHistory } = useContext(GlobalContext); // Ensure GlobalContext provides orderHistory
+  const { orderHistory, totalUsers } = useContext(GlobalContext); // Ensure GlobalContext provides orderHistory
 
   // Filter completed orders
   const completedOrders =
@@ -47,14 +49,16 @@ const Dashboard = () => {
             </div>
           </div>
           {/* Orders */}
-          <div className={style.innerGrid}>
-            <p className={style.sales}>Orders</p>
-            <p className={style.number}>{orderCount}</p>
-            <p className={style.monthly}>all orders</p>
-            <div className={style.div}>
-              <MdShoppingCart className={style.icon} />
+          <Link to="/admin/orders">
+            <div className={style.innerGrid}>
+              <p className={style.sales}>Orders</p>
+              <p className={style.number}>{orderCount}</p>
+              <p className={style.monthly}>all orders</p>
+              <div className={style.div}>
+                <MdShoppingCart className={style.icon} />
+              </div>
             </div>
-          </div>
+          </Link>
           {/* Earnings */}
           <div className={style.innerGrid}>
             <p className={style.sales}>Earnings</p>
@@ -67,7 +71,15 @@ const Dashboard = () => {
           {/* Customers */}
           <div className={style.innerGrid}>
             <p className={style.sales}>Customers</p>
-            <p className={style.number}>20K</p>
+            {totalUsers >= 1000000 ? (
+              <p className={style.number}>
+                {(totalUsers / 1000000).toFixed(1)}M
+              </p>
+            ) : totalUsers >= 1000 ? (
+              <p className={style.number}>{(totalUsers / 1000).toFixed(1)}K</p>
+            ) : (
+              <p className={style.number}>{totalUsers}</p>
+            )}
             <p className={style.monthly}>Total Customers</p>
             <div className={style.div}>
               <MdPeopleOutline className={style.icon} />

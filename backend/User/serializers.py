@@ -14,6 +14,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         # Add custom claims
         token['is_admin'] = user.is_staff  # or user.is_superuser for super admins
+        token['verified'] = user.verified
         return token
 
 class CustomTokenObtainPairView(TokenObtainPairView):

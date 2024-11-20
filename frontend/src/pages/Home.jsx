@@ -16,6 +16,7 @@ const Home = () => {
       try {
         const response = await api.get("api/check_user");
         console.log(response.data.message);
+        const total_user = response.data.total_user
       } catch (error) {
         console.error("Error checking user verification:", error);
       }

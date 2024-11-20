@@ -3,7 +3,7 @@ import style from "../css/DashboardOrder.module.css";
 import { GlobalContext } from "../../context/GlobalContext";
 
 const AllOrder = () => {
-  const { orderHistory, loading, fetchOrder, orderPagination } =
+  const { allOrder, loading, fetchOrders, orderPagination } =
     useContext(GlobalContext);
 
   return (
@@ -28,8 +28,8 @@ const AllOrder = () => {
                     Loading...
                   </td>
                 </tr>
-              ) : orderHistory.length > 0 ? (
-                orderHistory.map((order, index) => (
+              ) : allOrder.length > 0 ? (
+                allOrder.map((order, index) => (
                   <tr key={index}>
                     <td>{order.created}</td>
                     <td>
@@ -56,7 +56,7 @@ const AllOrder = () => {
           {/* Only show "Previous" button if there is a previous page */}
           {orderPagination.previous && (
             <button
-              onClick={() => fetchData(orderPagination.previous)}
+              onClick={() => fetchOrders(orderPagination.previous)}
               className={style.prevBtn}
             >
               Previous
@@ -66,7 +66,7 @@ const AllOrder = () => {
           {/* Only show "Next" button if there is a next page */}
           {orderPagination.next && (
             <button
-              onClick={() => fetchOrder(orderPagination.next)}
+              onClick={() => fetchOrders(orderPagination.next)}
               className={style.nextBtn}
             >
               Next

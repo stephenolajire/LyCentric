@@ -18,7 +18,7 @@ const AdminNavBar = () => {
       <div className={style.outerpage}>
         <p className={style.pages}>pages</p>
         <div>
-          <Link>
+          <Link to="/admin">
             <div className={style.linkContainer}>
               <MdCalendarViewMonth className={style.icon} />
               <p className={style.dashboard}>Dashboard</p>

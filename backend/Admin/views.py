@@ -11,4 +11,9 @@ User = get_user_model ()
 class OrderHistoryView(ListAPIView):
     serializer_class = OrderSerializer
     queryset = Order.objects.all()
+
+
+class AllOrderView(ListAPIView):
+    serializer_class = OrderSerializer
+    queryset = Order.objects.all()
     pagination_class = CustomPagination

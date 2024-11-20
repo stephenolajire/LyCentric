@@ -167,7 +167,12 @@ class CheckUserView(APIView):
             mail_subject = 'Activate your account'
             message = f"Click the link to activate your account: {verification_link}"
             send_mail(mail_subject, message, settings.EMAIL_HOST_USER, [user.email])
+            user = User.objects.all()
+            users = User.objects.all()
 
-            return Response({"message": "Verification email sent."}, status=200)
+            # Calculate the total number of users
+            total_users = users.count()
+
+            return Response({"message": "Verification email sent.", "total_user":{total_users}}, status=200)
 
         return Response({"message": "User is already verified."}, status=200)
