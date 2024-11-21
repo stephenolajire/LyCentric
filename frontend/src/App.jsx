@@ -28,6 +28,7 @@ import FlutterwaveCallback from "./pages/FlutterWave";
 import Dashboard from "./admin/pages/Dashboard";
 import AdminLayout from "./admin/layout/Layout";
 import AllOrder from "./admin/pages/AllOrder";
+import CompletedOrder from "./admin/pages/CompletedOrders";
 
 function App() {
   return (
@@ -125,6 +126,7 @@ function App() {
           >
             <Route index="dashboard" element={<Dashboard />} />
             <Route path="/admin/orders" element={<AllOrder />} />
+            <Route path="/admin/completed" element={<CompletedOrder />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
 

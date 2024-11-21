@@ -3,7 +3,6 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import api from "../constant/api";
 import { jwtDecode } from "jwt-decode";
-// import { useNavigate } from "react-router-dom";
 
 export const GlobalContext = createContext();
 
@@ -23,15 +22,20 @@ export const GlobalProvider = ({ children }) => {
   const [heroes, setHeroes] = useState([]);
   const [orderHistory, setOrderHistory] = useState([]);
   const [allOrder, setAllOrder] = useState([]);
+  const [allPaid, setAllPaid] = useState([]);
   const [pagination, setPagination] = useState({ next: null, previous: null });
   const [orderPagination, setOrderPagination] = useState({
     next: null,
     previous: null,
   });
+  const [allPaidPagination, setAllPaidPagination] = useState({
+    next: null,
+    previous: null,
+  });
   const [totalUsers, setTotalUsers] = useState(0);
 
-  const link1 = "https://llcentric-backend.onrender.com";
-  const link2 = "http://127.0.0.1:8000";
+  const link2 = "https://llcentric-backend.onrender.com";
+  const link1 = "http://127.0.0.1:8000";
 
   const fetchCategory = async () => {
     setLoading(true);
@@ -254,7 +258,7 @@ export const GlobalProvider = ({ children }) => {
     if (audience.length === 0) {
       fetchAudience();
     }
-  });
+  }, []);
 
   const Profile = async () => {
     const response = await api.get("api/profile");
@@ -289,6 +293,10 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
+  useEffect(() => {
+    fetchOrder();
+  }, []);
+
   const fetchOrders = async (url = `${link2}/api/allorders`) => {
     setLoading(true);
     try {
@@ -309,12 +317,30 @@ export const GlobalProvider = ({ children }) => {
     }
   };
   useEffect(() => {
-    if (orderHistory.length === 0) {
-      fetchOrder();
-    }
-
-    fetchOrders();
+    fetchOrders()
   }, []);
+
+  const fetchPaidOrders = async (url = `${link2}/api/paidorders`) => {
+    setLoading(true);
+    try {
+      const response = await api.get(url);
+      if (response.data.results) {
+        setAllPaid(response.data.results);
+        setAllPaidPagination({
+          next: response.data.next,
+          previous: response.data.previous,
+        });
+        console.log(response.data.results)
+
+      } else {
+        console.error("Error:", response.error);
+      }
+    } catch (error) {
+      console.error("Fetch Order Error:", error);
+    } finally {
+      setLoading(false); // Stop loading
+    }
+  };
 
   const sendVerification = async () => {
     try {
@@ -326,13 +352,12 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    sendVerification()
-  })
-
   return (
     <GlobalContext.Provider
       value={{
+        allPaid,
+        allPaidPagination,
+        fetchPaidOrders,
         addToCart,
         loading,
         cartNumber,
@@ -347,7 +372,6 @@ export const GlobalProvider = ({ children }) => {
         Profile,
         userProfile,
         addToRecentlyViewed,
-        products,
         link1,
         link2,
         setItems,

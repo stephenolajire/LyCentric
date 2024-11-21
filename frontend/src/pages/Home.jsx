@@ -9,23 +9,22 @@ import { GlobalContext } from '../context/GlobalContext';
 import Spinner from '../components/Spinner'
 
 const Home = () => {
-  const {category, products, loading, pagination, fetchData} = useContext(GlobalContext)
+  const {category, products, loading, pagination, fetchProducts} = useContext(GlobalContext)
 
-  useEffect(() => {
-    const checkUserVerification = async () => {
-      try {
-        const response = await api.get("api/check_user");
-        console.log(response.data.message);
-        const total_user = response.data.total_user
-      } catch (error) {
-        console.error("Error checking user verification:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const checkUserVerification = async () => {
+  //     try {
+  //       const response = await api.get("api/check_user");
+  //       console.log(response.data.message);
+  //       const total_user = response.data.total_user
+  //     } catch (error) {
+  //       console.error("Error checking user verification:", error);
+  //     }
+  //   };
 
-    checkUserVerification();
-  }, []);
+  //   checkUserVerification();
+  // }, []);
 
-  
 
 
   if (loading) {
@@ -56,7 +55,7 @@ const Home = () => {
           {/* Only show "Previous" button if there is a previous page */}
           {pagination.previous && (
             <button 
-              onClick={() => fetchData(pagination.previous)} 
+              onClick={() => fetchProducts(pagination.previous)} 
               className={styles.prevBtn}
             >
               Previous
@@ -66,7 +65,7 @@ const Home = () => {
           {/* Only show "Next" button if there is a next page */}
           {pagination.next && (
             <button 
-              onClick={() => fetchData(pagination.next)} 
+              onClick={() => fetchProducts(pagination.next)} 
               className={styles.nextBtn}
             >
               Next

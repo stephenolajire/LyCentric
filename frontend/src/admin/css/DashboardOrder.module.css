@@ -63,3 +63,21 @@
   font-size: 1.4rem;
   margin-top: 2rem;
 }
+
+.sent, .delivered {
+  height: 4rem;
+  width: 12rem;
+  background-color: green;
+  color: #fff;
+}
+
+.delivered {
+  background-color: #6a0dad;
+}
+
+
+@media (min-width: 250px) and (max-width: 575px) {
+  .AllOrder{
+    padding-left: 0rem;
+  }
+}

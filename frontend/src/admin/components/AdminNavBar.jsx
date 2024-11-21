@@ -30,7 +30,7 @@ const AdminNavBar = () => {
               <p className={style.dashboard}>all orders</p>
             </div>
           </Link>
-          <Link>
+          <Link to="/admin/completed">
             <div className={style.linkContainer}>
               <MdPayments className={style.icon} />
               <p className={style.dashboard}>completed orders</p>
