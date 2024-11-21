@@ -174,8 +174,8 @@ SIMPLE_JWT = {
 AUTH_USER_MODEL = 'User.CustomUser'
 
 
-# FRONTEND_URL = "https://lycentric-wears.onrender.com"
-FRONTEND_URL = "http://localhost:5173"
+FRONTEND_URL = "https://lycentric-wears.onrender.com"
+# FRONTEND_URL = "http://localhost:5173"
 
 # Email settings for Gmail
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

@@ -137,6 +137,8 @@ class Order (models.Model):
     paymentMethod = models.CharField (max_length=300)
     amount = models.FloatField ()
     status = models.CharField(max_length=200, default="pending")
+    delivered = models.CharField(max_length=100, default="not sent")
+    sent = models.CharField(max_length=100, default="not sent")
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
