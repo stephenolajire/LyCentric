@@ -64,44 +64,64 @@ const CompletedOrder = () => {
                 </tr>
               ) : allPaid.length > 0 ? (
                 allPaid.map((order) => (
-                  <Link to={`/admin/vieworder/${order.id}`}>
-                    <tr key={order.id}>
-                      <td>{order.created}</td>
-                      <td>
+                  <tr key={order.id}>
+                    <td>
+                      <Link to={`/admin/vieworder/${order.id}`}>
+                        {order.created}
+                      </Link>
+                    </td>
+                    <td>
+                      <Link to={`/admin/vieworder/${order.id}`}>
                         {order.firstName} {order.lastName}
-                      </td>
-                      <td>{order.phoneNumber}</td>
-                      <td>{order.email}</td>
-                      <td>{order.status}</td>
-                      <td>N{order.amount}</td>
-                      <td>
-                        <button
-                          onClick={() => handleSendOrder(order.id)}
-                          className={style.sent}
-                          disabled={order.sent === "sent"} // Disable if order is already sent
-                          style={{
-                            opacity: order.sent === "sent" ? 0.5 : 1,
-                          }}
-                        >
-                          {order.sent === "sent" ? "Sent" : "Send"}
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          onClick={() => handleDeliverOrder(order.id)}
-                          className={style.delivered}
-                          disabled={order.delivered === "delivered"} // Disable if order is already delivered
-                          style={{
-                            opacity: order.delivered === "delivered" ? 0.5 : 1,
-                          }}
-                        >
-                          {order.delivered === "delivered"
-                            ? "Delivered"
-                            : "Deliver"}
-                        </button>
-                      </td>
-                    </tr>
-                  </Link>
+                      </Link>
+                    </td>
+                    <td>
+                      <Link to={`/admin/vieworder/${order.id}`}>
+                        {order.phoneNumber}
+                      </Link>
+                    </td>
+                    <td>
+                      <Link to={`/admin/vieworder/${order.id}`}>
+                        {order.email}
+                      </Link>
+                    </td>
+                    <td>
+                      <Link to={`/admin/vieworder/${order.id}`}>
+                        {order.status}
+                      </Link>
+                    </td>
+                    <td>
+                      <Link to={`/admin/vieworder/${order.id}`}>
+                        N{order.amount}
+                      </Link>
+                    </td>
+                    <td>
+                      <button
+                        onClick={() => handleSendOrder(order.id)}
+                        className={style.sent}
+                        disabled={order.sent === "sent"} // Disable if order is already sent
+                        style={{
+                          opacity: order.sent === "sent" ? 0.5 : 1,
+                        }}
+                      >
+                        {order.sent === "sent" ? "Sent" : "Send"}
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        onClick={() => handleDeliverOrder(order.id)}
+                        className={style.delivered}
+                        disabled={order.delivered === "delivered"} // Disable if order is already delivered
+                        style={{
+                          opacity: order.delivered === "delivered" ? 0.5 : 1,
+                        }}
+                      >
+                        {order.delivered === "delivered"
+                          ? "Delivered"
+                          : "Deliver"}
+                      </button>
+                    </td>
+                  </tr>
                 ))
               ) : (
                 <tr>
