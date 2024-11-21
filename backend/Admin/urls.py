@@ -7,4 +7,5 @@ urlpatterns = [
     path ("paidorders", PaidOrderView.as_view()),
     path ("send", SendOrderView.as_view()),
     path ("deliver", DeliverOrderView.as_view()),
+    path('view_detail/<uuid:id>/', SendDetails.as_view(), name='send_details'),
 ]

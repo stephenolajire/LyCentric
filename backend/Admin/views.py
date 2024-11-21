@@ -8,6 +8,7 @@ from .paginations import CustomPagination
 from rest_framework.response import Response
 from django.core.mail import send_mail
 from django.conf import settings
+from rest_framework import status
 
 User = get_user_model ()
 
@@ -131,3 +132,38 @@ class DeliverOrderView(APIView):
         
         except Exception as e:
             return Response({"error": str(e)}, status=500)
+
+class SendDetails(APIView):
+    def get(self, request, id, *args, **kwargs):
+        try:
+            # Fetch the order by ID
+            order = Order.objects.get(id=id)
+            
+            # Get the order items related to this order
+            order_items = OrderItem.objects.filter(order=order)
+
+            # Prepare the data to include the first image for each product
+            response_data = []
+            for item in order_items:
+                # Fetch the first image related to the product
+                first_image = ProductImage.objects.filter(product=item.product).first()
+                image_url = first_image.image.url if first_image else None
+
+                # Add the image URL to the serialized data
+                serialized_item = {
+                    "id": item.id,
+                    "product": str(item.product.id),  # Ensure ID is serialized as a string
+                    "product_name": item.product_name,
+                    "product_color": item.product_color,
+                    "product_quantity": item.product_quantity,
+                    "product_size": item.product_size,
+                    "product_image": image_url,  # Add the image URL
+                }
+                response_data.append(serialized_item)
+
+            return Response(response_data, status=status.HTTP_200_OK)
+        except Order.DoesNotExist:
+            return Response(
+                {"error": "Order not found"},
+                status=status.HTTP_404_NOT_FOUND
+            )
