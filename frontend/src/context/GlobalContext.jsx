@@ -24,6 +24,7 @@ export const GlobalProvider = ({ children }) => {
   const [allOrder, setAllOrder] = useState([]);
   const [allPaid, setAllPaid] = useState([]);
   const [pagination, setPagination] = useState({ next: null, previous: null });
+  const [open, setIsOpen] = useState(true);
   const [orderPagination, setOrderPagination] = useState({
     next: null,
     previous: null,
@@ -36,6 +37,11 @@ export const GlobalProvider = ({ children }) => {
 
   const link2 = "https://llcentric-backend.onrender.com";
   const link1 = "http://127.0.0.1:8000";
+
+
+  const handleClick = () => {
+    setIsOpen(!open);
+  };
 
   const fetchCategory = async () => {
     setLoading(true);
@@ -386,6 +392,8 @@ export const GlobalProvider = ({ children }) => {
         fetchOrders,
         sendVerification,
         totalUsers,
+        open,
+        handleClick,
       }}
     >
       {children}

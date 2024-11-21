@@ -1,10 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import style from "../css/Dashboard.module.css";
 import {
   MdLocalShipping,
   MdShoppingCart,
   MdMonetizationOn,
   MdPeopleOutline,
+  MdMenu,
+  MdOutlineClear,
 } from "react-icons/md";
 import MonthlyEarnings from "../components/MonthlyEarnings";
 import DashboardOrder from "../components/DashboardOrder";
@@ -14,7 +16,7 @@ import { Link } from "react-router-dom";
 
 
 const Dashboard = () => {
-  const { orderHistory, totalUsers } = useContext(GlobalContext); // Ensure GlobalContext provides orderHistory
+  const { orderHistory, totalUsers} = useContext(GlobalContext); // Ensure GlobalContext provides orderHistory
 
   // Filter completed orders
   const completedOrders =
@@ -64,12 +66,14 @@ const Dashboard = () => {
           {/* Earnings */}
           <div className={style.innerGrid}>
             <p className={style.sales}>Earnings</p>
-            {totalCompletedAmount>= 1000000 ? (
+            {totalCompletedAmount >= 1000000 ? (
               <p className={style.number}>
                 {(totalCompletedAmount / 1000000).toFixed(2)}M
               </p>
             ) : totalCompletedAmount >= 1000 ? (
-              <p className={style.number}>{(totalCompletedAmount / 1000).toFixed(2)}K</p>
+              <p className={style.number}>
+                {(totalCompletedAmount / 1000).toFixed(2)}K
+              </p>
             ) : (
               <p className={style.number}>{totalCompletedAmount}</p>
             )}
