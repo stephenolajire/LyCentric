@@ -77,7 +77,7 @@ const ProductDetail = () => {
                 ))}
               </div>
             ) : (
-              <p>Size information not available</p>
+              <p style={{fontSize:"1.6rem", color:"#131313", opacity:"0.7"}}>Size information not available</p>
             )}
           </div>
 
@@ -102,7 +102,7 @@ const ProductDetail = () => {
                 ))}
               </div>
             ) : (
-              <p>Color information not available</p>
+              <p style={{fontSize:"1.6rem", opacity:"0.7", color:"#131313"}}>Color information not available</p>
             )}
           </div>
 
@@ -112,7 +112,7 @@ const ProductDetail = () => {
             <h4 className={styles.price}>
               {filteredProduct.stock > 0
                 ? filteredProduct.stock
-                : "Out of Stock"}
+                : 0}
             </h4>
           </div>
 

@@ -108,10 +108,14 @@ const NavBar = ({ category }) => {
             <li className={styles.navItem}>
               <Link to="/faqs">FAQs</Link>
             </li>
+
             {isAuthenticated ? (
               <>
                 <li className={styles.navLink}>
                   <Link to="/profile">Profile</Link>
+                </li>
+                <li className={styles.navItem}>
+                  <Link to="/orders">Orders</Link>
                 </li>
                 <li className={styles.navLink}>
                   <Link to="/login">Logout</Link>

@@ -30,6 +30,7 @@ import AdminLayout from "./admin/layout/Layout";
 import AllOrder from "./admin/pages/AllOrder";
 import CompletedOrder from "./admin/pages/CompletedOrders";
 import ViewOrder from "./admin/pages/ViewOrder";
+import Order from "./pages/Order";
 
 function App() {
   return (
@@ -76,6 +77,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <EditProfilePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="orders"
+              element={
+                <ProtectedRoute>
+                  <Order/>
                 </ProtectedRoute>
               }
             />

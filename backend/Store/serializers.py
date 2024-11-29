@@ -99,7 +99,9 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ['id', 'firstName', 'lastName', 'phoneNumber', 'email', 'state', 'city', 'localGovernment', 'nearestBusStop', 'homeAddress', 'status', 'amount', 'created', 'delivered', 'sent']
+        fields = ['id', 'firstName', 'lastName', 'phoneNumber', 'email', 'state', 
+                  'city', 'localGovernment', 'nearestBusStop', 'homeAddress', 'status', 
+                  'amount', 'created', 'delivery']
         read_only_fields = ['created']
 
 class OrderProductSerializer (serializers.ModelSerializer):

@@ -37,7 +37,7 @@ class SendOrderView(APIView):
             order_id = request.data.get("order_id")
             order = Order.objects.filter(id=order_id).first()
 
-            if order.sent == "sent":
+            if order.delivery == "sent":
                 return
             
             if not order:
@@ -73,7 +73,7 @@ class SendOrderView(APIView):
                 )
             
             # Update order status
-            order.sent = "sent"
+            order.delivery = "sent"
             order.save()
             
             return Response({"message": "Order marked as sent and email notifications sent successfully."})
@@ -89,7 +89,7 @@ class DeliverOrderView(APIView):
             order_id = request.data.get("order_id")
             order = Order.objects.filter(id=order_id).first()
 
-            if order.delivered == "delivered":
+            if order.delivery == "delivered":
                 return
             
             if not order:
@@ -125,7 +125,7 @@ class DeliverOrderView(APIView):
                 )
             
             # Update order status
-            order.delivered = "delivered"
+            order.delivery = "delivered"
             order.save()
             
             return Response({"message": "Order marked as sent and email notifications sent successfully."})

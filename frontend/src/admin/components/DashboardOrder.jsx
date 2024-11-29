@@ -32,7 +32,7 @@ const DashboardOrder = () => {
             ) : firstFiveOrders.length > 0 ? (
               firstFiveOrders.map((order, index) => (
                 <tr key={index}>
-                  <td>{order.created}</td>
+                  <td>{new Date(order.created).toLocaleDateString()}</td>
                   <td>
                     {order.firstName} {order.lastName}
                   </td>

@@ -9,7 +9,9 @@ const AllOrder = () => {
   return (
     <div className={style.AllOrder}>
       <section className={style.section}>
-        <h1 style={{fontSize:"2.5rem", color:"#131313", opacity:"0.7"}}>All Orders</h1>
+        <h1 style={{ fontSize: "2.5rem", color: "#131313", opacity: "0.7" }}>
+          All Orders
+        </h1>
         <div className={style.orderHistory}>
           <table className={style.table}>
             <thead>
@@ -32,7 +34,7 @@ const AllOrder = () => {
               ) : allOrder.length > 0 ? (
                 allOrder.map((order, index) => (
                   <tr key={index}>
-                    <td>{order.created}</td>
+                    <td>{new Date(order.created).toLocaleDateString()}</td>
                     <td>
                       {order.firstName} {order.lastName}
                     </td>

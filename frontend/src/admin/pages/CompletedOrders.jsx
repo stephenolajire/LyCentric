@@ -70,7 +70,7 @@ const CompletedOrder = () => {
                   <tr key={order.id}>
                     <td>
                       <Link to={`/admin/vieworder/${order.id}`}>
-                        {order.created}
+                       {new Date(order.created).toLocaleDateString()}
                       </Link>
                     </td>
                     <td>
@@ -102,24 +102,24 @@ const CompletedOrder = () => {
                       <button
                         onClick={() => handleSendOrder(order.id)}
                         className={style.sent}
-                        disabled={order.sent === "sent"} // Disable if order is already sent
+                        disabled={order.delivery === "sent" || order.delivery === "delivered"} 
                         style={{
-                          opacity: order.sent === "sent" ? 0.5 : 1,
+                          opacity: order.delivery === "sent" || order.delivery === "delivered" ? 0.5 : 1,
                         }}
                       >
-                        {order.sent === "sent" ? "Sent" : "Send"}
+                        {order.delivery === "sent" || order.delivery === "delivered" ? "Sent" : "Send"}
                       </button>
                     </td>
                     <td>
                       <button
                         onClick={() => handleDeliverOrder(order.id)}
                         className={style.delivered}
-                        disabled={order.delivered === "delivered"} // Disable if order is already delivered
+                        disabled={order.delivery === "delivered"} // Disable if order is already delivered
                         style={{
-                          opacity: order.delivered === "delivered" ? 0.5 : 1,
+                          opacity: order.delivery === "delivered" ? 0.5 : 1,
                         }}
                       >
-                        {order.delivered === "delivered"
+                        {order.delivery === "delivered"
                           ? "Delivered"
                           : "Deliver"}
                       </button>

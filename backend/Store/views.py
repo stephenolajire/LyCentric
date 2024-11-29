@@ -512,5 +512,51 @@ class FlutterwaveCallbackView(APIView):
                 return Response({"error": "An error occurred while processing the order"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
             return Response({"error": "Payment verification failed"}, status=status.HTTP_400_BAD_REQUEST)
+        
 
-    
+
+class OrderView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        print(f"User email: {user.email}")  # Debugging
+
+        # Fetch all orders for the authenticated user
+        orders = Order.objects.filter(user=user)
+
+        if not orders.exists():
+            return Response(
+                {"error": "No orders found for the user."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        response_data = []
+
+        for order in orders:
+            # Fetch the items related to this order
+            order_items = OrderItem.objects.filter(order=order)
+
+            for item in order_items:
+                # Fetch the first image for the product
+                first_image = ProductImage.objects.filter(product=item.product).first()
+                image_url = first_image.image.url if first_image else None
+
+                # Serialize the item
+                serialized_item = {
+                    "status": order.delivery,
+                    "order_id": order.id,
+                    "order_date": order.created,  # Assuming Order has a `created_at` field
+                    "id": item.id,
+                    "product": str(item.product.id),  # Ensure ID is serialized as a string
+                    "product_name": item.product_name,
+                    "product_color": item.product_color,
+                    "product_quantity": item.product_quantity,
+                    "product_size": item.product_size,
+                    "product_image": image_url,  # Include the image URL
+                    "order_status": order.status,  # Assuming Order has a `status` field
+                }
+                response_data.append(serialized_item)
+
+        return Response(response_data, status=status.HTTP_200_OK)
+
