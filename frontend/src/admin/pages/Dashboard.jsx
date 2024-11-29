@@ -42,7 +42,7 @@ const Dashboard = () => {
       <div className={style.containerGrid}>
         <div className={style.leftGrid}>
           {/* Sales */}
-          <Link>
+          <Link to='/completed'>
             <div className={style.innerGrid}>
               <p className={style.sales}>Sales</p>
               <p className={style.number}>{completedOrderCount}</p>

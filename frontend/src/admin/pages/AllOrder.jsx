@@ -9,6 +9,7 @@ const AllOrder = () => {
   return (
     <div className={style.AllOrder}>
       <section className={style.section}>
+        <h1 style={{fontSize:"2.5rem", color:"#131313", opacity:"0.7"}}>All Orders</h1>
         <div className={style.orderHistory}>
           <table className={style.table}>
             <thead>
