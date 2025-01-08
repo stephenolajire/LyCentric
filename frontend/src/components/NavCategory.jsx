@@ -11,7 +11,7 @@ const NavCategory = ({ category }) => {
             <div>
               <img src={category.image} alt={category.name} />
             </div>
-            <p>{category.name}</p>
+            < p className={style.listp}>{category.name}</p>
           </li>
         </Link>
       </ul>

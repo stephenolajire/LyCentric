@@ -37,6 +37,10 @@
   display:none;
 }
 
+.ppp {
+  text-transform: capitalize;
+}
+
 @media (max-width:767px) {
   .container {
     display: none;
