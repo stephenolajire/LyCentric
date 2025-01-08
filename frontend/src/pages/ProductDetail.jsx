@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // Carousel styles
+import "react-responsive-carousel/lib/styles/carousel.min.css"; 
 import styles from "../css/ProductDetail.module.css";
 import AddToCartButton from "../components/AddToCartButton";
 import { GlobalContext } from "../context/GlobalContext";

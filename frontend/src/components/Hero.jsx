@@ -7,8 +7,8 @@ import { GlobalContext } from "../context/GlobalContext";
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const {heroes, loading} = useContext(GlobalContext)
-  
+  const { heroes, loading } = useContext(GlobalContext);
+
   useEffect(() => {
     const slideInterval = setInterval(() => {
       setCurrentSlide((prevSlide) =>
@@ -20,7 +20,7 @@ const Hero = () => {
   }, [heroes.length]);
 
   if (loading) {
-    return <Spinner/>
+    return <Spinner />;
   }
 
   return (

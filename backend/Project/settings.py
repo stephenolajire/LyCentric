@@ -96,7 +96,7 @@ WSGI_APPLICATION = 'Project.wsgi.application'
 # }
 
 DATABASES = {
-    "default": dj_database_url.parse(config("external_url")),
+    "default": dj_database_url.parse(config("SERVICE_URI"))
 }
 
 
@@ -174,8 +174,8 @@ SIMPLE_JWT = {
 AUTH_USER_MODEL = 'User.CustomUser'
 
 
-FRONTEND_URL = "https://lycentric-wears.onrender.com"
-# FRONTEND_URL = "http://localhost:5173"
+# FRONTEND_URL = "https://lycentric-wears.onrender.com"
+FRONTEND_URL = "http://localhost:5173"
 
 # Email settings for Gmail
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -193,7 +193,7 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': config('API_SECRET')
 }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 PAYSTACK_SECRET_KEY = config ('PAYSTACK_SECRET_KEY')
