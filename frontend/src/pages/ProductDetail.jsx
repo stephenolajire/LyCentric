@@ -77,7 +77,11 @@ const ProductDetail = () => {
                 ))}
               </div>
             ) : (
-              <p style={{fontSize:"1.6rem", color:"#131313", opacity:"0.7"}}>Size information not available</p>
+              <p
+                style={{ fontSize: "1.6rem", color: "#131313", opacity: "0.7" }}
+              >
+                Size information not available
+              </p>
             )}
           </div>
 
@@ -90,7 +94,9 @@ const ProductDetail = () => {
                   <button
                     style={{
                       backgroundColor: `${color.color}`,
-                      border: `1px solid ${color.color}`,
+                      border: `1px solid ${
+                        color.color === "white" ? "#b9b9b9" : color.color
+                      }`,
                     }}
                     key={color.id}
                     className={`${styles.btnColor} ${
@@ -102,7 +108,11 @@ const ProductDetail = () => {
                 ))}
               </div>
             ) : (
-              <p style={{fontSize:"1.6rem", opacity:"0.7", color:"#131313"}}>Color information not available</p>
+              <p
+                style={{ fontSize: "1.6rem", opacity: "0.7", color: "#131313" }}
+              >
+                Color information not available
+              </p>
             )}
           </div>
 
@@ -110,9 +120,7 @@ const ProductDetail = () => {
           <div className={styles.priceDiv}>
             <p className={styles.priceName}>In Store:</p>
             <h4 className={styles.price}>
-              {filteredProduct.stock > 0
-                ? filteredProduct.stock
-                : 0}
+              {filteredProduct.stock > 0 ? filteredProduct.stock : 0}
             </h4>
           </div>
 

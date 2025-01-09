@@ -45,7 +45,7 @@ const NavBar = ({ category }) => {
   return (
     <header className={styles.container}>
       {/* Desktop View */}
-      {/* <div className={styles.topNav}>
+      <div className={styles.topNav}>
         <div className={styles.imgContainer}>
           <Link to="/">
             <img src={logo} alt="logo" className={styles.logo} />
@@ -83,7 +83,7 @@ const NavBar = ({ category }) => {
             </div>
           )}
         </div>
-      </div> */}
+      </div>
 
       <nav className={styles.navigation}>
         <div className={styles.flexx}>
