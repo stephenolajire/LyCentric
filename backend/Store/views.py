@@ -297,7 +297,7 @@ class ProductSearchView(APIView):
         return Response({"error": "No item with such name."}, status=status.HTTP_400_BAD_REQUEST)
     
 
-class OrderView(APIView):
+class PaymentView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
