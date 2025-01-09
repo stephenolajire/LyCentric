@@ -38,6 +38,8 @@
 }
 
 .ppp {
+  /* text-transform: lowercase; */
+  /* color: red; */
   text-transform: capitalize;
 }
 

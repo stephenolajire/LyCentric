@@ -11,7 +11,7 @@ const CategoryList = ({ category }) => {
           <Link to={`/category/${item.id}`} key={item.id}>
           <li className={style.list} key={item.id}>
             {/* <img src={item.image} alt={item.name} /> */}
-            <p className={style.ppp}>{item.name}</p>
+            <p className={style.ppp}> {item.name}</p>
           </li>
           </Link>
         ))}
